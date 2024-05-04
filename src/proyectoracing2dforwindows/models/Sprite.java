@@ -20,13 +20,12 @@ public abstract class Sprite {
     protected Image image;
     protected URL url;
 
-    public Sprite(int x, int y, int width, int height, Image image, URL url) {
+    public Sprite(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.image = image;
-        this.url = url;
+        
     }
     
     public abstract void draw(Graphics g);
