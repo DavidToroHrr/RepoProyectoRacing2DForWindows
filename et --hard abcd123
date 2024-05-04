@@ -1,0 +1,48 @@
+[33mcommit 2a025c38ffe460ab06d0e846107dc239ba703bfe[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: 50b2762 7a5a4ab
+Author: David Toro <davidesteban0736@.com>
+Date:   Fri May 3 20:57:39 2024 -0500
+
+    Merge branch 'main' of https://github.com/DavidToroHrr/RepoProyectoRacing2DForWindows
+
+[33mcommit 50b2762be0baf6561ec6c10f521c393a8ca6eef1[m
+Author: David Toro <davidesteban0736@.com>
+Date:   Fri May 3 20:54:37 2024 -0500
+
+    añade clase sprite
+
+[33mcommit 7a5a4abcd5743d32b57fc819b49345d166c9370c[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Santiago <santicasta1003@gmail.com>
+Date:   Fri May 3 20:51:10 2024 -0500
+
+    Se realizo la clase FileManager, queda pendiente el manejo de excepciones
+
+[33mcommit e7847bc47ec91efec9499808ff222d20acfd17c5[m
+Author: Santiago <santicasta1003@gmail.com>
+Date:   Wed May 1 17:39:15 2024 -0500
+
+    Se agrego el paquete models y manager
+
+[33mcommit 0bce44bea848753f02f493cdb5eb63030ae02fa9[m
+Author: Santiago <santicasta1003@gmail.com>
+Date:   Wed May 1 14:30:01 2024 -0500
+
+    Se elimino los archivos de prueba, se agrego la ventana principal
+
+[33mcommit 8628160f061f54a8d8a9e87fd9fc58f2a95c56ee[m
+Author: David Toro <davidesteban0736@.com>
+Date:   Wed May 1 13:43:41 2024 -0500
+
+    Guardamos
+
+[33mcommit 2431bff331818a42ee545a4e8a96aa892a0c65ac[m
+Author: David Toro <davidesteban0736@.com>
+Date:   Wed May 1 13:14:44 2024 -0500
+
+    agregro la clase dos
+
+[33mcommit 9761c9fa960852e120466d2773d6d2d49ae10b7a[m
+Author: David Toro <davidesteban0736@.com>
+Date:   Wed May 1 12:58:13 2024 -0500
+
+    agrego la clase holamundo
