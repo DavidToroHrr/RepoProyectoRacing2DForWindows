@@ -5,6 +5,9 @@
 package proyectoracing2dforwindows.managers;
 
 import java.util.ArrayList;
+import javax.swing.RowFilter;
+import javax.xml.stream.events.Namespace;
+import proyectoracing2dforwindows.models.Cell;
 import proyectoracing2dforwindows.models.Runway;
 
 /**
@@ -21,19 +24,15 @@ public class MapManager {
     }
     
     
-    public void loadRunways(){
+    public void loadRunways(int x, int y){
         ArrayList<String> mapsNames = fileManager.searchFiles("src/data/maps/");
         for(String mapName : mapsNames){
-            Runway runway = readRunway(mapName);
+            Runway runway = readRunway(mapName, x, y);
             runways.add(runway);
-        }
-        for(Runway way : runways){
-            way.mostrar();
-            System.out.println("\n");
         }
     }
     
-    private Runway readRunway(String mapName){
+    private Runway readRunway(String mapName, int x, int y){
         ArrayList<String> map = fileManager.readFile("src/data/maps/"+mapName);
         String[] line1 = map.get(0).split(":");
         String[] line2 = map.get(1).split(":");
@@ -41,15 +40,43 @@ public class MapManager {
         String description = line2[1];
         
         ArrayList<ArrayList<String>> circuit = new ArrayList<>();
-        for(int i = 2; i < 27; i++){
+        int i = 0;
+        for(String line : map){
             ArrayList<String> row = new  ArrayList<>();
-            for(String item : map.get(i).split("\\|")){
-                row.add(item);
+            if(i > 1){
+                for(String item : line.split("\\|")){
+                    row.add(item);
+                }
+                circuit.add(row);
             }
-            circuit.add(row);
+            i += 1;
+        }
+        int xLenght = circuit.get(0).size();
+        int yLenght = circuit.size();
+        int size = Cell.SIZE;
+        int width = xLenght * size;
+        int height = yLenght * size;
+
+        
+        Runway runway = new Runway(x, y, width, height, name, description, circuit);
+        return runway;
+    }
+    
+    public String getRunwaysNames(){
+        String names = "";
+        for(Runway runway : runways){
+            names += runway.getName();
         }
         
-        Runway runway = new Runway(name, description, circuit);
-        return runway;
+        return names;
+    }
+    
+    public Runway getRunway(String name){
+        for(Runway runway : runways){
+            if(runway.getName().equals(name)){
+                return runway;
+            }
+        }
+        return null;
     }
 }

@@ -1,0 +1,5 @@
+Pista: T
+Barrera: W
+Cesped: G
+CheckPoint: C
+Meta: F
