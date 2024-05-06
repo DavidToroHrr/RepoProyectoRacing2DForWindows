@@ -16,7 +16,7 @@ public class Car extends Object{
     private int amountSpeed;
 
     public Car(Color color, int amountSpeed, int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(x, y, width, height,"id");
         this.color = color;
         this.amountSpeed = amountSpeed;
     }

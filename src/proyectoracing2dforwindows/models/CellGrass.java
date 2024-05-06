@@ -4,16 +4,17 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.io.IOException;
+
 /**
  *
- * @author david
+ * @author usuario
  */
-public class Advantage extends Object{
-
-    public Advantage(int x, int y, int width, int height) {
-        super(x, y, width, height,"id");
+public class CellGrass extends Cell{
+    
+    public CellGrass(int x, int y) throws IOException {
+        super(x, y, "cellgrass");
+        loagImage("src/data/resources/runway/grass.jpg");
     }
-    public void increaseSpeed(){}
-    public void increaseHealth(){}
     
 }

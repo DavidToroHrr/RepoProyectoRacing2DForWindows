@@ -6,14 +6,16 @@ package proyectoracing2dforwindows.models;
 
 /**
  *
- * @author david
+ * @author usuario
  */
-public class Advantage extends Object{
+public abstract class Cell extends Object{
 
-    public Advantage(int x, int y, int width, int height) {
-        super(x, y, width, height,"id");
-    }
-    public void increaseSpeed(){}
-    public void increaseHealth(){}
+    public static final int SIZE = 36;
     
+    public Cell(int x, int y, String id) {
+        super(x, y, SIZE, SIZE, id);
+        
+    }
+    
+
 }

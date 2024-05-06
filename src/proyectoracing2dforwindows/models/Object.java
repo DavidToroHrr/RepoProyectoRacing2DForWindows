@@ -6,7 +6,12 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -15,15 +20,24 @@ import java.net.URL;
 public class Object extends Sprite{
     protected String id;
     protected Image image;
-    protected URL url;
 
-    public Object(int x, int y, int width, int height) {
+    public Object(int x, int y, int width, int height, String id) {
         super(x, y, width, height);
+        this.id = id;
+    }
+
+    public void loagImage(String path){
+        File file = new File(path);
+        try {
+            image = ImageIO.read(file);
+        } catch (IOException ex) {
+            Logger.getLogger(Object.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void draw(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        g.drawImage(image, x, y, null);
     }
     public void verifyCollision(){}
 }
