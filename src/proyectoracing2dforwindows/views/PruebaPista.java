@@ -37,6 +37,7 @@ public class PruebaPista extends javax.swing.JFrame {
         if(runway != null){
             runway.draw(g);
         }
+        
     }
     
     /**
