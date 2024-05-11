@@ -1,0 +1,27 @@
+name:Pista2
+description:Pista sencilla
+G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G
+G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G
+G|G|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|G|G
+G|G|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|W|W|W|W|W|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|W|W|W|W|W|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|G|G|G|G|G|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|G|G|G|G|G|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|F|F|F|F|W|W|G|G|G|G|G|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|F|F|F|F|W|W|G|G|G|G|G|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|G|G|G|G|G|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|W|W|W|W|W|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|W|W|W|W|W|W|W|W|W|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|T|W|W|G|G
+G|G|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|G|G
+G|G|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|W|G|G
+G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G
+G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G|G

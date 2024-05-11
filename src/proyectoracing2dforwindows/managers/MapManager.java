@@ -62,10 +62,10 @@ public class MapManager {
         return runway;
     }
     
-    public String getRunwaysNames(){
-        String names = "";
+    public ArrayList<String> getRunwaysNames(){
+        ArrayList<String> names = new ArrayList<>();
         for(Runway runway : runways){
-            names += runway.getName();
+            names.add(runway.getName()+"|"+runway.getDescription());
         }
         
         return names;

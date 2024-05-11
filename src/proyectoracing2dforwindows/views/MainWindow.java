@@ -4,20 +4,65 @@
  */
 package proyectoracing2dforwindows.views;
 
-import proyectoracing2dforwindows.managers.MapManager;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import proyectoracing2dforwindows.managers.GameSimulator;
+import proyectoracing2dforwindows.models.Runway;
+
+
 
 /**
  *
  * @author usuario
  */
-public class MainWindow extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame implements ClickListener{
 
-    /**
-     * Creates new form MainWindow
-     */
+    private GameSimulator game;
+    
     public MainWindow() {
+        setUndecorated(true);
         initComponents();
     }
+
+    public void setGame(GameSimulator game) {
+        this.game = game;
+    }
+
+    
+    
+    public void setCurrentPanel(JPanel currentPanel) {
+        this.currentPanel = currentPanel;
+        setContentPane(currentPanel);
+        revalidate();
+    }
+    
+    public void showMapSelector(){
+        System.out.println("Leyendo...");
+        ArrayList<String> mapNames = game.showMaps();
+        System.out.println("Leido");
+        MapSelector mapSelector = new MapSelector(this);
+        mapSelector.showMaps(mapNames);
+        setCurrentPanel(mapSelector);
+    }
+    
+    public void showGamePanel(String nameMap){
+        Runway runway = game.loadMap(nameMap);
+        GamePanel gamePanel = new GamePanel();
+        gamePanel.setRunway(runway);
+        setCurrentPanel(gamePanel);
+    }
+
+    @Override
+    public void menuButtonClicked(String nameButton) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void playButtonClicked(String nameMap) {
+        showGamePanel(nameMap);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,78 +73,56 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        currentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout currentPanelLayout = new javax.swing.GroupLayout(currentPanel);
+        currentPanel.setLayout(currentPanelLayout);
+        currentPanelLayout.setHorizontalGroup(
+            currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+        );
+        currentPanelLayout.setVerticalGroup(
+            currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 860, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jButton1)
-                .addContainerGap(165, Short.MAX_VALUE))
+            .addComponent(currentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jButton1)
-                .addContainerGap(165, Short.MAX_VALUE))
+            .addComponent(currentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MapManager mapManager = new MapManager();
-        mapManager.loadRunways();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainWindow().setVisible(true);
-            }
-        });
+            MainWindow window = new MainWindow();
+            GameSimulator game = new GameSimulator();
+            window.setGame(game);
+            window.showMapSelector();
+            
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+            window.setAlwaysOnTop(true);
+            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel currentPanel;
     // End of variables declaration//GEN-END:variables
+
+    
 }
