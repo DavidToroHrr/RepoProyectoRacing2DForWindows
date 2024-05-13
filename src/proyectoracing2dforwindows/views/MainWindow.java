@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
 import proyectoracing2dforwindows.models.Runway;
@@ -22,12 +23,13 @@ import proyectoracing2dforwindows.models.Runway;
  *
  * @author usuario
  */
-public class MainWindow extends javax.swing.JFrame implements ClickListener, Paintable{
+public class MainWindow extends javax.swing.JFrame implements ClickListener, Paintable, KeyListener{
 
     private GameSimulator game;
     
     public MainWindow() {
         setUndecorated(true);
+        
         initComponents();
     }
 
@@ -65,10 +67,12 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
        
         game.loadMap(nameMap);
         Runway runway =game.getCurrentRunway();
-        GamePanel gamePanel = new GamePanel();
+        GamePanel gamePanel = new GamePanel(this);
         gamePanel.setRunway(runway);
         
         setCurrentPanel(gamePanel);
+        gamePanel.requestFocus(); // Solicitar el foco para recibir eventos de teclado
+
 
     }
 
@@ -86,6 +90,38 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
         }
     }
     
+    @Override
+    public void formKeyReleased(KeyEvent evt) {
+        if (evt.getKeyCode()==KeyEvent.VK_UP |
+                evt.getKeyCode()==KeyEvent.VK_LEFT|
+                evt.getKeyCode()==KeyEvent.VK_RIGHT|
+                evt.getKeyCode()==KeyEvent.VK_DOWN) 
+        {
+            game.keyPressed(evt);
+            System.out.println("Nos vamos para arriba");
+        }
+    }
+
+    @Override
+    public void formKeyPressed(KeyEvent evt) {
+        // TODO add your handling code here:
+        System.out.println("Nos vamos para arriba");
+
+        // TODO add your handling code here:
+        if (evt.getKeyChar()=='q') {
+            System.exit(0);
+        }
+        if (evt.getKeyCode()==KeyEvent.VK_UP |
+                evt.getKeyCode()==KeyEvent.VK_LEFT|
+                evt.getKeyCode()==KeyEvent.VK_RIGHT|
+                evt.getKeyCode()==KeyEvent.VK_DOWN) 
+        {
+            game.keyPressed(evt);
+            System.out.println("Nos vamos para arriba");
+        }
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,12 +135,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
         currentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        currentPanel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout currentPanelLayout = new javax.swing.GroupLayout(currentPanel);
         currentPanel.setLayout(currentPanelLayout);
@@ -131,29 +161,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-        
-        // TODO add your handling code here:
-        if (evt.getKeyChar()=='q') {
-            System.exit(0);
-        }
-        if (evt.getKeyCode()==KeyEvent.VK_UP |
-                evt.getKeyCode()==KeyEvent.VK_LEFT|
-                evt.getKeyCode()==KeyEvent.VK_RIGHT|
-                evt.getKeyCode()==KeyEvent.VK_DOWN) 
-        {
-            game.keyPressed(evt.getKeyCode());
-            System.out.println("Nos vamos para arriba");
-        }
-        //if (evt.getKeyCode()==KeyEvent.VK_H | evt.getKeyCode()==KeyEvent.VK_P ){
-        
-            //game.keyPressed(evt.getKeyCode());//la ventana avisa que mse me estripa un boton pero a ella no le interesa manejar esto, se lo pasa al mundo para que vea ´e´l que quiere hacer con dicha tecla
-        //}
-        
-        
-    }//GEN-LAST:event_formKeyPressed
-
     
     
     
@@ -175,6 +182,8 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel currentPanel;
     // End of variables declaration//GEN-END:variables
+
+    
 
     
 }

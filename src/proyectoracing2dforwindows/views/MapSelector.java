@@ -143,6 +143,7 @@ public class MapSelector extends javax.swing.JPanel {
 
     private void bJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bJugarActionPerformed
         clickListener.playButtonClicked(mapSelected);
+        
     }//GEN-LAST:event_bJugarActionPerformed
 
 

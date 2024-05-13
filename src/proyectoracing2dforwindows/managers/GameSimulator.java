@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Car;
@@ -25,6 +26,7 @@ public class GameSimulator implements Coordenate{
     private MapManager mapManager;
     private Runway currentRunway;
     private Car car1;
+    private Timer timer;
     private Car car2;
     private CarThread carEngine;
     private Thread t1;
@@ -47,9 +49,9 @@ public class GameSimulator implements Coordenate{
         paint.repaint();
         
     }
-    public void keyPressed(int code) {
+    public void keyPressed(KeyEvent e) {
     if (car1 != null) {
-        car1.keyPressed(code); // Llama al método de keyPressed de la clase Car
+        car1.keyPressed(e); // Llama al método de keyPressed de la clase Car
     }
 }
     
@@ -63,9 +65,11 @@ public class GameSimulator implements Coordenate{
             if (getCurrentRunway() != null) {
                 // Si se cargó la pista, inicializa el carro
                 image = javax.imageio.ImageIO.read(imageUrl1); 
-                car1 = new Car(0, 0, 10, 10, "Carro1", image, imageUrl1,paint);
+                car1 = new Car(0, 0, 60, 60, "Carro1", image, imageUrl1,paint);
                 t1=new Thread(carEngine);
                 t1.start();
+                timer = new Timer(30, e -> car1.actualizar());
+                timer.start();
             }
         }
 

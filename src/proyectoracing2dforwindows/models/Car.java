@@ -17,84 +17,89 @@ public class Car extends Object {
 
     private int velocityX; // Velocidad horizontal del carro
     private int velocityY; // Velocidad vertical del carro
-    private static final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
-    private static final int MAX_SPEED = 5; // Velocidad máxima del carro
-    private static final int MIN_SPEED = -5; // Velocidad mínima del carro
-
+    private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
+    private final int MAX_SPEED = 4; // Velocidad máxima del carro
+    private final int BRAKE=1;
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1) {
         super(x, y, width, height, id, image, url);
         this.velocityX = 0;
-        this.paint=p1;
         this.velocityY = 0;
+        this.paint=p1;
+        
+        
     }
-
-    public void keyPressed(int code) {
-        // Maneja el evento de teclado y ajusta la velocidad del carro
-        switch (code) {
-            case KeyEvent.VK_UP:
-                // Acelera hacia arriba
-                velocityY -= SPEED_INCREMENT;
-                System.out.println("Acelera");
-                
-               
-                break;
-            case KeyEvent.VK_DOWN:
-                // Acelera hacia abajo
-                velocityY += SPEED_INCREMENT;
-                System.out.println("Frena");
-
-                break;
-            case KeyEvent.VK_LEFT:
-                // Acelera hacia la izquierda
-                velocityX -= SPEED_INCREMENT;
-                 System.out.println("izqu");
-                break;
-            case KeyEvent.VK_RIGHT:
-                // Acelera hacia la derecha
-                velocityX += SPEED_INCREMENT;
-                System.out.println("derecha");
-
-                break;
-        }
-        // Limita la velocidad del carro
-        velocityX = Math.min(MAX_SPEED, Math.max(MIN_SPEED, velocityX));
-        velocityY = Math.min(MAX_SPEED, Math.max(MIN_SPEED, velocityY));
-    }
-
-    public void keyReleased(int code) {
-        // Maneja el evento de teclado cuando se suelta la tecla
-        switch (code) {
-            case KeyEvent.VK_UP:
-            case KeyEvent.VK_DOWN:
-                // Detiene el movimiento vertical
-                velocityY = 0;
-                break;
-            case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_RIGHT:
-                // Detiene el movimiento horizontal
-                velocityX = 0;
-                break;
-        }
-    }
-
-    public void move() {
-        // Actualiza la posición del carro según su velocidad
+    public void actualizar() {
+        // Actualizar la posición del carro
         x += velocityX;
         y += velocityY;
+
+        // Limitar la velocidad máxima
+        if (velocityX > MAX_SPEED) {
+            velocityX = MAX_SPEED;
+        }
+        if (velocityX < -MAX_SPEED) {
+            velocityX = -MAX_SPEED;
+        }
+        if (velocityY > MAX_SPEED) {
+            velocityY = MAX_SPEED;
+        }
+        if (velocityY < -MAX_SPEED) {
+            velocityY = -MAX_SPEED;
+        }
+
+        // Repintar el componente
+        paint.repaint();
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int tecla = e.getKeyCode();
+        // Acelerar el carro hacia la izquierda
+        if (tecla == KeyEvent.VK_LEFT) {
+            velocityX -= SPEED_INCREMENT;
+        }
+        // Acelerar el carro hacia la derecha
+        else if (tecla == KeyEvent.VK_RIGHT) {
+            velocityX += SPEED_INCREMENT;
+        }
+        // Acelerar el carro hacia arriba
+        else if (tecla == KeyEvent.VK_UP) {
+            velocityY -= SPEED_INCREMENT;
+        }
+        // Acelerar el carro hacia abajo
+        else if (tecla == KeyEvent.VK_DOWN) {
+            velocityY += SPEED_INCREMENT;
+        }
+        paint.repaint();
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int tecla = e.getKeyCode();
+        // Frenar solo si no se está acelerando en esa dirección
+        if (tecla == KeyEvent.VK_LEFT || tecla == KeyEvent.VK_RIGHT) {
+            if (velocityX > 0) {
+                velocityX -= BRAKE;
+            } else if (velocityX < 0) {
+                velocityX += BRAKE;
+            }
+        } else if (tecla == KeyEvent.VK_UP || tecla == KeyEvent.VK_DOWN) {
+            if (velocityY > 0) {
+                velocityY -= BRAKE;
+            } else if (velocityY < 0) {
+                velocityY += BRAKE;
+            }
+        }
+        paint.repaint();
+        
     }
 
     @Override
-    public void draw(Graphics g) {
+        public void draw(Graphics g) {
         super.draw(g);
         // Dibuja el carro en su posición actual
-        Graphics2D g2d=(Graphics2D)g;
-        g2d.rotate(Math.toRadians(90));
+        Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
+        //g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
         g2d.drawImage(image, x, y, width, height, null);
-        paint.repaint();
-        
-        
-       
-        
+        //paint.repaint();
     }
 }
 

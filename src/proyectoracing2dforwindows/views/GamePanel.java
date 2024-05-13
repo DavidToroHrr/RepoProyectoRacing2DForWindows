@@ -5,6 +5,7 @@
 package proyectoracing2dforwindows.views;
 
 import java.awt.Graphics;
+import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.models.Runway;
 
 /**
@@ -14,22 +15,27 @@ import proyectoracing2dforwindows.models.Runway;
 public class GamePanel extends javax.swing.JPanel {
     
     private Runway runway;
-
+    KeyListener keylistener;
     private Graphics g;
-    public GamePanel() {
+    public GamePanel(KeyListener keylistener) {
         initComponents();
-        
+        this.keylistener=keylistener;
+        setFocusTraversalKeysEnabled(false); // Desactivar el paso de foco para evitar interferencias con los eventos de teclado
+
     }
     
     
     @Override
     protected void paintComponent(Graphics g) {
         runway.draw(g);
+       
     }
 
     public void setRunway(Runway runway) {
         this.runway = runway;
     }
+    
+    
     
     
 
@@ -42,6 +48,12 @@ public class GamePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                GamePanel.this.keyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,6 +65,11 @@ public class GamePanel extends javax.swing.JPanel {
             .addGap(0, 900, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void keyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPressed
+        // TODO add your handling code here:
+        keylistener.formKeyPressed(evt);
+    }//GEN-LAST:event_keyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
