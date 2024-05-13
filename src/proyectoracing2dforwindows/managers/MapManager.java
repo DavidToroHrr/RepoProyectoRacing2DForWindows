@@ -4,6 +4,7 @@
  */
 package proyectoracing2dforwindows.managers;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.RowFilter;
 import javax.xml.stream.events.Namespace;

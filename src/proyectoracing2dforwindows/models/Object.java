@@ -6,6 +6,7 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -19,11 +20,14 @@ import javax.imageio.ImageIO;
  */
 public class Object extends Sprite{
     protected String id;
-    protected Image image;
+    protected BufferedImage image;
+    protected URL url;
 
-    public Object(int x, int y, int width, int height, String id) {
+    public Object(int x, int y, int width, int height, String id,BufferedImage image,URL url) {
         super(x, y, width, height);
         this.id = id;
+        this.image=image;
+        this.url=url;
     }
 
     public void loagImage(String path){
@@ -37,7 +41,7 @@ public class Object extends Sprite{
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image, x, y, null);
+        g.drawImage(image, getX(), getY(), null);
     }
     public void verifyCollision(){}
 }

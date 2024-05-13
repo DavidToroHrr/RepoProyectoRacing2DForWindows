@@ -11,7 +11,7 @@ package proyectoracing2dforwindows.models;
 public class Advantage extends Object{
 
     public Advantage(int x, int y, int width, int height) {
-        super(x, y, width, height,"id");
+        super(x, y, width, height,"id",null,null);
     }
     public void increaseSpeed(){}
     public void increaseHealth(){}

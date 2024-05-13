@@ -4,9 +4,15 @@
  */
 package proyectoracing2dforwindows.views;
 
+import proyectoracing2dforwindows.interfaces.ClickListener;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
 import proyectoracing2dforwindows.models.Runway;
 
@@ -16,7 +22,7 @@ import proyectoracing2dforwindows.models.Runway;
  *
  * @author usuario
  */
-public class MainWindow extends javax.swing.JFrame implements ClickListener{
+public class MainWindow extends javax.swing.JFrame implements ClickListener, Paintable{
 
     private GameSimulator game;
     
@@ -28,6 +34,15 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener{
     public void setGame(GameSimulator game) {
         this.game = game;
     }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        game.drawElements(g);
+        
+        
+    }
+    
 
     
     
@@ -46,11 +61,15 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener{
         setCurrentPanel(mapSelector);
     }
     
-    public void showGamePanel(String nameMap){
-        Runway runway = game.loadMap(nameMap);
+    public void showGamePanel(String nameMap) throws IOException{
+       
+        game.loadMap(nameMap);
+        Runway runway =game.getCurrentRunway();
         GamePanel gamePanel = new GamePanel();
         gamePanel.setRunway(runway);
+        
         setCurrentPanel(gamePanel);
+
     }
 
     @Override
@@ -60,7 +79,11 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener{
 
     @Override
     public void playButtonClicked(String nameMap) {
-        showGamePanel(nameMap);
+        try {
+            showGamePanel(nameMap);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 
@@ -76,6 +99,12 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener{
         currentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        currentPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout currentPanelLayout = new javax.swing.GroupLayout(currentPanel);
         currentPanel.setLayout(currentPanelLayout);
@@ -102,15 +131,38 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        
+        // TODO add your handling code here:
+        if (evt.getKeyChar()=='q') {
+            System.exit(0);
+        }
+        if (evt.getKeyCode()==KeyEvent.VK_UP |
+                evt.getKeyCode()==KeyEvent.VK_LEFT|
+                evt.getKeyCode()==KeyEvent.VK_RIGHT|
+                evt.getKeyCode()==KeyEvent.VK_DOWN) 
+        {
+            game.keyPressed(evt.getKeyCode());
+            System.out.println("Nos vamos para arriba");
+        }
+        //if (evt.getKeyCode()==KeyEvent.VK_H | evt.getKeyCode()==KeyEvent.VK_P ){
+        
+            //game.keyPressed(evt.getKeyCode());//la ventana avisa que mse me estripa un boton pero a ella no le interesa manejar esto, se lo pasa al mundo para que vea ´e´l que quiere hacer con dicha tecla
+        //}
+        
+        
+    }//GEN-LAST:event_formKeyPressed
+
     
     
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
             MainWindow window = new MainWindow();
-            GameSimulator game = new GameSimulator();
+            GameSimulator game = new GameSimulator(window);
             window.setGame(game);
             window.showMapSelector();
             

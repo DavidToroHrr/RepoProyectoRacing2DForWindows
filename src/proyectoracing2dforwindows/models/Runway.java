@@ -32,8 +32,8 @@ public class Runway extends Sprite{
     }
     
     private void configCircuit(ArrayList<ArrayList<String>> circuit) throws IOException{
-        int x = this.x;
-        int y = this.y;
+        int x = this.getX();
+        int y = this.getY();
         int size = Cell.SIZE;
         
         for(ArrayList<String> rowS : circuit){
@@ -64,7 +64,7 @@ public class Runway extends Sprite{
             }
             
             this.circuit.add(rowC);
-            x = this.x;
+            x = this.getX();
             y += size;
         }
     }

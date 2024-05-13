@@ -13,7 +13,7 @@ public abstract class Cell extends Object{
     public static final int SIZE = 36;
     
     public Cell(int x, int y, String id) {
-        super(x, y, SIZE, SIZE, id);
+        super(x, y, SIZE, SIZE, id,null,null);
         
     }
     

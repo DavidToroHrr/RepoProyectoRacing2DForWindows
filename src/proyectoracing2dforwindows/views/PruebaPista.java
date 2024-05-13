@@ -5,7 +5,11 @@
 package proyectoracing2dforwindows.views;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import proyectoracing2dforwindows.managers.MapManager;
+import proyectoracing2dforwindows.models.Car;
 import proyectoracing2dforwindows.models.Runway;
 
 /**
@@ -13,10 +17,12 @@ import proyectoracing2dforwindows.models.Runway;
  * @author usuario
  */
 public class PruebaPista extends javax.swing.JFrame {
+    private BufferedImage image;
+    URL imageUrl = getClass().getResource("/data/images/carro.png");
 
     MapManager mapManager;
     Runway runway;
-
+    Car car1;
     public void setMapManager(MapManager mapManager) {
         this.mapManager = mapManager;
     }
@@ -27,15 +33,21 @@ public class PruebaPista extends javax.swing.JFrame {
     
     
     
-    public PruebaPista() {
+    public PruebaPista() throws IOException {
         initComponents();
+        
+        image = javax.imageio.ImageIO.read(imageUrl);    
+        
         runway = null;
     }
 
     @Override
     public void paint(Graphics g){
+
         if(runway != null){
             runway.draw(g);
+            car1=new Car(0, 0, 0, 10, 10, "Carro1", image, imageUrl);
+            car1.draw(g);
         }
         
     }
@@ -89,7 +101,7 @@ public class PruebaPista extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         PruebaPista window = new PruebaPista();
         MapManager mapManager = new MapManager();
         window.setMapManager(mapManager);

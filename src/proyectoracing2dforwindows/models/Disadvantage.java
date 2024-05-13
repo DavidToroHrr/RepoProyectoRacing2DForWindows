@@ -13,7 +13,7 @@ import java.awt.Graphics;
 public class Disadvantage extends Object{
 
     public Disadvantage() {
-        super(0, 0, 0, 0,"id");
+        super(0, 0, 0, 0,"id",null,null);
     }
 
     
