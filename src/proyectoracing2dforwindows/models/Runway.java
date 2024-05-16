@@ -32,10 +32,10 @@ public class Runway extends Sprite{
     }
     private String name;
     private String description;
-    private ArrayList<ArrayList<String>> circuitStr;
+    private ArrayList<String> circuitStr;
     private ArrayList<ArrayList<Cell>> circuit;
 
-    public Runway(int x, int y, int width, int height, String name, String description, ArrayList<ArrayList<String>> circuitStr) {
+    public Runway(int x, int y, int width, int height, String name, String description, ArrayList<String> circuitStr) {
         super(x, y, width, height);
         this.name = name;
         this.description = description;
@@ -48,27 +48,27 @@ public class Runway extends Sprite{
         int y = this.getY();
         int size = Cell.SIZE;
         
-        for(ArrayList<String> rowS : circuitStr){
+        for(String rowS : circuitStr){
             
             ArrayList<Cell> rowC = new ArrayList<>();
             try{
-                for (String item : rowS) {
+                for (char item : rowS.toCharArray()) {
                     Cell cell;
                     cell = new CellGrass(x, y);
 
-                    if (item.equals("G")) {
+                    if (item == 'G') {
                         cell = new CellGrass(x, y);
                     }
-                    if (item.equals("W")) {
+                    if (item == 'W') {
                         cell = new CellWall(x, y);
                     }
-                    if (item.equals("T")) {
+                    if (item == 'T') {
                         cell = new CellTrail(x, y);
                     }
-                    if (item.equals("F")) {
+                    if (item == 'F') {
                         cell = new CellFinish(x, y);
                     }
-                    if (item.equals("C")) {
+                    if (item == 'C') {
                         cell = new CellCheckPoint(x, y);
                     }
 
