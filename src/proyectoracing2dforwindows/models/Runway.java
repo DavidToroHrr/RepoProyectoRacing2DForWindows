@@ -17,55 +17,59 @@ import java.util.logging.Logger;
 public class Runway extends Sprite{
     private String name;
     private String description;
+    private ArrayList<ArrayList<String>> circuitStr;
     private ArrayList<ArrayList<Cell>> circuit;
 
-    public Runway(int x, int y, int width, int height, String name, String description, ArrayList<ArrayList<String>> circuit) {
+    public Runway(int x, int y, int width, int height, String name, String description, ArrayList<ArrayList<String>> circuitStr) {
         super(x, y, width, height);
         this.name = name;
         this.description = description;
         this.circuit = new ArrayList<>();
-        try {
-            configCircuit(circuit);
-        } catch (IOException ex) {
-            Logger.getLogger(Runway.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.circuitStr = circuitStr;
     }
     
-    private void configCircuit(ArrayList<ArrayList<String>> circuit) throws IOException{
+    public void configCircuit(){
         int x = this.getX();
         int y = this.getY();
         int size = Cell.SIZE;
         
-        for(ArrayList<String> rowS : circuit){
+        for(ArrayList<String> rowS : circuitStr){
             
             ArrayList<Cell> rowC = new ArrayList<>();
-            
-            for(String item : rowS){
-                Cell cell = new CellGrass(x, y);
-                
-                if(item.equals("G")){
+            try{
+                for (String item : rowS) {
+                    Cell cell;
                     cell = new CellGrass(x, y);
-                }
-                if(item.equals("W")){
-                    cell = new CellWall(x, y);
-                }
-                if(item.equals("T")){
-                    cell = new CellTrail(x, y);
-                }
-                if(item.equals("F")){
-                    cell = new CellFinish(x, y);
-                }
-                if(item.equals("C")){
-                    cell = new CellCheckPoint(x, y);
+
+                    if (item.equals("G")) {
+                        cell = new CellGrass(x, y);
+                    }
+                    if (item.equals("W")) {
+                        cell = new CellWall(x, y);
+                    }
+                    if (item.equals("T")) {
+                        cell = new CellTrail(x, y);
+                    }
+                    if (item.equals("F")) {
+                        cell = new CellFinish(x, y);
+                    }
+                    if (item.equals("C")) {
+                        cell = new CellCheckPoint(x, y);
+                    }
+
+                    rowC.add(cell);
+                    x += size;
                 }
                 
-                rowC.add(cell);
-                x += size;
+                this.circuit.add(rowC);
+                x = this.getX();
+                y += size;
+            } catch (IOException ex) {
+                    Logger.getLogger(Runway.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            this.circuit.add(rowC);
-            x = this.getX();
-            y += size;
+            
+            
         }
     }
 

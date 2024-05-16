@@ -18,6 +18,9 @@ import proyectoracing2dforwindows.models.Runway;
 public class MapManager {
     FileManager fileManager;
     ArrayList<Runway> runways;
+    
+    //Valores estaticos:
+    public static final String PATH_MAPS = "src/data/maps/";
 
     public MapManager() {
         this.fileManager = new FileManager();
@@ -26,7 +29,7 @@ public class MapManager {
     
     
     public void loadRunways(int x, int y){
-        ArrayList<String> mapsNames = fileManager.searchFiles("src/data/maps/");
+        ArrayList<String> mapsNames = fileManager.searchFiles(PATH_MAPS);
         for(String mapName : mapsNames){
             Runway runway = readRunway(mapName, x, y);
             runways.add(runway);
@@ -34,7 +37,7 @@ public class MapManager {
     }
     
     private Runway readRunway(String mapName, int x, int y){
-        ArrayList<String> map = fileManager.readFile("src/data/maps/"+mapName);
+        ArrayList<String> map = fileManager.readFile(PATH_MAPS+mapName);
         String[] line1 = map.get(0).split(":");
         String[] line2 = map.get(1).split(":");
         String name = line1[1];
@@ -75,6 +78,7 @@ public class MapManager {
     public Runway getRunway(String name){
         for(Runway runway : runways){
             if(runway.getName().equals(name)){
+                runway.configCircuit();
                 return runway;
             }
         }

@@ -24,8 +24,10 @@ public class FileManager {
     
     public ArrayList<String> readFile(String path){
         ArrayList<String> text = new ArrayList<>();
+        
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+            FileReader route = new FileReader(path);
+            BufferedReader reader = new BufferedReader(route);
             String line;
             while ((line = reader.readLine()) != null) {
                 text.add(line);
@@ -37,9 +39,10 @@ public class FileManager {
         return text;
     }
     
-    public void overrideFile(ArrayList<String> text, String path){
+    public void writeFile(ArrayList<String> text, String path){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            FileWriter route = new FileWriter(path);
+            BufferedWriter writer = new BufferedWriter(route);
             for(String line : text){
                 writer.write(line);
             }
