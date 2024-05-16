@@ -10,16 +10,21 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import proyectoracing2dforwindows.interfaces.Applicable;
+import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.threads.CarEngine;
 
-public class Car extends Object {
+public class Car extends Object implements CarCustomable {
     Paintable paint;
-
+    private CarEngine ce;
+    private Thread t1;
+    
     private int velocityX; // Velocidad horizontal del carro
     private int velocityY; // Velocidad vertical del carro
     private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
     private final int MAX_SPEED = 3; // Velocidad máxima del carro
-    private final int BRAKE=2;
+    private final int BRAKE=0;
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1) {
         super(x, y, width, height, id, image, url);
         this.velocityX = 0;
@@ -30,65 +35,80 @@ public class Car extends Object {
     }
     public void actualizar() {
         // Actualizar la posición del carro
-        x += velocityX;
-        y += velocityY;
+        x += getVelocityX();
+        y += getVelocityY();
 
         // Limitar la velocidad máxima
-        if (velocityX > MAX_SPEED) {
-            velocityX = MAX_SPEED;
+        if (getVelocityX() > MAX_SPEED) {
+            setVelocityX(MAX_SPEED);
         }
-        if (velocityX < -MAX_SPEED) {
-            velocityX = -MAX_SPEED;
+        if (getVelocityX() < -MAX_SPEED) {
+            setVelocityX(-MAX_SPEED);
         }
-        if (velocityY > MAX_SPEED) {
-            velocityY = MAX_SPEED;
+        if (getVelocityY() > MAX_SPEED) {
+            setVelocityY(MAX_SPEED);
         }
-        if (velocityY < -MAX_SPEED) {
-            velocityY = -MAX_SPEED;
+        if (getVelocityY() < -MAX_SPEED) {
+            setVelocityY(-MAX_SPEED);
         }
 
         // Repintar el componente
-        paint.repaint();
+        paint.repaint(x,y,width,height);
     }
 
     public void keyPressed(KeyEvent e) {
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_LEFT) {
-            velocityX -= SPEED_INCREMENT;
+            setVelocityX(getVelocityX() - SPEED_INCREMENT);
         }
         // Acelerar el carro hacia la derecha
         else if (tecla == KeyEvent.VK_RIGHT) {
-            velocityX += SPEED_INCREMENT;
+            setVelocityX(getVelocityX() + SPEED_INCREMENT);
         }
         // Acelerar el carro hacia arriba
         else if (tecla == KeyEvent.VK_UP) {
-            velocityY -= SPEED_INCREMENT;
+            setVelocityY(getVelocityY() - SPEED_INCREMENT);
         }
         // Acelerar el carro hacia abajo
         else if (tecla == KeyEvent.VK_DOWN) {
-            velocityY += SPEED_INCREMENT;
+            setVelocityY(getVelocityY() + SPEED_INCREMENT);
         }
-        paint.repaint();
+        paint.repaint(x,y,width,height);
+        
     }
 
     public void keyReleased(KeyEvent e) {
+        System.out.println("entro a keyrealeased");
         int tecla = e.getKeyCode();
         // Frenar solo si no se está acelerando en esa dirección
         if (tecla == KeyEvent.VK_LEFT || tecla == KeyEvent.VK_RIGHT) {
-            if (velocityX > 0) {
-                velocityX -= BRAKE;
-            } else if (velocityX < 0) {
-                velocityX += BRAKE;
+            if (getVelocityX() > 0) {
+                setVelocityX(getVelocityX() - BRAKE);
+            } else if (getVelocityX() < 0) {
+                setVelocityX(getVelocityX() + BRAKE);
             }
         } else if (tecla == KeyEvent.VK_UP || tecla == KeyEvent.VK_DOWN) {
-            if (velocityY > 0) {
-                velocityY -= BRAKE;
-            } else if (velocityY < 0) {
-                velocityY += BRAKE;
+            if (getVelocityY() > 0) {
+                setVelocityY(getVelocityY() - BRAKE);
+            } else if (getVelocityY() < 0) {
+                setVelocityY(getVelocityY() + BRAKE);
             }
         }
-        paint.repaint();
+        paint.repaint(x,y,width,height);
+        
+    }
+    public boolean receiveEffect(Applicable ap){
+        if (ce==null || ce.isControl() ) {
+            ce=new CarEngine(ap, this);
+            t1=new Thread(ce);
+            t1.start();
+            return true;
+        }
+        System.out.println("no se pudo crear");
+        return false;
+        
+        
         
     }
 
@@ -99,7 +119,35 @@ public class Car extends Object {
         Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
         //g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
         g2d.drawImage(getImage(), x, y, width, height, null);
-        paint.repaint();
+        //paint.repaint();
+    }
+
+    /**
+     * @return the velocityX
+     */
+    public int getVelocityX() {
+        return velocityX;
+    }
+
+    /**
+     * @param velocityX the velocityX to set
+     */
+    public void setVelocityX(int velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    /**
+     * @return the velocityY
+     */
+    public int getVelocityY() {
+        return velocityY;
+    }
+
+    /**
+     * @param velocityY the velocityY to set
+     */
+    public void setVelocityY(int velocityY) {
+        this.velocityY = velocityY;
     }
 }
 

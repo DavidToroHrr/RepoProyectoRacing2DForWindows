@@ -103,13 +103,14 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     
     @Override
     public void formKeyReleased(KeyEvent evt) {
+        System.out.println("REALEASED");
         if (evt.getKeyCode()==KeyEvent.VK_UP |
                 evt.getKeyCode()==KeyEvent.VK_LEFT|
                 evt.getKeyCode()==KeyEvent.VK_RIGHT|
                 evt.getKeyCode()==KeyEvent.VK_DOWN) 
         {
             try {
-                game.keyPressed(evt);
+                game.keyReleased(evt);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }

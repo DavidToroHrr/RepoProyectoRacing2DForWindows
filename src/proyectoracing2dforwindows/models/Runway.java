@@ -15,6 +15,20 @@ import java.util.logging.Logger;
  * @author usuario
  */
 public class Runway extends Sprite{
+
+    /**
+     * @return the circuit
+     */
+    public ArrayList<ArrayList<Cell>> getCircuit() {
+        return circuit;
+    }
+
+    /**
+     * @param circuit the circuit to set
+     */
+    public void setCircuit(ArrayList<ArrayList<Cell>> circuit) {
+        this.circuit = circuit;
+    }
     private String name;
     private String description;
     private ArrayList<ArrayList<String>> circuitStr;
@@ -61,7 +75,7 @@ public class Runway extends Sprite{
                     x += size;
                 }
                 
-                this.circuit.add(rowC);
+                this.getCircuit().add(rowC);
                 x = this.getX();
                 y += size;
             } catch (IOException ex) {
@@ -72,11 +86,26 @@ public class Runway extends Sprite{
             
         }
     }
+    public boolean verifyPoint(int x,int y){//aqui vamos a recorrer la pista
+        for (ArrayList<Cell> arrayList : circuit) {
+            for (Cell cell : arrayList) {
+                    if (cell.verifyTouchCell(x, y) & cell.getId().equals("celltrail")) {
+                            return true;
 
+                    }
+                     
+                     
+                
+            }
+        }
+        return false;
+    
+    }
+    public void verifyCell(){}
 
     @Override
     public void draw(Graphics g) {
-        for(ArrayList<Cell> row : circuit){
+        for(ArrayList<Cell> row : getCircuit()){
             for(Cell cell : row){
                 cell.draw(g);
                 
@@ -92,6 +121,9 @@ public class Runway extends Sprite{
     public String getDescription() {
         return description;
     }
+    public void recorrerPista(int x,int y){}//le paso las cooordenadas de random y si
+    //el get id es de tipo celltrail que me lo retorne y que me ponga el objeto allí
+    //hacer hilo para ir colocando objetos
     
     
     
