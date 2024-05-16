@@ -34,6 +34,8 @@ public class Car extends Object implements CarCustomable {
         
     }
     public void actualizar() {
+        paint.repaint(x,y,width,height);
+
         // Actualizar la posición del carro
         x += getVelocityX();
         y += getVelocityY();
@@ -57,6 +59,8 @@ public class Car extends Object implements CarCustomable {
     }
 
     public void keyPressed(KeyEvent e) {
+                paint.repaint(x,y,width,height);
+
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_LEFT) {
@@ -79,6 +83,8 @@ public class Car extends Object implements CarCustomable {
     }
 
     public void keyReleased(KeyEvent e) {
+                paint.repaint(x,y,width,height);
+
         System.out.println("entro a keyrealeased");
         int tecla = e.getKeyCode();
         // Frenar solo si no se está acelerando en esa dirección
