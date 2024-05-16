@@ -43,19 +43,20 @@ public class MapManager {
         String name = line1[1];
         String description = line2[1];
         
-        ArrayList<ArrayList<String>> circuit = new ArrayList<>();
+        ArrayList<String> circuit = new ArrayList<>();
         int i = 0;
+        
         for(String line : map){
-            ArrayList<String> row = new  ArrayList<>();
+            String row = "";
             if(i > 1){
-                for(String item : line.split("\\|")){
-                    row.add(item);
+                for(char item : line.toCharArray()){
+                    row += item;
                 }
                 circuit.add(row);
             }
             i += 1;
         }
-        int xLenght = circuit.get(0).size();
+        int xLenght = circuit.get(0).length();
         int yLenght = circuit.size();
         int size = Cell.SIZE;
         int width = xLenght * size;

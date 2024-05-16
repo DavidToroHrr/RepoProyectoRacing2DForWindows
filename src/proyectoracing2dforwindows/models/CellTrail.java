@@ -11,9 +11,10 @@ import java.io.IOException;
  * @author usuario
  */
 public class CellTrail extends Cell{
-    
+    public static final String CELL_ID="celltrail";
+
     public CellTrail(int x, int y) throws IOException {
-        super(x, y, "celltrail");
+        super(x, y, CELL_ID);
         loagImage("src/data/resources/runway/trail.jpg");
     }
     

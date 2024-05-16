@@ -4,18 +4,18 @@
  */
 package proyectoracing2dforwindows.models;
 
-import java.io.IOException;
-
 /**
  *
- * @author usuario
+ * @author david
  */
-public class CellWall extends Cell{
-    public static final String CELL_ID="cellwall";
-
-    public CellWall(int x, int y) throws IOException {
+public class CellBorder extends Cell{
+    public static final String CELL_ID="cellborder";
+    public CellBorder(int x, int y) {
         super(x, y, CELL_ID);
-        loagImage("src/data/resources/runway/wall.jpg");
+        loagImage("src/data/resources/runway/finish.jpg");
+        
     }
+    
+    
     
 }
