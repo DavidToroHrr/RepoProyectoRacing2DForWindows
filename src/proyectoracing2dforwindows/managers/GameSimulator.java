@@ -5,12 +5,15 @@
 package proyectoracing2dforwindows.managers;
 import proyectoracing2dforwindows.interfaces.*;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
@@ -24,7 +27,7 @@ import proyectoracing2dforwindows.models.SpecialObject;
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate{
+public class GameSimulator implements Coordenate, Movable, Drawable{
     Paintable paint;
     //private boolean colision=false;
     
@@ -46,11 +49,10 @@ public class GameSimulator implements Coordenate{
     
     URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
-    public GameSimulator(Paintable p1) throws IOException{
+    public GameSimulator() throws IOException{
+        
         this.mapManager = new MapManager();
         this.currentRunway = null;
-        this.paint=p1;
-        specialsObjects=new ArrayList<>();
         
         
     }
@@ -80,13 +82,13 @@ public class GameSimulator implements Coordenate{
             SpecialObject specialObject = iterator.next();
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
                 if(car1.receiveEffect(specialObject)){
-                
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
-
+                    paint.repaint();
                 }
                 break;
             }
         }
+        
     }
 
     public void keyPressed(KeyEvent e) throws InterruptedException {
@@ -120,37 +122,7 @@ public class GameSimulator implements Coordenate{
     
     public void loadMap(String nameMap) throws IOException{
             setCurrentRunway(mapManager.getRunway(nameMap));
-            if (getCurrentRunway() != null) {
-                // Si se cargó la pista, inicializa el carro
-                image = javax.imageio.ImageIO.read(imageUrl1); 
-                car1 = new Car(0, 0, 34, 60, "Carro1", image, imageUrl1,paint);
-                
-                imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
-                int contObj=0;
-                while (contObj<=20) {                    
-                    int px=(int)(Math.random()*900);
-                    int py=(int)(Math.random() * 900) + 30;
-                    if (currentRunway.verifyPoint(px, py)) {
-                        int decision=(int)(Math.random()*2);
-                        SpecialObject e;
-                        if (decision==0) {
-                            e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
-
-                        }else{
-                            e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
-                        }
-                        specialsObjects.add(e);
-                        contObj+=1;
-                    }
-
-                }
-                
-                
-                
-                timer = new Timer(10, e -> car1.actualizar());
-                //timer = new Timer(30, e -> car1.actualizar());
-                timer.start();
-            }
+            
         }
     public void addSpecialObject(){
     
@@ -176,4 +148,50 @@ public class GameSimulator implements Coordenate{
         //}
         
     }
+
+    public void setPaint(Paintable paint) {
+        this.paint = paint;
+        this.specialsObjects=new ArrayList<>();
+        if (getCurrentRunway() != null) {
+            try {
+                // Si se cargó la pista, inicializa el carro
+                image = javax.imageio.ImageIO.read(imageUrl1); 
+            } catch (IOException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                car1 = new Car(0, 0, 34, 60, "Carro1", image, imageUrl1,paint,this);
+                
+            try {
+                imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
+            } catch (IOException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                int contObj=0;
+                while (contObj<=20) {                    
+                    int px=(int)(Math.random()*900);
+                    int py=(int)(Math.random() * 900) + 30;
+                    if (currentRunway.verifyPoint(px, py)) {
+                        int decision=(int)(Math.random()*2);
+                        SpecialObject e;
+                        if (decision==0) {
+                            e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
+
+                        }else{
+                            e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
+                        }
+                        specialsObjects.add(e);
+                        contObj+=1;
+                    }
+
+                }
+                
+                
+                
+                timer = new Timer(10, e -> car1.actualizar());
+                //timer = new Timer(30, e -> car1.actualizar());
+                timer.start();
+            }
+    }
+    
+    
 }
