@@ -6,7 +6,9 @@ package proyectoracing2dforwindows.views;
 
 import proyectoracing2dforwindows.interfaces.ClickListener;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -26,29 +28,19 @@ import proyectoracing2dforwindows.models.Runway;
 public class MainWindow extends javax.swing.JFrame implements ClickListener, Paintable, KeyListener{
 
     private GameSimulator game;
+    private BufferedImage buffer;
     
     public MainWindow() {
         setUndecorated(true);
         
         initComponents();
+        buffer = new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB);
     }
 
     public void setGame(GameSimulator game) {
         this.game = game;
     }
     
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        try {
-            game.drawElements(g);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-    }
 
     @Override
     public void repaint(int x, int y, int width, int height) {
@@ -78,7 +70,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
        
         game.loadMap(nameMap);
         Runway runway =game.getCurrentRunway();
-        GamePanel gamePanel = new GamePanel(this);
+        GamePanel gamePanel = new GamePanel(this, game);
         gamePanel.setRunway(runway);
         
         setCurrentPanel(gamePanel);
@@ -103,13 +95,14 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     
     @Override
     public void formKeyReleased(KeyEvent evt) {
+        System.out.println("REALEASED");
         if (evt.getKeyCode()==KeyEvent.VK_UP |
                 evt.getKeyCode()==KeyEvent.VK_LEFT|
                 evt.getKeyCode()==KeyEvent.VK_RIGHT|
                 evt.getKeyCode()==KeyEvent.VK_DOWN) 
         {
             try {
-                game.keyPressed(evt);
+                game.keyReleased(evt);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -188,7 +181,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
      */
     public static void main(String args[]) throws IOException {
             MainWindow window = new MainWindow();
-            GameSimulator game = new GameSimulator(window);
+            GameSimulator game = new GameSimulator();
             window.setGame(game);
             window.showMapSelector();
             

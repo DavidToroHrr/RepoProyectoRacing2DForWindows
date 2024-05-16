@@ -5,6 +5,7 @@
 package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,7 +20,12 @@ import javax.imageio.ImageIO;
  * @author david
  */
 public abstract class Object extends Sprite{
-    protected String id;
+
+    /**
+     * @return the id
+     */
+    
+    private String id;
     private BufferedImage image;
     protected URL url;
 
@@ -69,5 +75,8 @@ public abstract class Object extends Sprite{
      */
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+    public String getId() {
+        return id;
     }
 }

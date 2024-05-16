@@ -16,6 +16,12 @@ public abstract class Cell extends Object{
         super(x, y, SIZE, SIZE, id,null,null);
         
     }
-    
+    public boolean verifyTouchCell(int x, int y) {
+        if (x >= this.x && x <= this.x + width &&
+            y >= this.y && y <= this.y + height) {
+            return true;
+        }
+        return false;
+}
 
 }

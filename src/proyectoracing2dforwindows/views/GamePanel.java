@@ -5,29 +5,44 @@
 package proyectoracing2dforwindows.views;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import proyectoracing2dforwindows.interfaces.Drawable;
 import proyectoracing2dforwindows.interfaces.KeyListener;
+import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Runway;
 
 /**
  *
  * @author usuario
  */
-public class GamePanel extends javax.swing.JPanel {
+public class GamePanel extends javax.swing.JPanel implements Paintable{
     
     private Runway runway;
     KeyListener keylistener;
     private Graphics g;
-    public GamePanel(KeyListener keylistener) {
+    private Drawable drawable;
+    
+    public GamePanel(KeyListener keylistener, Drawable drawable) {
+        this.drawable = drawable;
+        this.drawable.setPaint(this);
         initComponents();
+        
         this.keylistener=keylistener;
         setFocusTraversalKeysEnabled(false); // Desactivar el paso de foco para evitar interferencias con los eventos de teclado
-
+        
     }
     
     
     @Override
     protected void paintComponent(Graphics g) {
-        runway.draw(g);
+        runway.draw((Graphics2D)g);
+        try {
+            drawable.drawElements(g);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
     }
 
