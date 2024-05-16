@@ -75,8 +75,10 @@ public class Runway extends Sprite{
         for(ArrayList<Cell> row : circuit){
             for(Cell cell : row){
                 cell.draw(g);
+                
             }
         }
+        
     }
 
     public String getName() {

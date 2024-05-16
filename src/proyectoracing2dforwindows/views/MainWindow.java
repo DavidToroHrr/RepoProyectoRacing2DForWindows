@@ -36,14 +36,25 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     public void setGame(GameSimulator game) {
         this.game = game;
     }
-
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        game.drawElements(g);
+        try {
+            game.drawElements(g);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         
     }
+
+    @Override
+    public void repaint(int x, int y, int width, int height) {
+        super.repaint(x, y, width, height); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
     
 
     
@@ -97,7 +108,11 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
                 evt.getKeyCode()==KeyEvent.VK_RIGHT|
                 evt.getKeyCode()==KeyEvent.VK_DOWN) 
         {
-            game.keyPressed(evt);
+            try {
+                game.keyPressed(evt);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("Nos vamos para arriba");
         }
     }
@@ -116,7 +131,11 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
                 evt.getKeyCode()==KeyEvent.VK_RIGHT|
                 evt.getKeyCode()==KeyEvent.VK_DOWN) 
         {
-            game.keyPressed(evt);
+            try {
+                game.keyPressed(evt);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("Nos vamos para arriba");
         }
         
@@ -183,6 +202,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     private javax.swing.JPanel currentPanel;
     // End of variables declaration//GEN-END:variables
 
+    
     
 
     

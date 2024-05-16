@@ -4,10 +4,15 @@
  */
 package proyectoracing2dforwindows.interfaces;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author david
  */
 public interface Paintable {
     public void repaint();
+    public void revalidate();
+    public void repaint(int x, int y, int width, int height);
+   
 }

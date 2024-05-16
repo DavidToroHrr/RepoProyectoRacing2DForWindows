@@ -18,8 +18,8 @@ public class Car extends Object {
     private int velocityX; // Velocidad horizontal del carro
     private int velocityY; // Velocidad vertical del carro
     private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
-    private final int MAX_SPEED = 4; // Velocidad máxima del carro
-    private final int BRAKE=1;
+    private final int MAX_SPEED = 3; // Velocidad máxima del carro
+    private final int BRAKE=2;
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1) {
         super(x, y, width, height, id, image, url);
         this.velocityX = 0;
@@ -98,8 +98,8 @@ public class Car extends Object {
         // Dibuja el carro en su posición actual
         Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
         //g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
-        g2d.drawImage(image, x, y, width, height, null);
-        //paint.repaint();
+        g2d.drawImage(getImage(), x, y, width, height, null);
+        paint.repaint();
     }
 }
 
