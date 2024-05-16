@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
+import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.threads.CarEngine;
 
@@ -19,28 +20,37 @@ public class Car extends Object implements CarCustomable {
     Paintable paint;
     private CarEngine ce;
     private Thread t1;
+    private Movable movable;
     
     private int velocityX; // Velocidad horizontal del carro
     private int velocityY; // Velocidad vertical del carro
     private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
     private final int MAX_SPEED = 3; // Velocidad máxima del carro
     private final int BRAKE=0;
-    public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1) {
+    public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable) {
         super(x, y, width, height, id, image, url);
         this.velocityX = 0;
         this.velocityY = 0;
         this.paint=p1;
-        
+        this.movable = movable;
         
     }
     public void actualizar() {
+        int xAnterior = x;
+        int yAnterior = y;
         // Actualizar la posición del carro
         x += getVelocityX();
         y += getVelocityY();
+        
+        if(xAnterior != x || yAnterior != y){
+            paint.repaint();
+            movable.verifyMovement(this);
+        }
 
         // Limitar la velocidad máxima
         if (getVelocityX() > MAX_SPEED) {
             setVelocityX(MAX_SPEED);
+            
         }
         if (getVelocityX() < -MAX_SPEED) {
             setVelocityX(-MAX_SPEED);
@@ -52,8 +62,7 @@ public class Car extends Object implements CarCustomable {
             setVelocityY(-MAX_SPEED);
         }
 
-        // Repintar el componente
-        paint.repaint(x,y,width,height);
+        
     }
 
     public void keyPressed(KeyEvent e) {
@@ -74,7 +83,6 @@ public class Car extends Object implements CarCustomable {
         else if (tecla == KeyEvent.VK_DOWN) {
             setVelocityY(getVelocityY() + SPEED_INCREMENT);
         }
-        paint.repaint(x,y,width,height);
         
     }
 

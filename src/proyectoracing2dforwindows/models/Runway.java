@@ -5,6 +5,7 @@
 package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
