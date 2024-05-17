@@ -79,7 +79,7 @@ public class Car extends Object implements CarCustomable {
 
     public void keyPressed(KeyEvent e) {
                 paint.repaint(x,y,width,height);
-
+        
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_LEFT) {

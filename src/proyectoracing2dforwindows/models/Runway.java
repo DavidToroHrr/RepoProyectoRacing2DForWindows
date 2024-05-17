@@ -135,9 +135,6 @@ public class Runway extends Sprite{
     public String getDescription() {
         return description;
     }
-    public void recorrerPista(int x,int y){}//le paso las cooordenadas de random y si
-    //el get id es de tipo celltrail que me lo retorne y que me ponga el objeto allí
-    //hacer hilo para ir colocando objetos
     
     
     
