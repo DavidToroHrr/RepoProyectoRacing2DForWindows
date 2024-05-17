@@ -77,51 +77,9 @@ public abstract class Car extends Object implements CarCustomable {
         
     }
 
-    public void keyPressed(KeyEvent e) {
-        paint.repaint(x,y,width,height);
-        
-        int tecla = e.getKeyCode();
-        // Acelerar el carro hacia la izquierda
-        if (tecla == KeyEvent.VK_LEFT) {
-            setVelocityX(getVelocityX() - SPEED_INCREMENT);
-        }
-        // Acelerar el carro hacia la derecha
-        else if (tecla == KeyEvent.VK_RIGHT) {
-            setVelocityX(getVelocityX() + SPEED_INCREMENT);
-        }
-        // Acelerar el carro hacia arriba
-        else if (tecla == KeyEvent.VK_UP) {
-            setVelocityY(getVelocityY() - SPEED_INCREMENT);
-        }
-        // Acelerar el carro hacia abajo
-        else if (tecla == KeyEvent.VK_DOWN) {
-            setVelocityY(getVelocityY() + SPEED_INCREMENT);
-        }
-        
-    }
+    public abstract void keyPressed(KeyEvent e);
 
-    public void keyReleased(KeyEvent e) {
-                paint.repaint(x,y,width,height);
-
-        System.out.println("entro a keyrealeased");
-        int tecla = e.getKeyCode();
-        // Frenar solo si no se está acelerando en esa dirección
-        if (tecla == KeyEvent.VK_LEFT || tecla == KeyEvent.VK_RIGHT) {
-            if (getVelocityX() > 0) {
-                setVelocityX(getVelocityX() - BRAKE);
-            } else if (getVelocityX() < 0) {
-                setVelocityX(getVelocityX() + BRAKE);
-            }
-        } else if (tecla == KeyEvent.VK_UP || tecla == KeyEvent.VK_DOWN) {
-            if (getVelocityY() > 0) {
-                setVelocityY(getVelocityY() - BRAKE);
-            } else if (getVelocityY() < 0) {
-                setVelocityY(getVelocityY() + BRAKE);
-            }
-        }
-        paint.repaint(x,y,width,height);
-        
-    }
+    public abstract void keyReleased(KeyEvent e);
     public boolean receiveEffect(Applicable ap){
         if (ce==null || ce.isControl() ) {
             ce=new CarEngine(ap, this);
