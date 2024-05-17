@@ -11,9 +11,10 @@ import java.io.IOException;
  * @author usuario
  */
 public class CellGrass extends Cell{
-    
+    public static final String CELL_ID="cellgrass";
+
     public CellGrass(int x, int y) throws IOException {
-        super(x, y, "cellgrass");
+        super(x, y, CELL_ID);
         loagImage("src/data/resources/runway/grass.jpg");
     }
     

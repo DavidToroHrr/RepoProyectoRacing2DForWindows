@@ -72,6 +72,9 @@ public class Runway extends Sprite{
                     if (item == 'C') {
                         cell = new CellCheckPoint(x, y);
                     }
+                    if (item == 'B') {
+                        cell = new CellBorder(x, y);
+                    }
 
                     rowC.add(cell);
                     x += size;
