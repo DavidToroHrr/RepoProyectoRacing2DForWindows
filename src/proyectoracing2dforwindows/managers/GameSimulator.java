@@ -22,6 +22,7 @@ import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
 import proyectoracing2dforwindows.models.SpecialObject;
+import proyectoracing2dforwindows.models.Sprite;
 
 /**
  *
@@ -67,8 +68,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             
             car1.draw(g); // Dibuja el carro normal si no hay colisión
             
-            verifyMovement(car1);
-            
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
         }
         //paint.repaint();
@@ -76,7 +75,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         
     }
     
-    public void verifyMovement(Car car){
+    public void verifyObjectCollision(Car car){
         Iterator<SpecialObject> iterator = specialsObjects.iterator();
         while (iterator.hasNext()) {
             SpecialObject specialObject = iterator.next();
@@ -191,6 +190,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 //timer = new Timer(30, e -> car1.actualizar());
                 timer.start();
             }
+    }
+
+    @Override
+    public void verifyRunwayCollision(int newX, int newY, Sprite measures) {
+        String cellId = currentRunway.verifyCellCollision(newX, newY, measures.getWidth(), measures.getHeight());
+        
+        
     }
     
     

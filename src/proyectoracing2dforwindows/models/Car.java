@@ -21,14 +21,18 @@ public class Car extends Object implements CarCustomable {
     private CarEngine ce;
     private Thread t1;
     private Movable movable;
+    private int maxSpeed;
     
     private int velocityX; // Velocidad horizontal del carro
     private int velocityY; // Velocidad vertical del carro
     private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
-    private final int MAX_SPEED = 3; // Velocidad máxima del carro
+    public static final int MAX_SPEED_TRAIL = 3; // Velocidad máxima del carro
+    public static final int MAX_SPEED_BORDER = 2; // Velocidad máxima del carro
+    public static final int MAX_SPEED_GRASS = 1; // Velocidad máxima del carro
     private final int BRAKE=0;
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable) {
         super(x, y, width, height, id, image, url);
+        maxSpeed = MAX_SPEED_TRAIL;
         this.velocityX = 0;
         this.velocityY = 0;
         this.paint=p1;
@@ -44,22 +48,22 @@ public class Car extends Object implements CarCustomable {
         
         if(xAnterior != x || yAnterior != y){
             paint.repaint();
-            movable.verifyMovement(this);
+            movable.verifyObjectCollision(this);
         }
 
         // Limitar la velocidad máxima
-        if (getVelocityX() > MAX_SPEED) {
-            setVelocityX(MAX_SPEED);
+        if (getVelocityX() > maxSpeed) {
+            setVelocityX(maxSpeed);
             
         }
-        if (getVelocityX() < -MAX_SPEED) {
-            setVelocityX(-MAX_SPEED);
+        if (getVelocityX() < -maxSpeed) {
+            setVelocityX(-maxSpeed);
         }
-        if (getVelocityY() > MAX_SPEED) {
-            setVelocityY(MAX_SPEED);
+        if (getVelocityY() > maxSpeed) {
+            setVelocityY(maxSpeed);
         }
-        if (getVelocityY() < -MAX_SPEED) {
-            setVelocityY(-MAX_SPEED);
+        if (getVelocityY() < -maxSpeed) {
+            setVelocityY(-maxSpeed);
         }
 
         
@@ -157,5 +161,11 @@ public class Car extends Object implements CarCustomable {
     public void setVelocityY(int velocityY) {
         this.velocityY = velocityY;
     }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+    
+    
 }
 
