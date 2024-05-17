@@ -193,5 +193,11 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             }
     }
     
+    public void creatEspecialObjectsConstantly(){
+        
+    
+    
+    }
+    
     
 }
