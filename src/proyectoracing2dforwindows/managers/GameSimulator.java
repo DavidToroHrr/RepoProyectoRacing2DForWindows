@@ -22,37 +22,40 @@ import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
 import proyectoracing2dforwindows.models.SpecialObject;
+import proyectoracing2dforwindows.threads.SpecialObjectGenerator;
 
 /**
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate, Movable, Drawable{
+public class GameSimulator implements Coordenate, Movable, Drawable,Generateable{
     Paintable paint;
     //private boolean colision=false;
-    
-   int cont=0;
-    
+
     private MapManager mapManager;
     private Runway currentRunway;
     private Car car1;
     private Timer timer;
     private Car car2;
-    private Thread t1;
+  
     private ArrayList <SpecialObject> specialsObjects;
     
     private BufferedImage image;
     
     private BufferedImage imageShrink;
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
-
     
     URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
+    
+    private Thread threadSpecialObj;
+    private SpecialObjectGenerator generator;
     
     public GameSimulator() throws IOException{
         
         this.mapManager = new MapManager();
         this.currentRunway = null;
+        generator=new SpecialObjectGenerator(this);
+        threadSpecialObj=new Thread(generator);
         
         
     }
@@ -142,12 +145,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.currentRunway = currentRunway;
     }
     
-    public void stopCarThread() {
-        //if (t1 != null) {
-            //t1.stopThread(); // Detenemos el hilo si está en ejecución
-        //}
-        
-    }
+    
 
     public void setPaint(Paintable paint) {
         this.paint = paint;
@@ -166,36 +164,40 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             } catch (IOException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
-                int contObj=0;
-                while (contObj<=20) {                    
-                    int px=(int)(Math.random()*900);
-                    int py=(int)(Math.random() * 900) + 30;
-                    if (currentRunway.verifyPoint(px, py)) {
-                        int decision=(int)(Math.random()*2);
-                        SpecialObject e;
-                        if (decision==0) {
-                            e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
-
-                        }else{
-                            e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
-                        }
-                        specialsObjects.add(e);
-                        contObj+=1;
-                    }
-
-                }
-                
-                
                 
                 timer = new Timer(10, e -> car1.actualizar());
                 //timer = new Timer(30, e -> car1.actualizar());
                 timer.start();
+                creatEspecialObjectsConstantly();
+                
             }
     }
     
     public void creatEspecialObjectsConstantly(){
-        
+        threadSpecialObj.start();
     
+    
+    }
+    @Override
+    public void createSpecialObject(){
+        int contObj=0;
+        while (contObj<=20) {                    
+            int px=(int)(Math.random()*900);
+            int py=(int)(Math.random() * 900) + 30;
+            if (currentRunway.verifyPoint(px, py)) {
+                int decision=(int)(Math.random()*2);
+                SpecialObject e;
+                if (decision==0) {
+                    e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
+
+                }else{
+                    e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
+                }
+                specialsObjects.add(e);
+                contObj+=1;
+                    }
+
+                }
     
     }
     
