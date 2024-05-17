@@ -21,14 +21,18 @@ public class Car extends Object implements CarCustomable {
     private CarEngine ce;
     private Thread t1;
     private Movable movable;
+    private int maxSpeed;
     
     private int velocityX; // Velocidad horizontal del carro
     private int velocityY; // Velocidad vertical del carro
     private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
-    private final int MAX_SPEED = 3; // Velocidad máxima del carro
+    public static final int MAX_SPEED_TRAIL = 3; // Velocidad máxima del carro
+    public static final int MAX_SPEED_BORDER = 2; // Velocidad máxima del carro
+    public static final int MAX_SPEED_GRASS = 1; // Velocidad máxima del carro
     private final int BRAKE=0;
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable) {
         super(x, y, width, height, id, image, url);
+        maxSpeed = MAX_SPEED_TRAIL;
         this.velocityX = 0;
         this.velocityY = 0;
         this.paint=p1;
@@ -36,36 +40,46 @@ public class Car extends Object implements CarCustomable {
         
     }
     public void actualizar() {
-        int xAnterior = x;
-        int yAnterior = y;
+        paint.repaint(x,y,width,height);
+
+        int xNuevo = x;
+        int yNuevo = y;
         // Actualizar la posición del carro
+        xNuevo += getVelocityX();
+        yNuevo += getVelocityY();
+        
+        if(xNuevo != x || yNuevo != y){
+            movable.verifyRunwayCollision(xNuevo, yNuevo, this);
+            paint.repaint();
+            
+        }
+        
+        
+
+        // Limitar la velocidad máxima
+        if (getVelocityX() > maxSpeed) {
+            setVelocityX(maxSpeed);
+            
+        }
+        if (getVelocityX() < -maxSpeed) {
+            setVelocityX(-maxSpeed);
+        }
+        if (getVelocityY() > maxSpeed) {
+            setVelocityY(maxSpeed);
+        }
+        if (getVelocityY() < -maxSpeed) {
+            setVelocityY(-maxSpeed);
+        }
         x += getVelocityX();
         y += getVelocityY();
         
-        if(xAnterior != x || yAnterior != y){
-            paint.repaint();
-            movable.verifyMovement(this);
-        }
-
-        // Limitar la velocidad máxima
-        if (getVelocityX() > MAX_SPEED) {
-            setVelocityX(MAX_SPEED);
-            
-        }
-        if (getVelocityX() < -MAX_SPEED) {
-            setVelocityX(-MAX_SPEED);
-        }
-        if (getVelocityY() > MAX_SPEED) {
-            setVelocityY(MAX_SPEED);
-        }
-        if (getVelocityY() < -MAX_SPEED) {
-            setVelocityY(-MAX_SPEED);
-        }
-
+        movable.verifyObjectCollision(this);
         
     }
 
     public void keyPressed(KeyEvent e) {
+                paint.repaint(x,y,width,height);
+
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_LEFT) {
@@ -87,6 +101,8 @@ public class Car extends Object implements CarCustomable {
     }
 
     public void keyReleased(KeyEvent e) {
+                paint.repaint(x,y,width,height);
+
         System.out.println("entro a keyrealeased");
         int tecla = e.getKeyCode();
         // Frenar solo si no se está acelerando en esa dirección
@@ -157,5 +173,11 @@ public class Car extends Object implements CarCustomable {
     public void setVelocityY(int velocityY) {
         this.velocityY = velocityY;
     }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+    
+    
 }
 

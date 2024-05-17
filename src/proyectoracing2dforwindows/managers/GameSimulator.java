@@ -18,6 +18,11 @@ import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Car;
+import proyectoracing2dforwindows.models.Cell;
+import proyectoracing2dforwindows.models.CellBorder;
+import proyectoracing2dforwindows.models.CellGrass;
+import proyectoracing2dforwindows.models.CellTrail;
+import proyectoracing2dforwindows.models.CellWall;
 import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
@@ -26,6 +31,8 @@ import proyectoracing2forwindows.exceptions.FileManagerException;
 import proyectoracing2forwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
+import proyectoracing2dforwindows.models.Sprite;
+
 /**
  *
  * @author usuario
@@ -33,29 +40,33 @@ import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 public class GameSimulator implements Coordenate, Movable, Drawable{
     Paintable paint;
     //private boolean colision=false;
-    
-   int cont=0;
-    
+
     private MapManager mapManager;
     private Runway currentRunway;
     private Car car1;
     private Timer timer;
     private Car car2;
-    private Thread t1;
+  
     private ArrayList <SpecialObject> specialsObjects;
     
     private BufferedImage image;
     
     private BufferedImage imageShrink;
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
-
     
     URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
-    public GameSimulator() {
+
+    public GameSimulator()throws IOException {
+
+    
+    
+    
+
         
         this.mapManager = new MapManager();
         this.currentRunway = null;
+        
         
         
     }
@@ -70,8 +81,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             
             car1.draw(g); // Dibuja el carro normal si no hay colisión
             
-            verifyMovement(car1);
-            
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
         }
         //paint.repaint();
@@ -79,14 +88,16 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         
     }
     
-    public void verifyMovement(Car car){
+    public void verifyObjectCollision(Car car){
         Iterator<SpecialObject> iterator = specialsObjects.iterator();
         while (iterator.hasNext()) {
             SpecialObject specialObject = iterator.next();
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
                 if(car1.receiveEffect(specialObject)){
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
-                    paint.repaint();
+                    createSpecialObject();
+                    //paint.repaint();
+                    
                 }
                 break;
             }
@@ -145,12 +156,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.currentRunway = currentRunway;
     }
     
-    public void stopCarThread() {
-        //if (t1 != null) {
-            //t1.stopThread(); // Detenemos el hilo si está en ejecución
-        //}
-        
-    }
+    
 
     public void setPaint(Paintable paint) {
         this.paint = paint;
@@ -169,31 +175,85 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             } catch (IOException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
-                int contObj=0;
-                while (contObj<=20) {                    
-                    int px=(int)(Math.random()*900);
-                    int py=(int)(Math.random() * 900) + 30;
-                    if (currentRunway.verifyPoint(px, py)) {
-                        int decision=(int)(Math.random()*2);
-                        SpecialObject e;
-                        if (decision==0) {
-                            e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
-
-                        }else{
-                            e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
-                        }
-                        specialsObjects.add(e);
-                        contObj+=1;
-                    }
-
-                }
-                
-                
                 
                 timer = new Timer(10, e -> car1.actualizar());
                 //timer = new Timer(30, e -> car1.actualizar());
                 timer.start();
+                createSpecialObject();
+                
             }
+    }
+
+    @Override
+    public void verifyRunwayCollision(int newX, int newY, Car car) {
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
+        if(cell != null){
+            if(cell.getId().equals(CellTrail.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_TRAIL);
+            }
+            if(cell.getId().equals(CellBorder.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_BORDER);
+            }
+            if(cell.getId().equals(CellGrass.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_GRASS);
+            }
+            if(cell.getId().equals(CellWall.CELL_ID)){
+                int collisionX = Math.max(newX, cell.getX());
+                int collisionY = Math.max(newY, cell.getY());
+
+                // Determina qué lado está colisionando
+                if (collisionX == newX && collisionY == newY + car.getHeight()) {
+                    //Superior
+                    car.setVelocityY(0);
+                } else if (collisionX == newX && collisionY == newY) {
+                    //Inferior
+                    car.setVelocityY(0);
+                } else if (collisionX == newX + car.getWidth() && collisionY == newY) {
+                    //Derecho
+                    car.setVelocityX(0);
+                } else if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
+                    //Esquina
+                } else if (collisionX == newX){
+                    //Izquierdo
+                    car.setVelocityX(0);
+                }
+                else {
+                    // Si no está en un lado, podría ser un lado lateral
+                    if (collisionX == newX || collisionX == newX + car.getWidth()) {
+                        //Lateral
+                        car.setVelocityX(0);
+                    } else {
+                        // Podría ser un lado superior o inferior
+                        //Superior o inferior
+                        car.setVelocityY(0);
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
+    public void createSpecialObject(){
+        int contObj=specialsObjects.size();
+        while (contObj<=10) {                    
+            int px=(int)(Math.random()*900);
+            int py=(int)(Math.random() * 900) + 30;
+            if (currentRunway.verifyPoint(px, py)) {
+                int decision=(int)(Math.random()*2);
+                SpecialObject e;
+                if (decision==0) {
+                    e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
+
+                }else{
+                    e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
+                }
+                specialsObjects.add(e);
+                contObj+=1;
+                    }
+
+                }
+    
     }
     
     

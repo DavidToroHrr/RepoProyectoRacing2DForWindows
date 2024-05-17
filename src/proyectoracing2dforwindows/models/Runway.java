@@ -35,7 +35,8 @@ public class Runway extends Sprite{
     private ArrayList<String> circuitStr;
     private ArrayList<ArrayList<Cell>> circuit;
 
-    public Runway(int x, int y, int width, int height, String name, String description, ArrayList<String> circuitStr) {
+    public Runway(int x, int y, int width, int height, String name, 
+            String description, ArrayList<String> circuitStr) {
         super(x, y, width, height);
         this.name = name;
         this.description = description;
@@ -71,6 +72,9 @@ public class Runway extends Sprite{
                     if (item == 'C') {
                         cell = new CellCheckPoint(x, y);
                     }
+                    if (item == 'B') {
+                        cell = new CellBorder(x, y);
+                    }
 
                     rowC.add(cell);
                     x += size;
@@ -102,7 +106,16 @@ public class Runway extends Sprite{
         return false;
     
     }
-    public void verifyCell(){}
+    public Cell verifyCellCollision(int x2,int y2,int width2,int height2){
+        for(ArrayList<Cell> row : circuit){
+            for(Cell cell : row){
+                if(cell.verifyCollision(x2, y2, width2, height2)){
+                    return cell;
+                }
+            }
+        }
+        return null;
+    }
 
     @Override
     public void draw(Graphics g) {

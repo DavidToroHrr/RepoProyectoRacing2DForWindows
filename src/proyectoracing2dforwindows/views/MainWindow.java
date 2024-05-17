@@ -182,7 +182,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
     try {
         MainWindow window = new MainWindow();
         GameSimulator game = new GameSimulator();

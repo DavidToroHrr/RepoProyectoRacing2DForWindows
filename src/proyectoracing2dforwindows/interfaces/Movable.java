@@ -1,6 +1,7 @@
 package proyectoracing2dforwindows.interfaces;
 
 import proyectoracing2dforwindows.models.Car;
+import proyectoracing2dforwindows.models.Sprite;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,5 +13,6 @@ import proyectoracing2dforwindows.models.Car;
  * @author usuario
  */
 public interface Movable {
-    public void verifyMovement(Car car);
+    public void verifyObjectCollision(Car car);
+    public void verifyRunwayCollision(int newX, int newY, Car car);
 }

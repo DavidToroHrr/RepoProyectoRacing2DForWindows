@@ -11,9 +11,9 @@ import java.io.IOException;
  * @author usuario
  */
 public class CellFinish extends Cell{
-    
+     public static final String CELL_ID="cellfinish";
     public CellFinish(int x, int y) throws IOException {
-        super(x, y, "cellfinish");
+        super(x, y, CELL_ID);
         loagImage("src/data/resources/runway/finish.jpg");
     }
     
