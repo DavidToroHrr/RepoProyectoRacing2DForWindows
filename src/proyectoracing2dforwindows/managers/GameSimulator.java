@@ -22,6 +22,7 @@ import proyectoracing2dforwindows.models.Cell;
 import proyectoracing2dforwindows.models.CellBorder;
 import proyectoracing2dforwindows.models.CellGrass;
 import proyectoracing2dforwindows.models.CellTrail;
+import proyectoracing2dforwindows.models.CellWall;
 import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
@@ -209,7 +210,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             if(cell.getId().equals(CellGrass.CELL_ID)){
                 car.setMaxSpeed(Car.MAX_SPEED_GRASS);
             }
-            if(cell.getId().equals(CellBorder.CELL_ID)){
+            if(cell.getId().equals(CellWall.CELL_ID)){
                 int collisionX = Math.max(newX, cell.getX());
                 int collisionY = Math.max(newY, cell.getY());
 
@@ -243,6 +244,12 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             }
         }
         
+    }
+    
+    public void creatEspecialObjectsConstantly(){
+        
+    
+    
     }
     
     
