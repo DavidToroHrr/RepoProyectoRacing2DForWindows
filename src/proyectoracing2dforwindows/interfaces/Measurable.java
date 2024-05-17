@@ -6,8 +6,8 @@ package proyectoracing2dforwindows.interfaces;
 
 /**
  *
- * @author david
+ * @author usuario
  */
-public interface Generateable {
-    public void createSpecialObject();
+public interface Measurable {
+    
 }

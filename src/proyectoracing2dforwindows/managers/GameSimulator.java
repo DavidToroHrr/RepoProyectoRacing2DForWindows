@@ -18,17 +18,23 @@ import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Car;
+import proyectoracing2dforwindows.models.Cell;
+import proyectoracing2dforwindows.models.CellBorder;
+import proyectoracing2dforwindows.models.CellGrass;
+import proyectoracing2dforwindows.models.CellTrail;
+import proyectoracing2dforwindows.models.CellWall;
 import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
 import proyectoracing2dforwindows.models.SpecialObject;
-import proyectoracing2dforwindows.threads.SpecialObjectGenerator;
+
+import proyectoracing2dforwindows.models.Sprite;
 
 /**
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate, Movable, Drawable,Generateable{
+public class GameSimulator implements Coordenate, Movable, Drawable{
     Paintable paint;
     //private boolean colision=false;
 
@@ -47,15 +53,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable,Generateable
     
     URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
-    private Thread threadSpecialObj;
-    private SpecialObjectGenerator generator;
+    
     
     public GameSimulator() throws IOException{
         
         this.mapManager = new MapManager();
         this.currentRunway = null;
-        generator=new SpecialObjectGenerator(this);
-        threadSpecialObj=new Thread(generator);
+        
         
         
     }
@@ -70,8 +74,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable,Generateable
             
             car1.draw(g); // Dibuja el carro normal si no hay colisión
             
-            verifyMovement(car1);
-            
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
         }
         //paint.repaint();
@@ -79,14 +81,16 @@ public class GameSimulator implements Coordenate, Movable, Drawable,Generateable
         
     }
     
-    public void verifyMovement(Car car){
+    public void verifyObjectCollision(Car car){
         Iterator<SpecialObject> iterator = specialsObjects.iterator();
         while (iterator.hasNext()) {
             SpecialObject specialObject = iterator.next();
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
                 if(car1.receiveEffect(specialObject)){
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
-                    paint.repaint();
+                    createSpecialObject();
+                    //paint.repaint();
+                    
                 }
                 break;
             }
@@ -168,20 +172,64 @@ public class GameSimulator implements Coordenate, Movable, Drawable,Generateable
                 timer = new Timer(10, e -> car1.actualizar());
                 //timer = new Timer(30, e -> car1.actualizar());
                 timer.start();
-                creatEspecialObjectsConstantly();
+                createSpecialObject();
                 
             }
     }
-    
-    public void creatEspecialObjectsConstantly(){
-        threadSpecialObj.start();
-    
-    
-    }
+
     @Override
+    public void verifyRunwayCollision(int newX, int newY, Car car) {
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
+        if(cell != null){
+            if(cell.getId().equals(CellTrail.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_TRAIL);
+            }
+            if(cell.getId().equals(CellBorder.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_BORDER);
+            }
+            if(cell.getId().equals(CellGrass.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_GRASS);
+            }
+            if(cell.getId().equals(CellWall.CELL_ID)){
+                int collisionX = Math.max(newX, cell.getX());
+                int collisionY = Math.max(newY, cell.getY());
+
+                // Determina qué lado está colisionando
+                if (collisionX == newX && collisionY == newY + car.getHeight()) {
+                    //Superior
+                    car.setVelocityY(0);
+                } else if (collisionX == newX && collisionY == newY) {
+                    //Inferior
+                    car.setVelocityY(0);
+                } else if (collisionX == newX + car.getWidth() && collisionY == newY) {
+                    //Derecho
+                    car.setVelocityX(0);
+                } else if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
+                    //Esquina
+                } else if (collisionX == newX){
+                    //Izquierdo
+                    car.setVelocityX(0);
+                }
+                else {
+                    // Si no está en un lado, podría ser un lado lateral
+                    if (collisionX == newX || collisionX == newX + car.getWidth()) {
+                        //Lateral
+                        car.setVelocityX(0);
+                    } else {
+                        // Podría ser un lado superior o inferior
+                        //Superior o inferior
+                        car.setVelocityY(0);
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
     public void createSpecialObject(){
-        int contObj=0;
-        while (contObj<=20) {                    
+        int contObj=specialsObjects.size();
+        while (contObj<=10) {                    
             int px=(int)(Math.random()*900);
             int py=(int)(Math.random() * 900) + 30;
             if (currentRunway.verifyPoint(px, py)) {
