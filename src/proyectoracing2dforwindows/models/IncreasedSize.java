@@ -25,7 +25,7 @@ public class IncreasedSize extends SpecialObject{
     public void applyEfect(CarCustomable cb) {
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
-        cb.setHeight(50);
+        cb.setHeight(64);
         cb.setWidth(64);
         System.out.println("AUMENTAR");
         paintable.repaint(x, y, width, height);

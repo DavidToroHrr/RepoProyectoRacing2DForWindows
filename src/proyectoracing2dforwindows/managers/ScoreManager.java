@@ -6,8 +6,8 @@ package proyectoracing2dforwindows.managers;
 
 import java.util.ArrayList;
 import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
-import proyectoracing2forwindows.exceptions.FileManagerException;
-import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
+import proyectoracing2dforwindows.exceptions.FileManagerException;
+import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 
 /**
  *

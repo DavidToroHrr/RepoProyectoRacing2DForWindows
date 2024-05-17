@@ -16,20 +16,20 @@ import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.threads.CarEngine;
 
-public class Car extends Object implements CarCustomable {
+public abstract class Car extends Object implements CarCustomable {
     Paintable paint;
-    private CarEngine ce;
-    private Thread t1;
-    private Movable movable;
-    private int maxSpeed;
+    protected CarEngine ce;
+    protected Thread t1;
+    protected Movable movable;
+    protected int maxSpeed;
     
-    private int velocityX; // Velocidad horizontal del carro
-    private int velocityY; // Velocidad vertical del carro
-    private final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
+    protected int velocityX; // Velocidad horizontal del carro
+    protected int velocityY; // Velocidad vertical del carro
+    protected final int SPEED_INCREMENT = 1; // Incremento de velocidad al presionar una tecla
     public static final int MAX_SPEED_TRAIL = 3; // Velocidad máxima del carro
     public static final int MAX_SPEED_BORDER = 2; // Velocidad máxima del carro
     public static final int MAX_SPEED_GRASS = 1; // Velocidad máxima del carro
-    private final int BRAKE=0;
+    protected final int BRAKE=0;
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable) {
         super(x, y, width, height, id, image, url);
         maxSpeed = MAX_SPEED_TRAIL;
@@ -78,7 +78,7 @@ public class Car extends Object implements CarCustomable {
     }
 
     public void keyPressed(KeyEvent e) {
-                paint.repaint(x,y,width,height);
+        paint.repaint(x,y,width,height);
         
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda

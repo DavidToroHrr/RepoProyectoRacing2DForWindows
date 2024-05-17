@@ -15,13 +15,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import proyectoracing2dforwindows.exceptions.FileManagerException;
+import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
 import proyectoracing2dforwindows.models.Runway;
-import proyectoracing2forwindows.exceptions.FileManagerException;
-import proyectoracing2forwindows.exceptions.InvalidMapFormatException;
-import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
+
 
 
 
@@ -125,7 +126,11 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
         if (evt.getKeyCode()==KeyEvent.VK_UP |
                 evt.getKeyCode()==KeyEvent.VK_LEFT|
                 evt.getKeyCode()==KeyEvent.VK_RIGHT|
-                evt.getKeyCode()==KeyEvent.VK_DOWN) 
+                evt.getKeyCode()==KeyEvent.VK_DOWN |
+                evt.getKeyCode()==KeyEvent.VK_A|
+                evt.getKeyCode()==KeyEvent.VK_S|
+                evt.getKeyCode()==KeyEvent.VK_W|
+                evt.getKeyCode()==KeyEvent.VK_D) 
         {
             try {
                 game.keyPressed(evt);

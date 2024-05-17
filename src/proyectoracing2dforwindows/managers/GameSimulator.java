@@ -15,9 +15,14 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+import proyectoracing2dforwindows.exceptions.FileManagerException;
+import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Car;
+import proyectoracing2dforwindows.models.Car1;
+import proyectoracing2dforwindows.models.Car2;
 import proyectoracing2dforwindows.models.Cell;
 import proyectoracing2dforwindows.models.CellBorder;
 import proyectoracing2dforwindows.models.CellGrass;
@@ -27,9 +32,6 @@ import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
 import proyectoracing2dforwindows.models.SpecialObject;
-import proyectoracing2forwindows.exceptions.FileManagerException;
-import proyectoracing2forwindows.exceptions.InvalidMapFormatException;
-import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
 import proyectoracing2dforwindows.models.Sprite;
 
@@ -117,6 +119,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     if (car1 != null) {
         car1.keyPressed(e);
         
+    }if (car2 != null) {
+        car2.keyPressed(e);
+        
     }
     
     paint.repaint();
@@ -174,8 +179,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             } catch (IOException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
-                car1 = new Car(900/2-250, 900/2, 34, 60, "Carro1", image, imageUrl1,paint,this);
-                car2 = new Car(900/2-300, 900/2, 34, 60, "Carro2", image2, imageUrl2,paint,this);
+                car1 = new Car1(900/2-250, 900/2, 34, 60, "Carro1", image, imageUrl1,paint,this);
+                car2 = new Car2(900/2-300, 900/2, 34, 60, "Carro2", image2, imageUrl2,paint,this);
                 
             try {
                 imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);

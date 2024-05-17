@@ -12,8 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import proyectoracing2forwindows.exceptions.FileManagerException;
-import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
+import proyectoracing2dforwindows.exceptions.FileManagerException;
+import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
+
 
 /**
  *
