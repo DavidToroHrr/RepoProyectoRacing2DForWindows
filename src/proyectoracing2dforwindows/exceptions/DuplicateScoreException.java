@@ -8,9 +8,10 @@ package proyectoracing2dforwindows.exceptions;
  *
  * @author thomas
  */
-public class InvalidMapFormatException extends Exception{
-    public InvalidMapFormatException (String message){
-        super(message); 
+public class DuplicateScoreException extends Exception{
+    //creada pero aun no está implementada//
+    public DuplicateScoreException(String message) {
+        super(message);
     }
     
 }

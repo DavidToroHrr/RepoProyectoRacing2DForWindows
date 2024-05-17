@@ -22,6 +22,9 @@ import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
 import proyectoracing2dforwindows.models.SpecialObject;
+import proyectoracing2forwindows.exceptions.FileManagerException;
+import proyectoracing2forwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
 /**
  *
@@ -49,7 +52,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
     URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
-    public GameSimulator() throws IOException{
+    public GameSimulator() {
         
         this.mapManager = new MapManager();
         this.currentRunway = null;
@@ -115,7 +118,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
     }
     
-    public ArrayList<String> showMaps(){
+    public ArrayList<String> showMaps() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException{
         mapManager.loadRunways(0, 0);
         return mapManager.getRunwaysNames();
     }

@@ -8,6 +8,9 @@ package proyectoracing2dforwindows.exceptions;
  *
  * @author thomas
  */
-public class FileManagerException {
+public class FileManagerException extends Exception{
+    public FileManagerException (String message){
+        super(message); 
+    }
     
 }

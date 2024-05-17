@@ -5,6 +5,9 @@
 package proyectoracing2dforwindows.managers;
 
 import java.util.ArrayList;
+import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
+import proyectoracing2forwindows.exceptions.FileManagerException;
+import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
 /**
  *
@@ -24,7 +27,7 @@ public class ScoreManager {
         scores = new ArrayList<>();
     }
     
-    public void loadScores(){
+    public void loadScores() throws FileManagerException, MapFileNotFoundException{
         ArrayList<String> dataScores = fileManager.readFile(PATH_SCORES);
         readScores(dataScores);
     }
@@ -41,11 +44,11 @@ public class ScoreManager {
         }
     }
     
-    public boolean addScore(String name, int score){
+    public boolean addScore(String name, int score) throws DuplicateScoreException{
         //Thomas haga una exception para el caso en que ya exista un puntaje registrado con el mismo nombre
         for(String nameS : names){
             if (nameS.equals(name)){
-                return false;
+                throw new DuplicateScoreException("Ya existe un puntaje registrado con el nombre '" + name + "'.");
             }
         }
         names.add(name);

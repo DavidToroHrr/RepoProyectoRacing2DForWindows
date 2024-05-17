@@ -13,11 +13,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
 import proyectoracing2dforwindows.models.Runway;
+import proyectoracing2forwindows.exceptions.FileManagerException;
+import proyectoracing2forwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
 
 
@@ -57,14 +61,13 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
         revalidate();
     }
     
-    public void showMapSelector(){
-        System.out.println("Leyendo...");
-        ArrayList<String> mapNames = game.showMaps();
-        System.out.println("Leido");
-        MapSelector mapSelector = new MapSelector(this);
-        mapSelector.showMaps(mapNames);
-        setCurrentPanel(mapSelector);
+    public void showMapSelector() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
+    java.util.List<String> mapNames = game.showMaps();
+    MapSelector mapSelector = new MapSelector(this);
+    mapSelector.showMaps((ArrayList<String>) mapNames);
+    setCurrentPanel(mapSelector);
     }
+
     
     public void showGamePanel(String nameMap) throws IOException{
        
@@ -179,17 +182,20 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException {
-            MainWindow window = new MainWindow();
-            GameSimulator game = new GameSimulator();
-            window.setGame(game);
-            window.showMapSelector();
-            
-            window.setLocationRelativeTo(null);
-            window.setVisible(true);
-            window.setAlwaysOnTop(true);
-            
+    public static void main(String args[]) {
+    try {
+        MainWindow window = new MainWindow();
+        GameSimulator game = new GameSimulator();
+        window.setGame(game);
+        window.showMapSelector();
+
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        window.setAlwaysOnTop(true);
+    } catch (FileManagerException | MapFileNotFoundException | InvalidMapFormatException e) {
+        JOptionPane.showMessageDialog(null, "Error when starting the game: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel currentPanel;

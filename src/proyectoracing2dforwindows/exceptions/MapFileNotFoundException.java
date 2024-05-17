@@ -8,6 +8,9 @@ package proyectoracing2dforwindows.exceptions;
  *
  * @author thomas
  */
-public class MapFileNotFoundException {
+public class MapFileNotFoundException extends Exception{
+    public MapFileNotFoundException (String message){
+        super(message); 
+    }
     
 }

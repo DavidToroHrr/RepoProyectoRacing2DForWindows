@@ -10,6 +10,9 @@ import javax.swing.RowFilter;
 import javax.xml.stream.events.Namespace;
 import proyectoracing2dforwindows.models.Cell;
 import proyectoracing2dforwindows.models.Runway;
+import proyectoracing2forwindows.exceptions.FileManagerException;
+import proyectoracing2forwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
 /**
  *
@@ -28,7 +31,7 @@ public class MapManager {
     }
     
     
-    public void loadRunways(int x, int y){
+    public void loadRunways(int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException{
         ArrayList<String> mapsNames = fileManager.searchFiles(PATH_MAPS);
         for(String mapName : mapsNames){
             Runway runway = readRunway(mapName, x, y);
@@ -36,36 +39,60 @@ public class MapManager {
         }
     }
     
-    private Runway readRunway(String mapName, int x, int y){
-        ArrayList<String> map = fileManager.readFile(PATH_MAPS+mapName);
+  private Runway readRunway(String mapName, int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
+        ArrayList<String> map = fileManager.readFile("src/data/maps/" + mapName);
+
+        // Verifica que el archivo tenga al menos dos líneas
+        if (map.size() < 2) {
+            throw new InvalidMapFormatException("The map file must contain at least two lines for the name and description.");
+        }
+
         String[] line1 = map.get(0).split(":");
         String[] line2 = map.get(1).split(":");
+
+        // Verifica que las líneas tengan el formato correcto
+        if (line1.length < 2 || line2.length < 2) {
+            throw new InvalidMapFormatException("The format of the map file is incorrect. Expected 'name:value' in the first two lines.");
+        }
+
         String name = line1[1];
         String description = line2[1];
-        
-        ArrayList<String> circuit = new ArrayList<>();
-        int i = 0;
-        
-        for(String line : map){
-            String row = "";
-            if(i > 1){
-                for(char item : line.toCharArray()){
-                    row += item;
-                }
-                circuit.add(row);
-            }
-            i += 1;
-        }
-        int xLenght = circuit.get(0).length();
-        int yLenght = circuit.size();
-        int size = Cell.SIZE;
-        int width = xLenght * size;
-        int height = yLenght * size;
 
-        
-        Runway runway = new Runway(x, y, width, height, name, description, circuit);
+        ArrayList<String> circuitStr = new ArrayList<>();
+        for (int i = 2; i < map.size(); i++) {
+            circuitStr.add(map.get(i));
+        }
+
+        if (circuitStr.isEmpty() || circuitStr.get(0).isEmpty()) {
+            throw new InvalidMapFormatException("The map circuit is empty or incorrectly formatted.");
+        }
+
+        // Obtiene el ancho y alto en términos de caracteres
+        int trackWidth = circuitStr.get(0).length();
+        int trackHeight = circuitStr.size();
+        System.out.println(trackHeight);
+        System.out.println(trackWidth);
+
+        // Verifica si las dimensiones son menores a 25 caracteres en los ejes X y Y
+        for (String row : circuitStr) {
+    if (row.length() < 25) {
+            throw new InvalidMapFormatException("One row of the circuit has less than 25 characters.");
+        }
+    }
+
+    // Verifica que haya al menos 25 filas en total
+    if (circuitStr.size() < 25) {
+        throw new InvalidMapFormatException("The circuit has less than 25 rows.");
+    }
+
+        Runway runway = new Runway(x, y, trackWidth * Cell.SIZE, trackHeight * Cell.SIZE, name, description, circuitStr);
         return runway;
     }
+
+
+
+
+
     
     public ArrayList<String> getRunwaysNames(){
         ArrayList<String> names = new ArrayList<>();

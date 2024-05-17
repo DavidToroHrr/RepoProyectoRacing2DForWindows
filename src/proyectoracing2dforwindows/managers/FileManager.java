@@ -7,10 +7,13 @@ package proyectoracing2dforwindows.managers;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import proyectoracing2forwindows.exceptions.FileManagerException;
+import proyectoracing2forwindows.exceptions.MapFileNotFoundException;
 
 /**
  *
@@ -22,22 +25,20 @@ public class FileManager {
         
     }
     
-    public ArrayList<String> readFile(String path){
-        ArrayList<String> text = new ArrayList<>();
-        
-        try {
-            FileReader route = new FileReader(path);
-            BufferedReader reader = new BufferedReader(route);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                text.add(line);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public ArrayList<String> readFile(String path) throws MapFileNotFoundException, FileManagerException {
+    ArrayList<String> text = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            text.add(line);
         }
-        return text;
+    } catch (FileNotFoundException e) {
+        throw new MapFileNotFoundException("File not found: " + path);
+    } catch (IOException e) {
+        throw new FileManagerException("An error occurred while reading the file " + path + ": " + e.getMessage());
     }
+    return text;
+}
     
     public void writeFile(ArrayList<String> text, String path){
         try {
@@ -52,7 +53,7 @@ public class FileManager {
         }
     }
     
-    public ArrayList<String> searchFiles(String path){
+    public ArrayList<String> searchFiles(String path) throws FileManagerException{
         // Especifica la ruta de la carpeta
         
         // Crea un objeto File para la carpeta
@@ -68,6 +69,8 @@ public class FileManager {
                 // Imprime el nombre del archivo o subdirectorio
                 filesNames.add(file.getName());
             }
+        }else{
+            throw new FileManagerException("");
         }
         return filesNames;
     }
