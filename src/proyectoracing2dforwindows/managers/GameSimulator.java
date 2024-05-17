@@ -43,18 +43,25 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
 
     private MapManager mapManager;
     private Runway currentRunway;
+    
     private Car car1;
-    private Timer timer;
+    private Timer timer1;
+    private BufferedImage image;
+    URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
+    
+    private Timer timer2;
     private Car car2;
+    private BufferedImage image2;
+    URL imageUrl2 = getClass().getResource("/data/cars/greencar.png");
   
     private ArrayList <SpecialObject> specialsObjects;
     
-    private BufferedImage image;
+    
     
     private BufferedImage imageShrink;
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
     
-    URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
+    
     
 
     public GameSimulator()throws IOException {
@@ -80,6 +87,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         if (car1 != null) {
             
             car1.draw(g); // Dibuja el carro normal si no hay colisión
+            car2.draw(g); // Dibuja el carro normal si no hay colisión
             
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
         }
@@ -93,7 +101,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         while (iterator.hasNext()) {
             SpecialObject specialObject = iterator.next();
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
-                if(car1.receiveEffect(specialObject)){
+                if(car.receiveEffect(specialObject)){
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
                     createSpecialObject();
                     //paint.repaint();
@@ -109,25 +117,22 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     if (car1 != null) {
         car1.keyPressed(e);
         
-        // Llama al método de keyPressed de la clase Car
     }
-    //d1.shrinkPlayer(car1);
     
-    //colision=true;
     paint.repaint();
 }
     public void keyReleased(KeyEvent e) throws InterruptedException {
     if (car1 != null) {
-        car1.keyReleased(e);
+        car1.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
+        //TO DO:
+        //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
+        //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
         // Llama al método de keyPressed de la clase Car
     }
     
 }
     
-    public void deleteSpecialObject(SpecialObject eo){
-        specialsObjects.remove(eo);
     
-    }
     
     public ArrayList<String> showMaps() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException{
         mapManager.loadRunways(0, 0);
@@ -165,10 +170,12 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             try {
                 // Si se cargó la pista, inicializa el carro
                 image = javax.imageio.ImageIO.read(imageUrl1); 
+                image2 = javax.imageio.ImageIO.read(imageUrl2); 
             } catch (IOException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
-                car1 = new Car(0, 0, 34, 60, "Carro1", image, imageUrl1,paint,this);
+                car1 = new Car(900/2-250, 900/2, 34, 60, "Carro1", image, imageUrl1,paint,this);
+                car2 = new Car(900/2-300, 900/2, 34, 60, "Carro2", image2, imageUrl2,paint,this);
                 
             try {
                 imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
@@ -176,9 +183,12 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
-                timer = new Timer(10, e -> car1.actualizar());
+                timer1 = new Timer(10, e -> car1.actualizar());
                 //timer = new Timer(30, e -> car1.actualizar());
-                timer.start();
+                timer1.start();
+                timer2 = new Timer(10, e -> car2.actualizar());
+                //timer = new Timer(30, e -> car1.actualizar());
+                timer2.start();
                 createSpecialObject();
                 
             }
@@ -205,15 +215,15 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 if (collisionX == newX && collisionY == newY + car.getHeight()) {
                     //Superior
                     car.setVelocityY(0);
-                } else if (collisionX == newX && collisionY == newY) {
+                } if (collisionX == newX && collisionY == newY) {
                     //Inferior
                     car.setVelocityY(0);
-                } else if (collisionX == newX + car.getWidth() && collisionY == newY) {
+                } if (collisionX == newX + car.getWidth() && collisionY == newY) {
                     //Derecho
                     car.setVelocityX(0);
-                } else if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
+                } if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
                     //Esquina
-                } else if (collisionX == newX){
+                } if (collisionX == newX){
                     //Izquierdo
                     car.setVelocityX(0);
                 }
@@ -250,9 +260,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 }
                 specialsObjects.add(e);
                 contObj+=1;
-                    }
-
                 }
+
+            }
     
     }
     
