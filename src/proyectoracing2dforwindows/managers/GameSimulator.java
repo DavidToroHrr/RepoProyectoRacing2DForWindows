@@ -18,6 +18,10 @@ import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Car;
+import proyectoracing2dforwindows.models.Cell;
+import proyectoracing2dforwindows.models.CellBorder;
+import proyectoracing2dforwindows.models.CellGrass;
+import proyectoracing2dforwindows.models.CellTrail;
 import proyectoracing2dforwindows.models.IncreasedSize;
 import proyectoracing2dforwindows.models.ReducedSize;
 import proyectoracing2dforwindows.models.Runway;
@@ -193,9 +197,51 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     }
 
     @Override
-    public void verifyRunwayCollision(int newX, int newY, Sprite measures) {
-        String cellId = currentRunway.verifyCellCollision(newX, newY, measures.getWidth(), measures.getHeight());
-        
+    public void verifyRunwayCollision(int newX, int newY, Car car) {
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
+        if(cell != null){
+            if(cell.getId().equals(CellTrail.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_TRAIL);
+            }
+            if(cell.getId().equals(CellBorder.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_BORDER);
+            }
+            if(cell.getId().equals(CellGrass.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_GRASS);
+            }
+            if(cell.getId().equals(CellBorder.CELL_ID)){
+                int collisionX = Math.max(newX, cell.getX());
+                int collisionY = Math.max(newY, cell.getY());
+
+                // Determina qué lado está colisionando
+                if (collisionX == newX && collisionY == newY + car.getHeight()) {
+                    //Superior
+                    car.setVelocityY(0);
+                } else if (collisionX == newX && collisionY == newY) {
+                    //Inferior
+                    car.setVelocityY(0);
+                } else if (collisionX == newX + car.getWidth() && collisionY == newY) {
+                    //Derecho
+                    car.setVelocityX(0);
+                } else if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
+                    //Esquina
+                } else if (collisionX == newX){
+                    //Izquierdo
+                    car.setVelocityX(0);
+                }
+                else {
+                    // Si no está en un lado, podría ser un lado lateral
+                    if (collisionX == newX || collisionX == newX + car.getWidth()) {
+                        //Lateral
+                        car.setVelocityX(0);
+                    } else {
+                        // Podría ser un lado superior o inferior
+                        //Superior o inferior
+                        car.setVelocityY(0);
+                    }
+                }
+            }
+        }
         
     }
     

@@ -14,5 +14,5 @@ import proyectoracing2dforwindows.models.Sprite;
  */
 public interface Movable {
     public void verifyObjectCollision(Car car);
-    public void verifyRunwayCollision(int newX, int newY, Sprite measures);
+    public void verifyRunwayCollision(int newX, int newY, Car car);
 }

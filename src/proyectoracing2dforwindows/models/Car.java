@@ -42,16 +42,19 @@ public class Car extends Object implements CarCustomable {
     public void actualizar() {
         paint.repaint(x,y,width,height);
 
-        int xAnterior = x;
-        int yAnterior = y;
+        int xNuevo = x;
+        int yNuevo = y;
         // Actualizar la posición del carro
-        x += getVelocityX();
-        y += getVelocityY();
+        xNuevo += getVelocityX();
+        yNuevo += getVelocityY();
         
-        if(xAnterior != x || yAnterior != y){
+        if(xNuevo != x || yNuevo != y){
+            movable.verifyRunwayCollision(xNuevo, yNuevo, this);
             paint.repaint();
-            movable.verifyObjectCollision(this);
+            
         }
+        
+        
 
         // Limitar la velocidad máxima
         if (getVelocityX() > maxSpeed) {
@@ -67,7 +70,10 @@ public class Car extends Object implements CarCustomable {
         if (getVelocityY() < -maxSpeed) {
             setVelocityY(-maxSpeed);
         }
-
+        x += getVelocityX();
+        y += getVelocityY();
+        
+        movable.verifyObjectCollision(this);
         
     }
 

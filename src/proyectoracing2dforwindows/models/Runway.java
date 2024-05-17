@@ -106,11 +106,11 @@ public class Runway extends Sprite{
         return false;
     
     }
-    public String verifyCellCollision(int x2,int y2,int width2,int height2){
+    public Cell verifyCellCollision(int x2,int y2,int width2,int height2){
         for(ArrayList<Cell> row : circuit){
             for(Cell cell : row){
-                if(cell.verifyCollision(x2, y2, width2, height2) && !cell.getId().equals("celltrail")){
-                    return cell.getId();
+                if(cell.verifyCollision(x2, y2, width2, height2)){
+                    return cell;
                 }
             }
         }
