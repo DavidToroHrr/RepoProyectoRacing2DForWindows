@@ -25,8 +25,8 @@ public abstract class Object extends Sprite{
      * @return the id
      */
     
-    private String id;
-    private BufferedImage image;
+    protected String id;
+    protected BufferedImage image;
     protected URL url;
 
     public Object(int x, int y, int width, int height, String id,BufferedImage image,URL url) {

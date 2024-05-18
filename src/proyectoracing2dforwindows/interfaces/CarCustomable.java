@@ -4,13 +4,17 @@
  */
 package proyectoracing2dforwindows.interfaces;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author david
  */
 public interface CarCustomable {
     public int getX();
-
+    public void setImage(BufferedImage image);
+    public BufferedImage getImage();
+    
     
     public void setX(int x);
 

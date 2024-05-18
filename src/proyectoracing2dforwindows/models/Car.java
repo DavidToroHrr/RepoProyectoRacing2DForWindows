@@ -75,6 +75,7 @@ public abstract class Car extends Object implements CarCustomable {
         y += getVelocityY();
         
         movable.verifyObjectCollision(this);
+        paint.repaint(x,y,width,height);
         
     }
 
@@ -99,14 +100,14 @@ public abstract class Car extends Object implements CarCustomable {
         public void draw(Graphics g) {
         super.draw(g);
         // Dibuja el carro en su posición actual
-        Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
-        g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
+        //Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
+        //g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
         //int temporalWidth=width;
         //width=height;
         //height=width;
-        g2d.drawImage(getImage(), x, y, width, height, null);
+        //g2d.drawImage(getImage(), x, y, width, height, null);
         
-        //paint.repaint();
+        paint.repaint();
     }
 
     /**

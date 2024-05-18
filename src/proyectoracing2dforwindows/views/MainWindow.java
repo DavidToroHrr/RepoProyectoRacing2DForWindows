@@ -30,7 +30,7 @@ import proyectoracing2dforwindows.models.Runway;
  *
  * @author usuario
  */
-public class MainWindow extends javax.swing.JFrame implements ClickListener, Paintable, KeyListener{
+public class MainWindow extends javax.swing.JFrame implements ClickListener, KeyListener{
 
     private GameSimulator game;
     private BufferedImage buffer;
@@ -99,7 +99,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
     
     @Override
     public void formKeyReleased(KeyEvent evt) {
-        System.out.println("REALEASED");
+        //System.out.println("REALEASED");
         if (evt.getKeyCode()==KeyEvent.VK_UP |
                 evt.getKeyCode()==KeyEvent.VK_LEFT|
                 evt.getKeyCode()==KeyEvent.VK_RIGHT|
@@ -110,14 +110,14 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
             } catch (InterruptedException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Nos vamos para arriba");
+            //System.out.println("Nos vamos para arriba");
         }
     }
 
     @Override
     public void formKeyPressed(KeyEvent evt) {
         // TODO add your handling code here:
-        System.out.println("Nos vamos para arriba");
+        //System.out.println("Nos vamos para arriba");
 
         // TODO add your handling code here:
         if (evt.getKeyChar()=='q') {
@@ -137,7 +137,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Pai
             } catch (InterruptedException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Nos vamos para arriba");
+            //System.out.println("Nos vamos para arriba");
         }
         
     }

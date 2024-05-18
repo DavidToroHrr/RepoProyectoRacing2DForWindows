@@ -91,7 +91,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
         }
-        //paint.repaint();
+        paint.repaint();
         
         
     }
@@ -103,6 +103,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
                 if(car.receiveEffect(specialObject,soundManager.getSounds())){
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
+                    //System.out.println(car.getWidth()+"despues de la fn");
                     createSpecialObject();
                     //paint.repaint();
                     
@@ -116,10 +117,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     public void keyPressed(KeyEvent e) throws InterruptedException {
     if (car1 != null) {
         car1.keyPressed(e);
-        
     }if (car2 != null) {
         car2.keyPressed(e);
-        
     }
     
     paint.repaint();
@@ -131,6 +130,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
         //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
         // Llama al método de keyPressed de la clase Car
+        
     }
     
 }
