@@ -4,8 +4,10 @@
  */
 package proyectoracing2dforwindows.threads;
 
+import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
+import proyectoracing2dforwindows.models.Sound;
 
 /**
  *
@@ -14,16 +16,18 @@ import proyectoracing2dforwindows.interfaces.CarCustomable;
 public class CarEngine implements Runnable {
     Applicable applicabe;
     CarCustomable carCustomable;
+    ArrayList <Sound>sound;
     private boolean control=false;
-    public CarEngine(Applicable applicabe,CarCustomable carCustomable) {
+    public CarEngine(Applicable applicabe,CarCustomable carCustomable,ArrayList <Sound>sound) {
         this.applicabe=applicabe;
         this.carCustomable=carCustomable;
+        this.sound=sound;
          
     }
     
     @Override
     public void run() {
-        applicabe.applyEfect(carCustomable);
+        applicabe.applyEfect(carCustomable,sound);
         control=true;
         
     }

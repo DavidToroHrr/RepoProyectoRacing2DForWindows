@@ -45,6 +45,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
 
     private MapManager mapManager;
     private Runway currentRunway;
+    private SoundManager soundManager;
     
     private Car car1;
     private Timer timer1;
@@ -67,15 +68,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
 
     public GameSimulator()throws IOException {
-
-    
-    
-    
-
-        
         this.mapManager = new MapManager();
         this.currentRunway = null;
-        
+        this.soundManager=new SoundManager();
         
         
     }
@@ -103,7 +98,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         while (iterator.hasNext()) {
             SpecialObject specialObject = iterator.next();
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
-                if(car.receiveEffect(specialObject)){
+                if(car.receiveEffect(specialObject,soundManager.getSounds())){
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
                     createSpecialObject();
                     //paint.repaint();

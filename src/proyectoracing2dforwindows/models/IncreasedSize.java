@@ -6,6 +6,7 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
@@ -22,13 +23,14 @@ public class IncreasedSize extends SpecialObject{
     }
 
     @Override
-    public void applyEfect(CarCustomable cb) {
+    public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
         cb.setHeight(64);
         cb.setWidth(64);
         System.out.println("AUMENTAR");
         paintable.repaint(x, y, width, height);
+        sound.get(1).playSound();
         
         try {
             Thread.sleep(2000);

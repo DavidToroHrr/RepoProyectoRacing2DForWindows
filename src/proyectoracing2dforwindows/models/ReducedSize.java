@@ -7,6 +7,7 @@ package proyectoracing2dforwindows.models;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import proyectoracing2dforwindows.interfaces.Applicable;
@@ -28,13 +29,15 @@ public class ReducedSize extends SpecialObject implements Applicable{
     
 
     @Override
-    public void applyEfect(CarCustomable cb) {
+    public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
         cb.setHeight(10);
         cb.setWidth(34);
         System.out.println("COLISIONNNNNNNNNNNNNNNN");
         paintable.repaint(x, y, width, height);
+        sound.get(0).playSound();
+        
         
         try {
             Thread.sleep(2000);

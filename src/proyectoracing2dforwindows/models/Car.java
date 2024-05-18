@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Movable;
@@ -80,9 +81,9 @@ public abstract class Car extends Object implements CarCustomable {
     public abstract void keyPressed(KeyEvent e);
 
     public abstract void keyReleased(KeyEvent e);
-    public boolean receiveEffect(Applicable ap){
+    public boolean receiveEffect(Applicable ap,ArrayList <Sound>sound){
         if (ce==null || ce.isControl() ) {
-            ce=new CarEngine(ap, this);
+            ce=new CarEngine(ap, this,sound);
             t1=new Thread(ce);
             t1.start();
             return true;
@@ -93,14 +94,18 @@ public abstract class Car extends Object implements CarCustomable {
         
         
     }
-
+    public void rotateCar(){}
     @Override
         public void draw(Graphics g) {
         super.draw(g);
         // Dibuja el carro en su posición actual
         Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
-        //g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
+        g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
+        //int temporalWidth=width;
+        //width=height;
+        //height=width;
         g2d.drawImage(getImage(), x, y, width, height, null);
+        
         //paint.repaint();
     }
 

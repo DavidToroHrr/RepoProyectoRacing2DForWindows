@@ -4,11 +4,15 @@
  */
 package proyectoracing2dforwindows.interfaces;
 
+import java.util.ArrayList;
+import proyectoracing2dforwindows.models.Sound;
+
 /**
  *
  * @author david
  */
 public interface Applicable {
-    public void applyEfect(CarCustomable cc);
+    public void applyEfect(CarCustomable cc,ArrayList <Sound>sound);
+    
     
 }
