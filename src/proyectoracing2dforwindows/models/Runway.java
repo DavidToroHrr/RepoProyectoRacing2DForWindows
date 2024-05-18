@@ -45,9 +45,11 @@ public class Runway extends Sprite{
     private final int CELL_IMAGE_WALL = 3;
     private final int CELL_IMAGE_FINISH = 4;
     private final int CELL_IMAGE_CHECKPOINT = 5;
+    
+    private ArrayList<Checkpoint> checkPoints;
 
     public Runway(int x, int y, int width, int height, String name, 
-            String description, ArrayList<String> circuitStr) {
+            String description, ArrayList<String> circuitStr, ArrayList<String> checkpoints_measures) {
         super(x, y, width, height);
         this.name = name;
         this.description = description;
@@ -63,6 +65,9 @@ public class Runway extends Sprite{
         cellImages.add(loadImage(path+"wall.jpg"));
         cellImages.add(loadImage(path+"finish.jpg"));
         cellImages.add(loadImage(path+"checkpoint.jpg"));
+        
+        checkPoints = new ArrayList<>();
+        configCheckpoints(checkpoints_measures);
     }
     
     public void configCircuit(){
@@ -140,6 +145,16 @@ public class Runway extends Sprite{
         return null;
     }
     
+    public int verifyCheckpointCollision(int x2,int y2,int width2,int height2){
+        for(Checkpoint cp : checkPoints){
+            if(cp.verifyCollision(x2, y2, width2, height2)){
+                return cp.getPriority();
+            }
+        }
+        
+        return -1;
+    }
+    
     private BufferedImage loadImage(String path){
         File file = new File(path);
         BufferedImage cellImage = null;
@@ -149,6 +164,21 @@ public class Runway extends Sprite{
             Logger.getLogger(Object.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cellImage;
+    }
+    
+    private void configCheckpoints(ArrayList<String> checkpoints_measures){
+        int priority = 0;
+        int size = Cell.SIZE;
+        for(String line : checkpoints_measures){
+            String[] measures = line.split(":");
+            int cpX = Integer.parseInt(measures[0])*size;
+            int cpY = Integer.parseInt(measures[1])*size;
+            int cpWidth = Integer.parseInt(measures[2])*size;
+            int cpHeight = Integer.parseInt(measures[3])*size;
+            Checkpoint checkpoint = new Checkpoint(cpX, cpY, cpWidth, cpHeight, priority);
+            checkPoints.add(checkpoint);
+            priority += 1;
+        }
     }
 
     @Override
@@ -170,6 +200,8 @@ public class Runway extends Sprite{
         return description;
     }
     
-    
+    public int getnCheckpoints(){
+        return checkPoints.size();
+    }
     
 }

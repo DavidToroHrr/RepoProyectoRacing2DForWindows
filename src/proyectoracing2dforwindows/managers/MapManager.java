@@ -90,11 +90,10 @@ public class MapManager {
         ArrayList<String> checkpoints_measures = new ArrayList<>();
         for(int i = 28; i < map.size(); i++){
             checkpoints_measures.add(map.get(i));
-            System.out.println(map.get(i));
         }
         
 
-        Runway runway = new Runway(x, y, trackWidth * Cell.SIZE, trackHeight * Cell.SIZE, name, description, circuitStr);
+        Runway runway = new Runway(x, y, trackWidth * Cell.SIZE, trackHeight * Cell.SIZE, name, description, circuitStr, checkpoints_measures);
         return runway;
     }
 
