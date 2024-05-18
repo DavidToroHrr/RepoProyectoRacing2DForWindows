@@ -36,27 +36,18 @@ public class ReducedSize extends SpecialObject implements Applicable{
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
         
-        BufferedImage imageCar1 = null;
-        URL imageCarUrl1 = getClass().getResource("/data/cars/greencarRedimensionado.png");
-        try {
-            imageCar1 = javax.imageio.ImageIO.read(imageCarUrl1);
-        } catch (IOException ex) {
-            Logger.getLogger(ReducedSize.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         
         cb.setHeight(10);
         cb.setWidth(34);
-        BufferedImage imageOriginar;
-        imageOriginar = cb.getImage();
-        cb.setImage(imageCar1);
+        
+        
+        cb.setImage(cb.getCarImages().get(1));
+        
         System.out.println("COLISIONNNNNNNNNNNNNNNN");
         paintable.repaint();
         sound.get(0).playSound();
         System.out.println(cb.getWidth()+"ancho despues");
         System.out.println(cb.getHeight()+"ancho despues");
-        
-        
         
         try {
             Thread.sleep(2000);
@@ -67,7 +58,9 @@ public class ReducedSize extends SpecialObject implements Applicable{
         
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);
-        cb.setImage(imageOriginar);
+        
+        cb.setImage(cb.getCarImages().get(0));
+        
         paintable.repaint(cb.getX(), cb.getY(), width, height);
 
     }

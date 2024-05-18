@@ -26,8 +26,10 @@ public class IncreasedSize extends SpecialObject{
     public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
-        cb.setHeight(64);
-        cb.setWidth(64);
+        cb.setHeight(57);
+        cb.setWidth(101);
+        
+        cb.setImage(cb.getCarImages().get(2));
         System.out.println("AUMENTAR");
         paintable.repaint(x, y, width, height);
         sound.get(1).playSound();
@@ -41,6 +43,8 @@ public class IncreasedSize extends SpecialObject{
         
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);
+        
+        cb.setImage(cb.getCarImages().get(0));
         paintable.repaint(x, y, width, height);
 
     }

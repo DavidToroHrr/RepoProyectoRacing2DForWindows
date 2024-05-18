@@ -6,62 +6,60 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.net.URL;
+import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 
 /**
  *
- * @author david
+ * @author usuario
  */
-public class Car2 extends Car{
-
-    public Car2(int x, int y, int width, int height, String id, BufferedImage image, URL url, Paintable p1, Movable movable) {
-        super(x, y, width, height, id, image, url, p1, movable);
+public class Player2 extends Player{
+    public Player2(String name, BufferedImage carImage, Paintable paintable, Movable movable,ArrayList <BufferedImage> carImages) {
+        super(name, carImage);
+        car = new Car(900 / 2 - 300, 900 / 2, 34, 60, name, carImage, null, paintable, movable,carImages);
     }
+
     public void keyPressed(KeyEvent e) {
-        paint.repaint(x,y,width,height);
         
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_A) {
-            setVelocityX(getVelocityX() - SPEED_INCREMENT);
+            car.keyPressed('L');
         }
         // Acelerar el carro hacia la derecha
         else if (tecla == KeyEvent.VK_D) {
-            setVelocityX(getVelocityX() + SPEED_INCREMENT);
+            car.keyPressed('R');
         }
         // Acelerar el carro hacia arriba
         else if (tecla == KeyEvent.VK_W) {
-            setVelocityY(getVelocityY() - SPEED_INCREMENT);
+            car.keyPressed('U');
         }
         // Acelerar el carro hacia abajo
         else if (tecla == KeyEvent.VK_S) {
-            setVelocityY(getVelocityY() + SPEED_INCREMENT);
+            car.keyPressed('D');
         }
         
     }
 
     public void keyReleased(KeyEvent e) {
-                paint.repaint(x,y,width,height);
 
         System.out.println("entro a keyrealeased");
         int tecla = e.getKeyCode();
         // Frenar solo si no se está acelerando en esa dirección
-        if (tecla == KeyEvent.VK_LEFT || tecla == KeyEvent.VK_RIGHT) {
-            if (getVelocityX() > 0) {
-                setVelocityX(getVelocityX() - BRAKE);
-            } else if (getVelocityX() < 0) {
-                setVelocityX(getVelocityX() + BRAKE);
+        if (tecla == KeyEvent.VK_A || tecla == KeyEvent.VK_D) {
+            if(tecla == KeyEvent.VK_A){
+                car.keyReleased('L');
+            }else{
+                car.keyReleased('R');
             }
-        } else if (tecla == KeyEvent.VK_UP || tecla == KeyEvent.VK_DOWN) {
-            if (getVelocityY() > 0) {
-                setVelocityY(getVelocityY() - BRAKE);
-            } else if (getVelocityY() < 0) {
-                setVelocityY(getVelocityY() + BRAKE);
+        } else if (tecla == KeyEvent.VK_W || tecla == KeyEvent.VK_S) {
+            if(tecla == KeyEvent.VK_UP){
+                car.keyReleased('U');
+            }else{
+                car.keyReleased('D');
             }
         }
-        paint.repaint(x,y,width,height);
         
     }
 }

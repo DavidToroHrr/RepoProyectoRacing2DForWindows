@@ -5,7 +5,7 @@
 package proyectoracing2dforwindows.managers;
 import proyectoracing2dforwindows.interfaces.*;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
+
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,18 +20,7 @@ import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.interfaces.Coordenate;
 import proyectoracing2dforwindows.interfaces.Paintable;
-import proyectoracing2dforwindows.models.Car;
-import proyectoracing2dforwindows.models.Car1;
-import proyectoracing2dforwindows.models.Car2;
-import proyectoracing2dforwindows.models.Cell;
-import proyectoracing2dforwindows.models.CellBorder;
-import proyectoracing2dforwindows.models.CellGrass;
-import proyectoracing2dforwindows.models.CellTrail;
-import proyectoracing2dforwindows.models.CellWall;
-import proyectoracing2dforwindows.models.IncreasedSize;
-import proyectoracing2dforwindows.models.ReducedSize;
-import proyectoracing2dforwindows.models.Runway;
-import proyectoracing2dforwindows.models.SpecialObject;
+import proyectoracing2dforwindows.models.*;
 
 import proyectoracing2dforwindows.models.Sprite;
 
@@ -46,14 +35,17 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     private MapManager mapManager;
     private Runway currentRunway;
     private SoundManager soundManager;
+    private ImageManager imageManager;
     
-    private Car car1;
+    private int nCheckpoints;
+    
+    private Player1 player1;
     private Timer timerCar1;
     private BufferedImage imageCar1;
     URL imageCarUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
+    private Player2 player2;
     private Timer timerCar2;
-    private Car car2;
     private BufferedImage imageCar2;
     URL imageCarUrl2 = getClass().getResource("/data/cars/greencar.png");
   
@@ -69,11 +61,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     URL shrinkUrl2 = getClass().getResource("/data/powers/hongo.png");
     
     
+    
+    
 
     public GameSimulator()throws IOException {
         this.mapManager = new MapManager();
         this.currentRunway = null;
         this.soundManager=new SoundManager();
+        this.imageManager=new ImageManager();
         
         
     }
@@ -84,10 +79,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             
         }
         
-        if (car1 != null) {
+        if (player1 != null) {
             
-            car1.draw(g); // Dibuja el carro normal si no hay colisión
-            car2.draw(g); // Dibuja el carro normal si no hay colisión
+            player1.draw(g); // Dibuja el carro normal si no hay colisión
+            player2.draw(g); // Dibuja el carro normal si no hay colisión
             
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
         }
@@ -96,6 +91,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         
     }
     
+    @Override
     public void verifyObjectCollision(Car car){
         Iterator<SpecialObject> iterator = specialsObjects.iterator();
         while (iterator.hasNext()) {
@@ -113,19 +109,53 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         }
         
     }
+    
+    @Override
+    public void verifyCheckpoints(int x, int y, int width, int height, String id) {
+        int cp_collided = currentRunway.verifyCheckpointCollision(x, y, width, height);
+        if(cp_collided == -1){
+            return;
+        }
+        int cp_current;
+        if(id.equals("player1")){
+            cp_current = player1.getCpCurrent();
+            if(cp_current == -1 & cp_collided == 0){
+                player1.setCpCurrent(cp_collided);
+            }else if(cp_current + 1 == cp_collided){
+                player1.setCpCurrent(cp_collided);
+            }else if(cp_current == nCheckpoints & cp_collided == 0){
+                player1.setCpCurrent(cp_collided);
+            }
+            System.out.println("player1 checpoint actual:"+player1.getCpCurrent());
+        }else if(id.equals("player2")){
+            cp_current = player2.getCpCurrent();
+            if(cp_current == -1 & cp_collided == 0){
+                player2.setCpCurrent(cp_collided);
+            }else if(cp_current + 1 == cp_collided){
+                player2.setCpCurrent(cp_collided);
+            }else if(cp_current == nCheckpoints & cp_collided == 0){
+                player2.setCpCurrent(cp_collided);
+            }
+            System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
+        }
+        
+        
+    }
 
     public void keyPressed(KeyEvent e) throws InterruptedException {
-    if (car1 != null) {
-        car1.keyPressed(e);
-    }if (car2 != null) {
-        car2.keyPressed(e);
+
+    if (player1 != null) {
+        player1.keyPressed(e);
+    }if (player2 != null) {
+        player2.keyPressed(e);
+
     }
     
     paint.repaint();
 }
     public void keyReleased(KeyEvent e) throws InterruptedException {
-    if (car1 != null) {
-        car1.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
+    if (player1 != null) {
+        player1.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
         //TO DO:
         //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
         //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
@@ -165,37 +195,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     }
     
     
-
+    @Override
     public void setPaint(Paintable paint) {
         this.paint = paint;
-        this.specialsObjects=new ArrayList<>();
-        if (getCurrentRunway() != null) {
-            try {
-                // Si se cargó la pista, inicializa el carro
-                imageCar1 = javax.imageio.ImageIO.read(imageCarUrl1); 
-                imageCar2 = javax.imageio.ImageIO.read(imageCarUrl2); 
-                imageIncrease=javax.imageio.ImageIO.read(shrinkUrl2);
-            } catch (IOException ex) {
-                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                car1 = new Car1(900/2-250, 900/2, 34, 60, "Carro1", imageCar1, imageCarUrl1,paint,this);
-                car2 = new Car2(900/2-300, 900/2, 34, 60, "Carro2", imageCar2, imageCarUrl2,paint,this);
-                
-            try {
-                imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
-            } catch (IOException ex) {
-                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-                timerCar1 = new Timer(10, e -> car1.actualizar());
-                //timer = new Timer(30, e -> car1.actualizar());
-                timerCar1.start();
-                timerCar2 = new Timer(10, e -> car2.actualizar());
-                //timer = new Timer(30, e -> car1.actualizar());
-                timerCar2.start();
-                createSpecialObject();
-                
-            }
+        initializePlayers();
     }
 
     @Override
@@ -249,6 +252,15 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
     
     public void createSpecialObject(){
+        
+        try {
+                // Si se cargó la pista, inicializa el carro
+                imageIncrease = javax.imageio.ImageIO.read(shrinkUrl2);
+                imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
+
+            } catch (IOException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         int contObj=specialsObjects.size();
         while (contObj<=10) {                    
             int px=(int)(Math.random()*900);
@@ -268,6 +280,34 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
 
             }
     
+    }
+
+    private void initializePlayers(){
+        ArrayList <BufferedImage> imagesRedCar=new ArrayList<>();
+        imagesRedCar=imageManager.getImagesRedCar();
+        
+        ArrayList <BufferedImage> imagesGreenCar=new ArrayList<>();
+        imagesGreenCar=imageManager.getImagesGreenCar();
+
+                
+        this.specialsObjects = new ArrayList<>();
+        
+        if (getCurrentRunway() != null) {
+         
+            player1 = new Player1("player1", imagesRedCar.get(0), paint, this,imagesRedCar);
+            timerCar1 = new Timer(10, e -> player1.actualizar());
+            //timer = new Timer(30, e -> car1.actualizar());
+            timerCar1.start();
+            
+            player2 = new Player2("player2", imagesGreenCar.get(0), paint, this,imagesGreenCar);
+            timerCar2 = new Timer(10, e -> player2.actualizar());
+            //timer = new Timer(30, e -> car1.actualizar());
+            timerCar2.start();
+            
+            createSpecialObject();
+            nCheckpoints = currentRunway.getnCheckpoints()-1;
+
+        }
     }
     
     

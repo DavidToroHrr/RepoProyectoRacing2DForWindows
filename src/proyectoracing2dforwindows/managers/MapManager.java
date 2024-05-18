@@ -13,6 +13,7 @@ import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.models.Cell;
 import proyectoracing2dforwindows.models.Runway;
+import proyectoracing2dforwindows.models.Sprite;
 
 /**
  *
@@ -59,7 +60,7 @@ public class MapManager {
         String description = line2[1];
 
         ArrayList<String> circuitStr = new ArrayList<>();
-        for (int i = 2; i < map.size(); i++) {
+        for (int i = 2; i < 27; i++) {
             circuitStr.add(map.get(i));
         }
 
@@ -75,17 +76,24 @@ public class MapManager {
 
         // Verifica si las dimensiones son menores a 25 caracteres en los ejes X y Y
         for (String row : circuitStr) {
-    if (row.length() < 25) {
-            throw new InvalidMapFormatException("One row of the circuit has less than 25 characters.");
+            if (row.length() < 25) {
+                throw new InvalidMapFormatException("One row of the circuit has less than 25 characters.");
+            }
         }
-    }
 
-    // Verifica que haya al menos 25 filas en total
-    if (circuitStr.size() < 25) {
-        throw new InvalidMapFormatException("The circuit has less than 25 rows.");
-    }
+        // Verifica que haya al menos 25 filas en total
+        if (circuitStr.size() < 25) {
+            throw new InvalidMapFormatException("The circuit has less than 25 rows.");
+        }
+        
+        
+        ArrayList<String> checkpoints_measures = new ArrayList<>();
+        for(int i = 28; i < map.size(); i++){
+            checkpoints_measures.add(map.get(i));
+        }
+        
 
-        Runway runway = new Runway(x, y, trackWidth * Cell.SIZE, trackHeight * Cell.SIZE, name, description, circuitStr);
+        Runway runway = new Runway(x, y, trackWidth * Cell.SIZE, trackHeight * Cell.SIZE, name, description, circuitStr, checkpoints_measures);
         return runway;
     }
 

@@ -17,7 +17,7 @@ import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.threads.CarEngine;
 
-public abstract class Car extends Object implements CarCustomable {
+public class Car extends Object implements CarCustomable {
     Paintable paint;
     protected CarEngine ce;
     protected Thread t1;
@@ -31,9 +31,13 @@ public abstract class Car extends Object implements CarCustomable {
     public static final int MAX_SPEED_BORDER = 2; // Velocidad máxima del carro
     public static final int MAX_SPEED_GRASS = 1; // Velocidad máxima del carro
     protected final int BRAKE=0;
-    public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable) {
+    private ArrayList <BufferedImage> CarImages;
+    
+    public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable,ArrayList <BufferedImage> CarImages) {
         super(x, y, width, height, id, image, url);
         maxSpeed = MAX_SPEED_TRAIL;
+        this.CarImages=new ArrayList<>();
+        this.CarImages=CarImages;
         this.velocityX = 0;
         this.velocityY = 0;
         this.paint=p1;
@@ -75,13 +79,56 @@ public abstract class Car extends Object implements CarCustomable {
         y += getVelocityY();
         
         movable.verifyObjectCollision(this);
+
         paint.repaint(x,y,width,height);
+
+        movable.verifyCheckpoints(x, y, width, height, id);
+
         
     }
 
-    public abstract void keyPressed(KeyEvent e);
+    public void keyPressed(char key){
+        paint.repaint(x,y,width,height);
+        
+        // Acelerar el carro hacia la izquierda
+        if (key == 'L') {
+            setVelocityX(getVelocityX() - SPEED_INCREMENT);
+        }
+        // Acelerar el carro hacia la derecha
+        else if (key == 'R') {
+            setVelocityX(getVelocityX() + SPEED_INCREMENT);
+        }
+        // Acelerar el carro hacia arriba
+        else if (key == 'U') {
+            setVelocityY(getVelocityY() - SPEED_INCREMENT);
+        }
+        // Acelerar el carro hacia abajo
+        else if (key == 'D') {
+            setVelocityY(getVelocityY() + SPEED_INCREMENT);
+        }
+    }
 
-    public abstract void keyReleased(KeyEvent e);
+    public void keyReleased(char key){
+        paint.repaint(x, y, width, height);
+
+        System.out.println("entro a keyrealeased");
+        // Frenar solo si no se está acelerando en esa dirección
+        if (key == 'L' || key == 'R') {
+            if (getVelocityX() > 0) {
+                setVelocityX(getVelocityX() - BRAKE);
+            } else if (getVelocityX() < 0) {
+                setVelocityX(getVelocityX() + BRAKE);
+            }
+        } else if (key == 'U' || key == 'D') {
+            if (getVelocityY() > 0) {
+                setVelocityY(getVelocityY() - BRAKE);
+            } else if (getVelocityY() < 0) {
+                setVelocityY(getVelocityY() + BRAKE);
+            }
+        }
+        paint.repaint(x, y, width, height);
+    }
+    
     public boolean receiveEffect(Applicable ap,ArrayList <Sound>sound){
         if (ce==null || ce.isControl() ) {
             ce=new CarEngine(ap, this,sound);
@@ -140,6 +187,13 @@ public abstract class Car extends Object implements CarCustomable {
 
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+
+    /**
+     * @return the CarImages
+     */
+    public ArrayList <BufferedImage> getCarImages() {
+        return CarImages;
     }
     
     

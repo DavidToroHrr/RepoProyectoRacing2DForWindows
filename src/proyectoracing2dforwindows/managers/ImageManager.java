@@ -17,19 +17,23 @@ import proyectoracing2dforwindows.models.ReducedSize;
  * @author david
  */
 public class ImageManager {
-    private ArrayList <BufferedImage> carsImages;
+
+    private ArrayList <BufferedImage> imagesRedCar;
+    private ArrayList <BufferedImage> imagesGreenCar;
     
 
-    public ImageManager() {
-        this.carsImages = carsImages;
+    public ImageManager() throws IOException {
         
+        imagesRedCar=new ArrayList<>();
+        imagesGreenCar=new ArrayList<>();
+        createCarImages();
         
     }
-    public void createCarImages(ArrayList <BufferedImage> carsImages) throws IOException{
+    public void createCarImages() throws IOException{
         //para el carro 1;
         //se debe de crear una variable para img,
             
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 6; i++) {
             BufferedImage imageCar = null;
             URL Url= null;
             switch (i) {
@@ -37,31 +41,51 @@ public class ImageManager {
                     Url = getClass().getResource("/data/cars/greencar.png");
                     break;
                 case 1:
-                    Url = getClass().getResource("/data/cars/greencar.png");
+                    Url = getClass().getResource("/data/cars/greencarRedimensionado.png");
                     break;
                 case 2:
-                    Url = getClass().getResource("/data/cars/redcar.png");
+                    Url = getClass().getResource("/data/cars/biggreencar.png");
                     break;
                 case 3:
+                    Url = getClass().getResource("/data/cars/redcar.png");
+                    break;
+                case 4:
                     Url = getClass().getResource("/data/cars/redcarRedimensionado.png");
+                    break;
+                case 5:
+                    Url = getClass().getResource("/data/cars/bigredcar.png");
                     break;
                 default:
                     break;
             }
-            
             imageCar = javax.imageio.ImageIO.read(Url);
-            carsImages.add(imageCar);
+            if (i<=2) {
+                getImagesGreenCar().add(imageCar);
+            }else if (i<=5) {
+                getImagesRedCar().add(imageCar);
+            }
+            
+            
         }
     
     
     }
 
     /**
-     * @return the carsImages
+     * @return the imagesRedCar
      */
-    public ArrayList <BufferedImage> getCarsImages() {
-        return carsImages;
+    public ArrayList <BufferedImage> getImagesRedCar() {
+        return imagesRedCar;
     }
+
+    /**
+     * @return the imagesGreenCar
+     */
+    public ArrayList <BufferedImage> getImagesGreenCar() {
+        return imagesGreenCar;
+    }
+
+    
     
     
 }
