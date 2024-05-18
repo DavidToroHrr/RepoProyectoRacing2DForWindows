@@ -4,15 +4,16 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author david
  */
 public class CellBorder extends Cell{
     public static final String CELL_ID="cellborder";
-    public CellBorder(int x, int y) {
-        super(x, y, CELL_ID);
-        loagImage("src/data/resources/runway/finish.jpg");
+    public CellBorder(int x, int y, BufferedImage image) {
+        super(x, y, CELL_ID, image);
         
     }
     

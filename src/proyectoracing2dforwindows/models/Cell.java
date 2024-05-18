@@ -4,6 +4,8 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author usuario
@@ -12,9 +14,9 @@ public abstract class Cell extends Object{
 
     public static final int SIZE = 36;
     
-    public Cell(int x, int y, String id) {
+    public Cell(int x, int y, String id, BufferedImage image) {
         super(x, y, SIZE, SIZE, id,null,null);
-        
+        setImage(image);
     }
     public boolean verifyTouchCell(int x, int y) {
         if (x >= this.x && x <= this.x + width &&

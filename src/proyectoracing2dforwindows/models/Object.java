@@ -36,7 +36,7 @@ public abstract class Object extends Sprite{
         this.url=url;
     }
 
-    public void loagImage(String path){
+    public void loadImage(String path){
         File file = new File(path);
         try {
             setImage(ImageIO.read(file));

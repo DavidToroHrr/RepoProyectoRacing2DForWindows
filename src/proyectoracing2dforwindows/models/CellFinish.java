@@ -4,6 +4,7 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -12,9 +13,8 @@ import java.io.IOException;
  */
 public class CellFinish extends Cell{
      public static final String CELL_ID="cellfinish";
-    public CellFinish(int x, int y) throws IOException {
-        super(x, y, CELL_ID);
-        loagImage("src/data/resources/runway/finish.jpg");
+    public CellFinish(int x, int y, BufferedImage image) throws IOException {
+        super(x, y, CELL_ID, image);
     }
     
 }

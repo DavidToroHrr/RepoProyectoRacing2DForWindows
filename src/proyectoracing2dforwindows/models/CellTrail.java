@@ -4,6 +4,7 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -13,9 +14,8 @@ import java.io.IOException;
 public class CellTrail extends Cell{
     public static final String CELL_ID="celltrail";
 
-    public CellTrail(int x, int y) throws IOException {
-        super(x, y, CELL_ID);
-        loagImage("src/data/resources/runway/trail.jpg");
+    public CellTrail(int x, int y, BufferedImage image) throws IOException {
+        super(x, y, CELL_ID, image);
     }
     
 }

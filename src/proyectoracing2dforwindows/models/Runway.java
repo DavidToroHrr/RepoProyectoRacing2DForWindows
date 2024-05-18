@@ -6,10 +6,13 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -34,6 +37,14 @@ public class Runway extends Sprite{
     private String description;
     private ArrayList<String> circuitStr;
     private ArrayList<ArrayList<Cell>> circuit;
+    private ArrayList<BufferedImage> cellImages;
+    
+    private final int CELL_IMAGE_TRAIL = 0;
+    private final int CELL_IMAGE_BORDER = 1;
+    private final int CELL_IMAGE_GRASS = 2;
+    private final int CELL_IMAGE_WALL = 3;
+    private final int CELL_IMAGE_FINISH = 4;
+    private final int CELL_IMAGE_CHECKPOINT = 5;
 
     public Runway(int x, int y, int width, int height, String name, 
             String description, ArrayList<String> circuitStr) {
@@ -42,6 +53,16 @@ public class Runway extends Sprite{
         this.description = description;
         this.circuit = new ArrayList<>();
         this.circuitStr = circuitStr;
+        
+        cellImages = new ArrayList<>();
+        String path = "src/data/resources/runway/";
+        
+        cellImages.add(loadImage(path+"trail.jpg"));
+        cellImages.add(loadImage(path+"border.jpg"));
+        cellImages.add(loadImage(path+"grass.jpg"));
+        cellImages.add(loadImage(path+"wall.jpg"));
+        cellImages.add(loadImage(path+"finish.jpg"));
+        cellImages.add(loadImage(path+"checkpoint.jpg"));
     }
     
     public void configCircuit(){
@@ -55,25 +76,25 @@ public class Runway extends Sprite{
             try{
                 for (char item : rowS.toCharArray()) {
                     Cell cell;
-                    cell = new CellGrass(x, y);
-
-                    if (item == 'G') {
-                        cell = new CellGrass(x, y);
-                    }
-                    if (item == 'W') {
-                        cell = new CellWall(x, y);
-                    }
+                    cell = null;
+                    
                     if (item == 'T') {
-                        cell = new CellTrail(x, y);
-                    }
-                    if (item == 'F') {
-                        cell = new CellFinish(x, y);
-                    }
-                    if (item == 'C') {
-                        cell = new CellCheckPoint(x, y);
+                        cell = new CellTrail(x, y, cellImages.get(CELL_IMAGE_TRAIL));
                     }
                     if (item == 'B') {
-                        cell = new CellBorder(x, y);
+                        cell = new CellBorder(x, y, cellImages.get(CELL_IMAGE_BORDER));
+                    }
+                    if (item == 'G') {
+                        cell = new CellGrass(x, y, cellImages.get(CELL_IMAGE_GRASS));
+                    }
+                    if (item == 'W') {
+                        cell = new CellWall(x, y, cellImages.get(CELL_IMAGE_WALL));
+                    }
+                    if (item == 'F') {
+                        cell = new CellFinish(x, y, cellImages.get(CELL_IMAGE_FINISH));
+                    }
+                    if (item == 'C') {
+                        cell = new CellCheckPoint(x, y, cellImages.get(CELL_IMAGE_CHECKPOINT));
                     }
 
                     rowC.add(cell);
@@ -91,6 +112,7 @@ public class Runway extends Sprite{
             
         }
     }
+    
     public boolean verifyPoint(int x,int y){//aqui vamos a recorrer la pista
         for (ArrayList<Cell> arrayList : circuit) {
             for (Cell cell : arrayList) {
@@ -106,6 +128,7 @@ public class Runway extends Sprite{
         return false;
     
     }
+    
     public Cell verifyCellCollision(int x2,int y2,int width2,int height2){
         for(ArrayList<Cell> row : circuit){
             for(Cell cell : row){
@@ -115,6 +138,17 @@ public class Runway extends Sprite{
             }
         }
         return null;
+    }
+    
+    private BufferedImage loadImage(String path){
+        File file = new File(path);
+        BufferedImage cellImage = null;
+        try {
+            cellImage = ImageIO.read(file);
+        } catch (IOException ex) {
+            Logger.getLogger(Object.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cellImage;
     }
 
     @Override
