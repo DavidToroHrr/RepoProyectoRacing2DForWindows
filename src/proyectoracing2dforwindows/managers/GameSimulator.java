@@ -48,14 +48,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     private SoundManager soundManager;
     
     private Car car1;
-    private Timer timer1;
-    private BufferedImage image;
-    URL imageUrl1 = getClass().getResource("/data/cars/yellowcar.png");
+    private Timer timerCar1;
+    private BufferedImage imageCar1;
+    URL imageCarUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
-    private Timer timer2;
+    private Timer timerCar2;
     private Car car2;
-    private BufferedImage image2;
-    URL imageUrl2 = getClass().getResource("/data/cars/greencar.png");
+    private BufferedImage imageCar2;
+    URL imageCarUrl2 = getClass().getResource("/data/cars/greencar.png");
   
     private ArrayList <SpecialObject> specialsObjects;
     
@@ -64,6 +64,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     private BufferedImage imageShrink;
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
     
+    
+    private BufferedImage imageIncrease;
+    URL shrinkUrl2 = getClass().getResource("/data/powers/hongo.png");
     
     
 
@@ -169,13 +172,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         if (getCurrentRunway() != null) {
             try {
                 // Si se cargó la pista, inicializa el carro
-                image = javax.imageio.ImageIO.read(imageUrl1); 
-                image2 = javax.imageio.ImageIO.read(imageUrl2); 
+                imageCar1 = javax.imageio.ImageIO.read(imageCarUrl1); 
+                imageCar2 = javax.imageio.ImageIO.read(imageCarUrl2); 
+                imageIncrease=javax.imageio.ImageIO.read(shrinkUrl2);
             } catch (IOException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
-                car1 = new Car1(900/2-250, 900/2, 34, 60, "Carro1", image, imageUrl1,paint,this);
-                car2 = new Car2(900/2-300, 900/2, 34, 60, "Carro2", image2, imageUrl2,paint,this);
+                car1 = new Car1(900/2-250, 900/2, 34, 60, "Carro1", imageCar1, imageCarUrl1,paint,this);
+                car2 = new Car2(900/2-300, 900/2, 34, 60, "Carro2", imageCar2, imageCarUrl2,paint,this);
                 
             try {
                 imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
@@ -183,12 +187,12 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
-                timer1 = new Timer(10, e -> car1.actualizar());
+                timerCar1 = new Timer(10, e -> car1.actualizar());
                 //timer = new Timer(30, e -> car1.actualizar());
-                timer1.start();
-                timer2 = new Timer(10, e -> car2.actualizar());
+                timerCar1.start();
+                timerCar2 = new Timer(10, e -> car2.actualizar());
                 //timer = new Timer(30, e -> car1.actualizar());
-                timer2.start();
+                timerCar2.start();
                 createSpecialObject();
                 
             }
@@ -253,10 +257,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 int decision=(int)(Math.random()*2);
                 SpecialObject e;
                 if (decision==0) {
-                    e=new ReducedSize(px, py, 20, 20, "shrink", imageShrink, shrinkUrl1,paint);
+                    e=new ReducedSize(px, py, 30, 30, "shrink", imageShrink, shrinkUrl1,paint);
 
                 }else{
-                    e=new IncreasedSize(px, py, 20, 20, "grow", image, imageUrl1,paint);
+                    e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, shrinkUrl2,paint);
                 }
                 specialsObjects.add(e);
                 contObj+=1;
