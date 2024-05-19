@@ -17,7 +17,7 @@ public abstract class Player {
     protected Car car;
     private int cpCurrent;
     
-    public Player(String name, BufferedImage carImage){
+    public Player(String name){
         this.name = name;
         this.cpCurrent = -1;
     }

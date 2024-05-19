@@ -34,6 +34,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     private static GameSimulator instance;
 
     private MapManager mapManager;
+    private ScoreManager scoreManager;
     private Runway currentRunway;
     private SoundManager soundManager;
     private ImageManager imageManager;
@@ -42,11 +43,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
     private Timer gameUpdateTimer;
     
+    private String carplayer1;
     private Player1 player1;
     private Timer timerCar1;
     private BufferedImage imageCar1;
     URL imageCarUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
+    private String carplayer2;
     private Player2 player2;
     private Timer timerCar2;
     private BufferedImage imageCar2;
@@ -75,12 +78,20 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.currentRunway = null;
         this.soundManager=new SoundManager();
         this.imageManager=new ImageManager();
+        this.scoreManager = new ScoreManager();
+        this.carplayer1 = "redcar";
+        this.carplayer2 = "greencar";
         
-        
-        
-        
+        try {
+            scoreManager.loadScores();
+        } catch (FileManagerException ex) {
+            Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MapFileNotFoundException ex) {
+            Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
+    @Override
     public void drawElements(Graphics g) throws InterruptedException{
         
         for (SpecialObject specialsObject : specialsObjects) {
@@ -197,7 +208,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     public void loadMap(String nameMap) throws IOException{
             setCurrentRunway(mapManager.getRunway(nameMap));
             
-        }
+    }
+    
     public void addSpecialObject(){
     
     
@@ -388,13 +400,18 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.specialsObjects = new ArrayList<>();
         
         if (getCurrentRunway() != null) {
-         
-            player1 = new Player1("player1", imagesRedCar.get(0), paint, this,imagesRedCar);
+            //Player1
+            ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
+            String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
+            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this);
             timerCar1 = new Timer(10, e -> player1.actualizar());
             //timer = new Timer(30, e -> car1.actualizar());
             timerCar1.start();
             
-            player2 = new Player2("player2", imagesGreenCar.get(0), paint, this,imagesGreenCar);
+            //PLayer2
+            ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
+            String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
+            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this);
             timerCar2 = new Timer(10, e -> player2.actualizar());
             //timer = new Timer(30, e -> car1.actualizar());
             timerCar2.start();

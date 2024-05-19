@@ -15,7 +15,7 @@ public interface CarCustomable {
     public int getX();
     public void setImage(BufferedImage image);
     public BufferedImage getImage();
-    public ArrayList <BufferedImage> getCarImages();
+    public ArrayList <BufferedImage> getcarImages();
     
     public void setX(int x);
 

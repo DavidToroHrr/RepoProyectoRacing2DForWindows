@@ -31,7 +31,7 @@ public class ImageManager {
         createCarImages();
         
     }
-    public void createCarImages() throws IOException{
+    private void createCarImages() throws IOException{
         //para el carro 1;
         //se debe de crear una variable para img,
             
@@ -43,7 +43,7 @@ public class ImageManager {
                     Url = getClass().getResource("/data/cars/greencar.png");
                     break;
                 case 1:
-                    Url = getClass().getResource("/data/cars/greencarRedimensionado.png");
+                    Url = getClass().getResource("/data/cars/littlegreencar.png");
                     break;
                 case 2:
                     Url = getClass().getResource("/data/cars/biggreencar.png");
@@ -52,7 +52,7 @@ public class ImageManager {
                     Url = getClass().getResource("/data/cars/redcar.png");
                     break;
                 case 4:
-                    Url = getClass().getResource("/data/cars/redcarRedimensionado.png");
+                    Url = getClass().getResource("/data/cars/littleredcar.png");
                     break;
                 case 5:
                     Url = getClass().getResource("/data/cars/bigredcar.png");
@@ -85,6 +85,19 @@ public class ImageManager {
     
     }
 
+    public ArrayList <BufferedImage> getImagesCar(String car){
+        switch (car) {
+            case "redcar":
+                return imagesRedCar;
+            case "greencar":
+                return imagesGreenCar;
+            case "pinkcar":
+                return imagesPinkCar;
+            default:
+                return null;
+        }
+    }
+    
     /**
      * @return the imagesRedCar
      */

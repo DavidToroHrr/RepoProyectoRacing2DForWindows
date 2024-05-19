@@ -41,7 +41,7 @@ public class ReducedSize extends SpecialObject implements Applicable{
         cb.setWidth(34);
         
         
-        cb.setImage(cb.getCarImages().get(1));
+        cb.setImage(cb.getcarImages().get(1));
         
         System.out.println("COLISIONNNNNNNNNNNNNNNN");
         paintable.repaint();
@@ -61,7 +61,7 @@ public class ReducedSize extends SpecialObject implements Applicable{
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);
         
-        cb.setImage(cb.getCarImages().get(0));
+        cb.setImage(cb.getcarImages().get(0));
         
         paintable.repaint(cb.getX(), cb.getY(), width, height);
 
