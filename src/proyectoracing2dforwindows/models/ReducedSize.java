@@ -45,12 +45,14 @@ public class ReducedSize extends SpecialObject implements Applicable{
         
         System.out.println("COLISIONNNNNNNNNNNNNNNN");
         paintable.repaint();
+        
         sound.get(0).playSound();
+        
         System.out.println(cb.getWidth()+"ancho despues");
         System.out.println(cb.getHeight()+"ancho despues");
         
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(ReducedSize.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -54,7 +54,7 @@ public class Player2 extends Player{
                 car.keyReleased('R');
             }
         } else if (tecla == KeyEvent.VK_W || tecla == KeyEvent.VK_S) {
-            if(tecla == KeyEvent.VK_UP){
+            if(tecla == KeyEvent.VK_W){
                 car.keyReleased('U');
             }else{
                 car.keyReleased('D');

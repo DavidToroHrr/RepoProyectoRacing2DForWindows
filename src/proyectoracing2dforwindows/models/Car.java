@@ -33,6 +33,10 @@ public class Car extends Object implements CarCustomable {
     protected final int BRAKE=0;
     private ArrayList <BufferedImage> CarImages;
     
+     Graphics2D g2d;
+     
+     private int degree;
+    
     public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable,ArrayList <BufferedImage> CarImages) {
         super(x, y, width, height, id, image, url);
         maxSpeed = MAX_SPEED_TRAIL;
@@ -42,6 +46,8 @@ public class Car extends Object implements CarCustomable {
         this.velocityY = 0;
         this.paint=p1;
         this.movable = movable;
+        degree=0;
+        
         
     }
     public void actualizar() {
@@ -83,7 +89,7 @@ public class Car extends Object implements CarCustomable {
         paint.repaint(x,y,width,height);
 
         movable.verifyCheckpoints(x, y, width, height, id);
-
+        rotateCar();
         
     }
 
@@ -142,18 +148,27 @@ public class Car extends Object implements CarCustomable {
         
         
     }
-    public void rotateCar(){}
+    public void rotateCar(){
+        if (velocityX>0) {
+            degree =90;
+        } else if (velocityX<0) {
+            degree =-90;
+        } else if (velocityY>0) {
+            degree=180;
+        } else if (velocityY<0) {
+            degree=0;
+        }
+    }
     @Override
         public void draw(Graphics g) {
-        super.draw(g);
+ 
         // Dibuja el carro en su posición actual
-        //Graphics2D g2d = (Graphics2D) g.create(); // Crea una copia del contexto gráfico
-        //g2d.rotate(Math.toRadians(90), x + width / 2, y + height / 2); // Rota alrededor del centro de la imagen
-        //int temporalWidth=width;
-        //width=height;
-        //height=width;
-        //g2d.drawImage(getImage(), x, y, width, height, null);
-        
+        Graphics2D g2d =(Graphics2D)g.create(); // Crear una copia del contexto gráfico
+        g2d.rotate(Math.toRadians(degree),x+width/2, y+height/2);
+
+        super.draw(g2d);
+        g2d.dispose(); // Liberar el contexto gráfico
+
         paint.repaint();
     }
 

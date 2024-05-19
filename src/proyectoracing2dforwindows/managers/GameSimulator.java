@@ -59,6 +59,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
     private BufferedImage imageIncrease;
     URL shrinkUrl2 = getClass().getResource("/data/powers/hongo.png");
+
+    private BufferedImage imageStop;
+    URL stopUrl = getClass().getResource("/data/powers/stop.png");
     
     
     
@@ -82,9 +85,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         if (player1 != null) {
             
             player1.draw(g); // Dibuja el carro normal si no hay colisión
-            player2.draw(g); // Dibuja el carro normal si no hay colisión
+             // Dibuja el carro normal si no hay colisión
             
             //paint.repaint(); // Es posible que no necesites llamar repaint() aquí, depende de cómo se maneje en tu implementación
+        }
+        if (player2 !=null) {
+            player2.draw(g);
+            
         }
         paint.repaint();
         
@@ -156,6 +163,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     public void keyReleased(KeyEvent e) throws InterruptedException {
     if (player1 != null) {
         player1.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
+        //TO DO:
+        //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
+        //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
+        // Llama al método de keyPressed de la clase Car
+        
+    }
+    if (player2 != null) {
+        player2.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
         //TO DO:
         //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
         //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
@@ -257,6 +272,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 // Si se cargó la pista, inicializa el carro
                 imageIncrease = javax.imageio.ImageIO.read(shrinkUrl2);
                 imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
+                imageStop = javax.imageio.ImageIO.read(stopUrl);
 
             } catch (IOException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
@@ -266,14 +282,17 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             int px=(int)(Math.random()*900);
             int py=(int)(Math.random() * 900) + 30;
             if (currentRunway.verifyPoint(px, py)) {
-                int decision=(int)(Math.random()*2);
-                SpecialObject e;
+                int decision=(int)(Math.random()*3);
+                SpecialObject e=null;
                 if (decision==0) {
                     e=new ReducedSize(px, py, 30, 30, "shrink", imageShrink, shrinkUrl1,paint);
 
-                }else{
+                }else if(decision==1){
                     e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, shrinkUrl2,paint);
-                }
+                
+                }else if(decision==2){
+                    e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint) ;               }
+                
                 specialsObjects.add(e);
                 contObj+=1;
                 }
