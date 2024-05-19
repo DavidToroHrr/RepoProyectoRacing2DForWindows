@@ -15,14 +15,8 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import proyectoracing2dforwindows.exceptions.FileManagerException;
-import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
-import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
-import proyectoracing2dforwindows.interfaces.Coordenate;
-import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.exceptions.*;
 import proyectoracing2dforwindows.models.*;
-
-import proyectoracing2dforwindows.models.Sprite;
 
 /**
  *
@@ -45,15 +39,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     
     private String carplayer1;
     private Player1 player1;
-    private Timer timerCar1;
-    private BufferedImage imageCar1;
-    URL imageCarUrl1 = getClass().getResource("/data/cars/yellowcar.png");
     
     private String carplayer2;
     private Player2 player2;
-    private Timer timerCar2;
-    private BufferedImage imageCar2;
-    URL imageCarUrl2 = getClass().getResource("/data/cars/greencar.png");
   
     private ArrayList <SpecialObject> specialsObjects;
     
@@ -142,7 +130,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             return;
         }
         int cp_current;
-        if(id.equals("player1")){
+        if(id.equals(carplayer1)){
             cp_current = player1.getCpCurrent();
             if(cp_current == -1 & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
@@ -152,7 +140,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 player1.setCpCurrent(cp_collided);
             }
             System.out.println("player1 checpoint actual:"+player1.getCpCurrent());
-        }else if(id.equals("player2")){
+        }else if(id.equals(carplayer2)){
             cp_current = player2.getCpCurrent();
             if(cp_current == -1 & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
@@ -293,15 +281,15 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         return instance;
     }
     
-     public void updateGame() {
-    for (SpecialObject specialObject : specialsObjects) {
-        int newY = specialObject.getY() + specialObject.getVelocityY() * specialObject.getDirectionY();
-        verifySpecialObjectCollision(specialObject, newY);
-        specialObject.updatePosition(); // Asume que este método actualiza la posición basada en la dirección y velocidad
-    }
+    public void updateGame() {
+        for (SpecialObject specialObject : specialsObjects) {
+            int newY = specialObject.getY() + specialObject.getVelocityY() * specialObject.getDirectionY();
+            verifySpecialObjectCollision(specialObject, newY);
+            specialObject.updatePosition(); // Asume que este método actualiza la posición basada en la dirección y velocidad
+        }
     // Redibujar o actualizar el estado del juego aquí si es necesario
-    paint.repaint(); // Llama a repaint para actualizar la visualización si es necesario
-}
+        paint.repaint(); // Llama a repaint para actualizar la visualización si es necesario
+    }
 
     
     // aqui se esta verificando la colision con el borde de la pista
@@ -390,11 +378,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     }
 
     private void initializePlayers(){
-        ArrayList <BufferedImage> imagesRedCar=new ArrayList<>();
-        imagesRedCar=imageManager.getImagesRedCar();
-        
-        ArrayList <BufferedImage> imagesGreenCar=new ArrayList<>();
-        imagesGreenCar=imageManager.getImagesGreenCar();
 
                 
         this.specialsObjects = new ArrayList<>();
@@ -404,17 +387,11 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
             String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
             player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this);
-            timerCar1 = new Timer(10, e -> player1.actualizar());
-            //timer = new Timer(30, e -> car1.actualizar());
-            timerCar1.start();
             
             //PLayer2
             ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
             String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
             player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this);
-            timerCar2 = new Timer(10, e -> player2.actualizar());
-            //timer = new Timer(30, e -> car1.actualizar());
-            timerCar2.start();
             
             createSpecialObject();
             gameUpdateTimer = new Timer(10, e -> updateGame()); 

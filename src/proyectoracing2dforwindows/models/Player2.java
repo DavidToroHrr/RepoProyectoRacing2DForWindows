@@ -16,8 +16,8 @@ import proyectoracing2dforwindows.interfaces.Paintable;
  */
 public class Player2 extends Player{
     public Player2(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable) {
-        super(name);
-        car = new Car(900 / 2 - 300, 900 / 2, 34, 60, name, carImages, null, paintable, movable);
+        super(name, carImages, paintable, movable);
+        car.setX(900 / 2 - 300);
     }
 
     public void keyPressed(KeyEvent e) {

@@ -25,11 +25,16 @@ public class StoppedMovement extends SpecialObject{
 
     @Override
     public void applyEfect(CarCustomable cb, ArrayList<Sound> sound) {
-          
-            
-    cb.setVelocityX(0);
-    
-    cb.setVelocityY(0);
+        
+        long startTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
+        
+        while(currentTime-startTime < 500){
+            cb.setVelocityX(0);
+            cb.setVelocityY(0);
+            currentTime = System.currentTimeMillis();
+        }
+        
           
     }
     
