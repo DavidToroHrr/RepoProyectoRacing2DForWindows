@@ -116,4 +116,14 @@ public class ScoreManager {
             player2ScoreSelected = scoreIndex;
         }
     }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    public ArrayList<Integer> getScores() {
+        return scores;
+    }
+    
+    
 }

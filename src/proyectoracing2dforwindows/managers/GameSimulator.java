@@ -376,6 +376,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             }
     
     }
+    
+    public ArrayList<String> getScoreNames(){
+        return scoreManager.getNames();
+    }
+    
+    public ArrayList<Integer> getScorePoints(){
+        return scoreManager.getScores();
+    }
 
     private void initializePlayers(){
 
