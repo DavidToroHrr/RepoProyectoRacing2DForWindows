@@ -12,9 +12,14 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import proyectoracing2dforwindows.exceptions.FileManagerException;
+import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 
 /**
  *
@@ -100,7 +105,8 @@ public class MapSelector extends javax.swing.JPanel {
         ScrollMaps = new javax.swing.JScrollPane();
         PanelMaps = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        bJugar = new javax.swing.JButton();
+        bReturn = new javax.swing.JButton();
+        bJugar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(900, 780));
@@ -125,30 +131,57 @@ public class MapSelector extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 0, 718, 98));
 
-        bJugar.setBackground(new java.awt.Color(0, 153, 0));
-        bJugar.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        bJugar.setForeground(new java.awt.Color(255, 255, 255));
-        bJugar.setText("Jugar");
-        bJugar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 0), 5, true));
-        bJugar.setFocusPainted(false);
-        bJugar.addActionListener(new java.awt.event.ActionListener() {
+        bReturn.setBackground(new java.awt.Color(0, 153, 0));
+        bReturn.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        bReturn.setForeground(new java.awt.Color(255, 255, 255));
+        bReturn.setText("Return");
+        bReturn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 0), 5, true));
+        bReturn.setFocusPainted(false);
+        bReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bJugarActionPerformed(evt);
+                bReturnActionPerformed(evt);
             }
         });
-        add(bJugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 690, 192, 104));
+        add(bReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, 192, 104));
+
+        bJugar1.setBackground(new java.awt.Color(0, 153, 0));
+        bJugar1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        bJugar1.setForeground(new java.awt.Color(255, 255, 255));
+        bJugar1.setText("Jugar");
+        bJugar1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 0), 5, true));
+        bJugar1.setFocusPainted(false);
+        bJugar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bJugar1ActionPerformed(evt);
+            }
+        });
+        add(bJugar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 690, 192, 104));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bJugarActionPerformed
-        clickListener.playButtonClicked(mapSelected);
+    private void bReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReturnActionPerformed
+        try {
+            clickListener.showInitialMenu();
+        } catch (FileManagerException ex) {
+            Logger.getLogger(MapSelector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MapFileNotFoundException ex) {
+            Logger.getLogger(MapSelector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidMapFormatException ex) {
+            Logger.getLogger(MapSelector.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-    }//GEN-LAST:event_bJugarActionPerformed
+    }//GEN-LAST:event_bReturnActionPerformed
+
+    private void bJugar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bJugar1ActionPerformed
+        // TODO add your handling code here:
+        clickListener.playButtonClicked(mapSelected);
+    }//GEN-LAST:event_bJugar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelMaps;
     private javax.swing.JScrollPane ScrollMaps;
-    private javax.swing.JButton bJugar;
+    private javax.swing.JButton bJugar1;
+    private javax.swing.JButton bReturn;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

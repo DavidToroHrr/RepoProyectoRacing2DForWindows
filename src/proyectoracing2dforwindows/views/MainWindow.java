@@ -62,16 +62,45 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         revalidate();
     }
     
+    @Override
     public void showMapSelector() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
     java.util.List<String> mapNames = game.showMaps();
     MapSelector mapSelector = new MapSelector(this);
     mapSelector.showMaps((ArrayList<String>) mapNames);
     setCurrentPanel(mapSelector);
     }
-
+    @Override
+    public void showInitialMenu() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
+        System.out.println("Pasando por el menú inicial");
+        InitialMenu initialMenu = new InitialMenu(this);
+        
+        
+        setCurrentPanel(initialMenu);
+        initialMenu.requestFocus();
+        
+        
+        
+        
+    }
+    
+    public void showAboutUsPanel(){
+    AboutUsPanel aboutUsPanel = new AboutUsPanel(this);
+        
+    
+    setCurrentPanel(aboutUsPanel);
+    aboutUsPanel.requestFocus();
+    }
+    public void showOptionsPanel(){
+    OptionsPanel optionsPanel = new OptionsPanel(this);
+        
+    
+    setCurrentPanel(optionsPanel);
+    optionsPanel.requestFocus();
+    
+    }
     
     public void showGamePanel(String nameMap) throws IOException{
-       
+        System.out.println("paso por gamePanelq");
         game.loadMap(nameMap);
         Runway runway =game.getCurrentRunway();
         GamePanel gamePanel = new GamePanel(this, game);
@@ -82,6 +111,8 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
 
 
     }
+    
+    
 
     @Override
     public void menuButtonClicked(String nameButton) {
@@ -189,10 +220,17 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
      */
     public static void main(String args[]) throws IOException {
     try {
+        
         MainWindow window = new MainWindow();
         GameSimulator game = new GameSimulator();
         window.setGame(game);
-        window.showMapSelector();
+        
+        window.showInitialMenu();
+        
+        //window.showMapSelector();
+           
+        
+        
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
