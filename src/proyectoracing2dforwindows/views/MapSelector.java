@@ -112,11 +112,13 @@ public class MapSelector extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(900, 780));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        PanelMaps.setPreferredSize(new java.awt.Dimension(910, 508));
+
         javax.swing.GroupLayout PanelMapsLayout = new javax.swing.GroupLayout(PanelMaps);
         PanelMaps.setLayout(PanelMapsLayout);
         PanelMapsLayout.setHorizontalGroup(
             PanelMapsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 918, Short.MAX_VALUE)
+            .addGap(0, 910, Short.MAX_VALUE)
         );
         PanelMapsLayout.setVerticalGroup(
             PanelMapsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +127,7 @@ public class MapSelector extends javax.swing.JPanel {
 
         ScrollMaps.setViewportView(PanelMaps);
 
-        add(ScrollMaps, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 104, 920, 510));
+        add(ScrollMaps, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 104, 900, 510));
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         jLabel1.setText("jLabel1");

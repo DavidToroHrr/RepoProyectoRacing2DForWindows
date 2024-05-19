@@ -224,13 +224,12 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
      * @param args the command line arguments
      */
     public static void main(String args[]) throws IOException {
-    try {
         
         MainWindow window = new MainWindow();
         GameSimulator game = new GameSimulator();
         window.setGame(game);
         
-        window.showInitialMenu();
+        window.showPlayersAndScoresPanel();
         
         //window.showMapSelector();
            
@@ -240,9 +239,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         window.setAlwaysOnTop(true);
-    } catch (FileManagerException | MapFileNotFoundException | InvalidMapFormatException e) {
-        JOptionPane.showMessageDialog(null, "Error when starting the game: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
