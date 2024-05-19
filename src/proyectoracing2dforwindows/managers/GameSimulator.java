@@ -31,12 +31,15 @@ import proyectoracing2dforwindows.models.Sprite;
 public class GameSimulator implements Coordenate, Movable, Drawable{
     Paintable paint;
     //private boolean colision=false;
+    private static GameSimulator instance;
 
     private MapManager mapManager;
     private Runway currentRunway;
     private SoundManager soundManager;
     
     private int nCheckpoints;
+    
+    private Timer gameUpdateTimer;
     
     private Player1 player1;
     private Timer timerCar1;
@@ -69,7 +72,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.soundManager=new SoundManager();
         
         
+        
+        
     }
+    
     public void drawElements(Graphics g) throws InterruptedException{
         
         for (SpecialObject specialsObject : specialsObjects) {
@@ -90,6 +96,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     }
     
     @Override
+    // aqui se esta verificando la colision con los objetos especiales
     public void verifyObjectCollision(Car car){
         Iterator<SpecialObject> iterator = specialsObjects.iterator();
         while (iterator.hasNext()) {
@@ -196,8 +203,77 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.paint = paint;
         initializePlayers();
     }
+    
+    // this function is used to verify the collision between the specialobjects and the runwayyyyyy
 
-    @Override
+    public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
+    if (currentRunway != null) {
+        System.out.println("Verifying collision for SpecialObject at newY: " + newY);
+
+        //Use the current x position of the special object
+        int newX = specialObject.getX();
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, specialObject.getWidth(), specialObject.getHeight());
+
+        if (cell != null) {
+            System.out.println("Collision detected with cell ID: " + cell.getId());
+
+            if (cell.getId().equals(CellWall.CELL_ID)) {
+                int cellTop = cell.getY();
+                int cellBottom = cell.getY() + cell.getHeight();
+                int objectTop = newY;
+                int objectBottom = newY + specialObject.getHeight();
+
+                System.out.println("objectTop: " + objectTop + ", objectBottom: " + objectBottom);
+                System.out.println("cellTop: " + cellTop + ", cellBottom: " + cellBottom);
+
+                // Determine the side of the collision
+                if (specialObject.getDirectionY() == 1) { //Moving down
+                    if (objectBottom >= cellTop) {
+                        specialObject.setDirectionY(-1); //Change direction to up
+                        System.out.println("Direction changed to up");
+                    }
+                } else if (specialObject.getDirectionY() == -1) { // Moving up
+                    if (objectTop <= cellBottom) {
+                        specialObject.setDirectionY(1); // Change direction to down
+                        System.out.println("Direction changed to down");
+                    }
+                }
+            }
+        } else {
+            System.out.println("No collision detected at newY: " + newY);
+        }
+    } else {
+        System.out.println("CurrentRunway is null");
+    }
+}
+
+
+
+
+    
+    public static GameSimulator getInstance() {
+        if (instance == null) {
+            try {
+                instance = new GameSimulator();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return instance;
+    }
+    
+     public void updateGame() {
+    for (SpecialObject specialObject : specialsObjects) {
+        int newY = specialObject.getY() + specialObject.getVelocityY() * specialObject.getDirectionY();
+        verifySpecialObjectCollision(specialObject, newY);
+        specialObject.updatePosition(); // Asume que este método actualiza la posición basada en la dirección y velocidad
+    }
+    // Redibujar o actualizar el estado del juego aquí si es necesario
+    paint.repaint(); // Llama a repaint para actualizar la visualización si es necesario
+}
+
+    
+    // aqui se esta verificando la colision con el borde de la pista
     public void verifyRunwayCollision(int newX, int newY, Car car) {
         Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
         if(cell != null){
@@ -296,7 +372,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             timerCar2 = new Timer(10, e -> player2.actualizar());
             //timer = new Timer(30, e -> car1.actualizar());
             timerCar2.start();
+            
             createSpecialObject();
+            gameUpdateTimer = new Timer(10, e -> updateGame()); 
+            gameUpdateTimer.start();
             nCheckpoints = currentRunway.getnCheckpoints()-1;
 
         }
