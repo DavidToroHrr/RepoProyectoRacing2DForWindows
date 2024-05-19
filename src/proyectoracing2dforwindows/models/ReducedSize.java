@@ -6,6 +6,7 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -30,17 +31,28 @@ public class ReducedSize extends SpecialObject implements Applicable{
 
     @Override
     public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
+        paintable.repaint(cb.getX(), cb.getY(), width, height);
+
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
+        
+        
         cb.setHeight(10);
         cb.setWidth(34);
+        
+        
+        cb.setImage(cb.getCarImages().get(1));
+        
         System.out.println("COLISIONNNNNNNNNNNNNNNN");
-        paintable.repaint(x, y, width, height);
+        paintable.repaint();
+        
         sound.get(0).playSound();
         
+        System.out.println(cb.getWidth()+"ancho despues");
+        System.out.println(cb.getHeight()+"ancho despues");
         
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(ReducedSize.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,7 +60,11 @@ public class ReducedSize extends SpecialObject implements Applicable{
         
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);
-        paintable.repaint(x, y, width, height);
+        
+        cb.setImage(cb.getCarImages().get(0));
+        
+        paintable.repaint(cb.getX(), cb.getY(), width, height);
+
     }
     
 }

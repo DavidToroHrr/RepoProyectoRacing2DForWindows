@@ -6,6 +6,7 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 
@@ -14,9 +15,9 @@ import proyectoracing2dforwindows.interfaces.Paintable;
  * @author usuario
  */
 public class Player2 extends Player{
-    public Player2(String name, BufferedImage carImage, Paintable paintable, Movable movable) {
+    public Player2(String name, BufferedImage carImage, Paintable paintable, Movable movable,ArrayList <BufferedImage> carImages) {
         super(name, carImage);
-        car = new Car(900 / 2 - 300, 900 / 2, 34, 60, name, carImage, null, paintable, movable);
+        car = new Car(900 / 2 - 300, 900 / 2, 34, 60, name, carImage, null, paintable, movable,carImages);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -53,7 +54,7 @@ public class Player2 extends Player{
                 car.keyReleased('R');
             }
         } else if (tecla == KeyEvent.VK_W || tecla == KeyEvent.VK_S) {
-            if(tecla == KeyEvent.VK_UP){
+            if(tecla == KeyEvent.VK_W){
                 car.keyReleased('U');
             }else{
                 car.keyReleased('D');
