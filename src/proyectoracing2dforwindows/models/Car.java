@@ -149,11 +149,24 @@ public class Car extends Object implements CarCustomable {
         
     }
     public void rotateCar(){
-        if (velocityX>0) {
+        if(velocityX>0 && velocityY<0){
+            degree=45;
+        }
+        else if(velocityX>0 && velocityY>0){
+            degree=125;
+        }
+        else if(velocityX<0 && velocityY>0){
+            degree=225;
+        }
+        else if(velocityX<0 && velocityY<0){
+            degree=-45;
+        }
+        else if (velocityX>0) {
             degree =90;
         } else if (velocityX<0) {
             degree =-90;
-        } else if (velocityY>0) {
+        } 
+        else if (velocityY>0) {
             degree=180;
         } else if (velocityY<0) {
             degree=0;
