@@ -29,7 +29,7 @@ public class IncreasedSize extends SpecialObject{
         cb.setHeight(57);
         cb.setWidth(101);
         
-        cb.setImage(cb.getCarImages().get(2));
+        cb.setImage(cb.getcarImages().get(2));
         System.out.println("AUMENTAR");
         paintable.repaint(x, y, width, height);
         sound.get(1).playSound();
@@ -44,7 +44,7 @@ public class IncreasedSize extends SpecialObject{
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);
         
-        cb.setImage(cb.getCarImages().get(0));
+        cb.setImage(cb.getcarImages().get(0));
         paintable.repaint(x, y, width, height);
 
     }

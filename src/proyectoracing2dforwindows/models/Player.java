@@ -7,6 +7,10 @@ package proyectoracing2dforwindows.models;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import javax.swing.Timer;
+import proyectoracing2dforwindows.interfaces.Movable;
+import proyectoracing2dforwindows.interfaces.Paintable;
 
 /**
  *
@@ -16,10 +20,14 @@ public abstract class Player {
     protected String name;
     protected Car car;
     private int cpCurrent;
+    private Timer timerCar;
     
-    public Player(String name, BufferedImage carImage){
+    public Player(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable){
         this.name = name;
         this.cpCurrent = -1;
+        car = new Car(900 / 2 - 250, 900 / 2, 34, 60, name, carImages, null, paintable, movable);
+        timerCar = new Timer(10, e -> car.actualizar());
+        timerCar.start();
     }
     
     public abstract void keyPressed(KeyEvent e);

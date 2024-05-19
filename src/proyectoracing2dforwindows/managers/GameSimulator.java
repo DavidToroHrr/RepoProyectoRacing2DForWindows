@@ -15,14 +15,8 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import proyectoracing2dforwindows.exceptions.FileManagerException;
-import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
-import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
-import proyectoracing2dforwindows.interfaces.Coordenate;
-import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.exceptions.*;
 import proyectoracing2dforwindows.models.*;
-
-import proyectoracing2dforwindows.models.Sprite;
 
 /**
  *
@@ -31,23 +25,23 @@ import proyectoracing2dforwindows.models.Sprite;
 public class GameSimulator implements Coordenate, Movable, Drawable{
     Paintable paint;
     //private boolean colision=false;
+    private static GameSimulator instance;
 
     private MapManager mapManager;
+    private ScoreManager scoreManager;
     private Runway currentRunway;
     private SoundManager soundManager;
     private ImageManager imageManager;
     
     private int nCheckpoints;
     
-    private Player1 player1;
-    private Timer timerCar1;
-    private BufferedImage imageCar1;
-    URL imageCarUrl1 = getClass().getResource("/data/cars/yellowcar.png");
+    private Timer gameUpdateTimer;
     
+    private String carplayer1;
+    private Player1 player1;
+    
+    private String carplayer2;
     private Player2 player2;
-    private Timer timerCar2;
-    private BufferedImage imageCar2;
-    URL imageCarUrl2 = getClass().getResource("/data/cars/greencar.png");
   
     private ArrayList <SpecialObject> specialsObjects;
     
@@ -72,9 +66,20 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.currentRunway = null;
         this.soundManager=new SoundManager();
         this.imageManager=new ImageManager();
+        this.scoreManager = new ScoreManager();
+        this.carplayer1 = "redcar";
+        this.carplayer2 = "greencar";
         
-        
+        try {
+            scoreManager.loadScores();
+        } catch (FileManagerException ex) {
+            Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MapFileNotFoundException ex) {
+            Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+    @Override
     public void drawElements(Graphics g) throws InterruptedException{
         
         for (SpecialObject specialsObject : specialsObjects) {
@@ -99,6 +104,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     }
     
     @Override
+    // aqui se esta verificando la colision con los objetos especiales
     public void verifyObjectCollision(Car car){
         Iterator<SpecialObject> iterator = specialsObjects.iterator();
         while (iterator.hasNext()) {
@@ -124,7 +130,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             return;
         }
         int cp_current;
-        if(id.equals("player1")){
+        if(id.equals(carplayer1)){
             cp_current = player1.getCpCurrent();
             if(cp_current == -1 & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
@@ -134,7 +140,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
                 player1.setCpCurrent(cp_collided);
             }
             System.out.println("player1 checpoint actual:"+player1.getCpCurrent());
-        }else if(id.equals("player2")){
+        }else if(id.equals(carplayer2)){
             cp_current = player2.getCpCurrent();
             if(cp_current == -1 & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
@@ -190,7 +196,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
     public void loadMap(String nameMap) throws IOException{
             setCurrentRunway(mapManager.getRunway(nameMap));
             
-        }
+    }
+    
     public void addSpecialObject(){
     
     
@@ -215,8 +222,77 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         this.paint = paint;
         initializePlayers();
     }
+    
+    // this function is used to verify the collision between the specialobjects and the runwayyyyyy
 
-    @Override
+    public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
+    if (currentRunway != null) {
+        System.out.println("Verifying collision for SpecialObject at newY: " + newY);
+
+        //Use the current x position of the special object
+        int newX = specialObject.getX();
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, specialObject.getWidth(), specialObject.getHeight());
+
+        if (cell != null) {
+            System.out.println("Collision detected with cell ID: " + cell.getId());
+
+            if (cell.getId().equals(CellWall.CELL_ID)) {
+                int cellTop = cell.getY();
+                int cellBottom = cell.getY() + cell.getHeight();
+                int objectTop = newY;
+                int objectBottom = newY + specialObject.getHeight();
+
+                System.out.println("objectTop: " + objectTop + ", objectBottom: " + objectBottom);
+                System.out.println("cellTop: " + cellTop + ", cellBottom: " + cellBottom);
+
+                // Determine the side of the collision
+                if (specialObject.getDirectionY() == 1) { //Moving down
+                    if (objectBottom >= cellTop) {
+                        specialObject.setDirectionY(-1); //Change direction to up
+                        System.out.println("Direction changed to up");
+                    }
+                } else if (specialObject.getDirectionY() == -1) { // Moving up
+                    if (objectTop <= cellBottom) {
+                        specialObject.setDirectionY(1); // Change direction to down
+                        System.out.println("Direction changed to down");
+                    }
+                }
+            }
+        } else {
+            System.out.println("No collision detected at newY: " + newY);
+        }
+    } else {
+        System.out.println("CurrentRunway is null");
+    }
+}
+
+
+
+
+    
+    public static GameSimulator getInstance() {
+        if (instance == null) {
+            try {
+                instance = new GameSimulator();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return instance;
+    }
+    
+    public void updateGame() {
+        for (SpecialObject specialObject : specialsObjects) {
+            int newY = specialObject.getY() + specialObject.getVelocityY() * specialObject.getDirectionY();
+            verifySpecialObjectCollision(specialObject, newY);
+            specialObject.updatePosition(); // Asume que este método actualiza la posición basada en la dirección y velocidad
+        }
+    // Redibujar o actualizar el estado del juego aquí si es necesario
+        paint.repaint(); // Llama a repaint para actualizar la visualización si es necesario
+    }
+
+    
+    // aqui se esta verificando la colision con el borde de la pista
     public void verifyRunwayCollision(int newX, int newY, Car car) {
         Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
         if(cell != null){
@@ -300,30 +376,34 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
             }
     
     }
+    
+    public ArrayList<String> getScoreNames(){
+        return scoreManager.getNames();
+    }
+    
+    public ArrayList<Integer> getScorePoints(){
+        return scoreManager.getScores();
+    }
 
     private void initializePlayers(){
-        ArrayList <BufferedImage> imagesRedCar=new ArrayList<>();
-        imagesRedCar=imageManager.getImagesRedCar();
-        
-        ArrayList <BufferedImage> imagesGreenCar=new ArrayList<>();
-        imagesGreenCar=imageManager.getImagesGreenCar();
 
                 
         this.specialsObjects = new ArrayList<>();
         
         if (getCurrentRunway() != null) {
-         
-            player1 = new Player1("player1", imagesRedCar.get(0), paint, this,imagesRedCar);
-            timerCar1 = new Timer(10, e -> player1.actualizar());
-            //timer = new Timer(30, e -> car1.actualizar());
-            timerCar1.start();
+            //Player1
+            ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
+            String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
+            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this);
             
-            player2 = new Player2("player2", imagesGreenCar.get(0), paint, this,imagesGreenCar);
-            timerCar2 = new Timer(10, e -> player2.actualizar());
-            //timer = new Timer(30, e -> car1.actualizar());
-            timerCar2.start();
+            //PLayer2
+            ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
+            String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
+            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this);
             
             createSpecialObject();
+            gameUpdateTimer = new Timer(10, e -> updateGame()); 
+            gameUpdateTimer.start();
             nCheckpoints = currentRunway.getnCheckpoints()-1;
 
         }

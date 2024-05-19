@@ -31,17 +31,17 @@ public class Car extends Object implements CarCustomable {
     public static final int MAX_SPEED_BORDER = 2; // Velocidad máxima del carro
     public static final int MAX_SPEED_GRASS = 1; // Velocidad máxima del carro
     protected final int BRAKE=0;
-    private ArrayList <BufferedImage> CarImages;
+    private ArrayList <BufferedImage> carImages;
     
      Graphics2D g2d;
      
      private int degree;
     
-    public Car(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,Movable movable,ArrayList <BufferedImage> CarImages) {
-        super(x, y, width, height, id, image, url);
+    public Car(int x, int y, int width, int height, String id, ArrayList <BufferedImage> carImages, URL url,Paintable p1,Movable movable) {
+        super(x, y, width, height, id, carImages.get(0), url);
         maxSpeed = MAX_SPEED_TRAIL;
-        this.CarImages=new ArrayList<>();
-        this.CarImages=CarImages;
+        this.carImages=new ArrayList<>();
+        this.carImages=carImages;
         this.velocityX = 0;
         this.velocityY = 0;
         this.paint=p1;
@@ -220,8 +220,8 @@ public class Car extends Object implements CarCustomable {
     /**
      * @return the CarImages
      */
-    public ArrayList <BufferedImage> getCarImages() {
-        return CarImages;
+    public ArrayList <BufferedImage> getcarImages() {
+        return carImages;
     }
     
     
