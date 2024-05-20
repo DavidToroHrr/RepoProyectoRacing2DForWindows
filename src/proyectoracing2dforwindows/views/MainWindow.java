@@ -111,7 +111,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         game.loadMap(nameMap);
         Runway runway =game.getCurrentRunway();
         GamePanel gamePanel = new GamePanel(this, game);
-        gamePanel.setRunway(runway);
         
         setCurrentPanel(gamePanel);
         gamePanel.requestFocus(); // Solicitar el foco para recibir eventos de teclado

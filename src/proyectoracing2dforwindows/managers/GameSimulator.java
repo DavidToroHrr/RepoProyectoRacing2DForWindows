@@ -90,6 +90,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     @Override
     public void drawElements(Graphics g) throws InterruptedException{
+        if(currentRunway != null){
+            currentRunway.draw(g);
+        }
         
         for (SpecialObject specialsObject : specialsObjects) {
             specialsObject.draw(g);

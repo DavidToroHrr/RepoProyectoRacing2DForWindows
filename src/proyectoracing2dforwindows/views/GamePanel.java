@@ -18,10 +18,7 @@ import proyectoracing2dforwindows.models.Runway;
  * @author usuario
  */
 public class GamePanel extends javax.swing.JPanel implements Paintable{
-    
-    private Runway runway;
     KeyListener keylistener;
-    private Graphics g;
     private Drawable drawable;
     
     public GamePanel(KeyListener keylistener, Drawable drawable) {
@@ -37,7 +34,6 @@ public class GamePanel extends javax.swing.JPanel implements Paintable{
     
     @Override
     protected void paintComponent(Graphics g) {
-        runway.draw((Graphics2D)g);
         try {
             drawable.drawElements(g);
         } catch (InterruptedException ex) {
@@ -46,9 +42,6 @@ public class GamePanel extends javax.swing.JPanel implements Paintable{
        
     }
 
-    public void setRunway(Runway runway) {
-        this.runway = runway;
-    }
     
     
     
