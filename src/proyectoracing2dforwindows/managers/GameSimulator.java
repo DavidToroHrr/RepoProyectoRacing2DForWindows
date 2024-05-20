@@ -4,6 +4,8 @@
  */
 package proyectoracing2dforwindows.managers;
 import proyectoracing2dforwindows.interfaces.*;
+import proyectoracing2dforwindows.exceptions.*;
+import proyectoracing2dforwindows.models.*;
 import java.awt.Graphics;
 
 import java.awt.event.KeyEvent;
@@ -15,8 +17,6 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import proyectoracing2dforwindows.exceptions.*;
-import proyectoracing2dforwindows.models.*;
 
 /**
  *
