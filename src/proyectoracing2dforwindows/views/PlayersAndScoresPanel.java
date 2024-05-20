@@ -7,8 +7,12 @@ package proyectoracing2dforwindows.views;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
 import proyectoracing2dforwindows.interfaces.ClickListener;
+import proyectoracing2dforwindows.interfaces.Configurable;
 
 /**
  *
@@ -19,13 +23,18 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
     ArrayList<String> names;//Se guardan los nombres de los jugadores
     ArrayList<Integer> scores;//Se guardan los puntajes de los jugadores
     private ClickListener clickListener;
+    private Configurable configurable;
+    private int player;
     
     
     public PlayersAndScoresPanel(ArrayList<String> names,
-    ArrayList<Integer> scores, int player) {
+    ArrayList<Integer> scores, int player, Configurable configurable) {
         initComponents();
         this.names = names;
         this.scores = scores;
+        this.configurable = configurable;
+        this.player = player;
+        this.tName.setText(configurable.getScorePlayerName(player));
     }
     
     public void showScores(){
@@ -60,10 +69,10 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
         PanelScores = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bSelect = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         tName = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        bCreate = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 900));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,30 +102,54 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
         jLabel2.setText("Scores:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Tw Cen MT", 0, 60)); // NOI18N
-        jButton1.setText("Select");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 750, 200, -1));
+        bSelect.setFont(new java.awt.Font("Tw Cen MT", 0, 60)); // NOI18N
+        bSelect.setText("Select");
+        bSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelectActionPerformed(evt);
+            }
+        });
+        add(bSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 750, 200, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 80)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 75)); // NOI18N
         jLabel3.setText("Name:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 670, -1, -1));
 
-        tName.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        tName.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
         tName.setForeground(new java.awt.Color(102, 102, 102));
         tName.setText("Name...");
-        add(tName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 680, 330, -1));
+        add(tName, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, 400, 90));
 
-        jButton2.setFont(new java.awt.Font("Tw Cen MT", 0, 60)); // NOI18N
-        jButton2.setText("Create");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 600, 200, -1));
+        bCreate.setFont(new java.awt.Font("Tw Cen MT", 0, 60)); // NOI18N
+        bCreate.setText("Create");
+        bCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCreateActionPerformed(evt);
+            }
+        });
+        add(bCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 600, 200, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCreateActionPerformed
+        String name = tName.getText();
+        configurable.selectScorePlayerName(player, name);
+    }//GEN-LAST:event_bCreateActionPerformed
+
+    private void bSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectActionPerformed
+        String name = tName.getText();
+        try {
+            configurable.addScorePlayer(player, name);
+        } catch (DuplicateScoreException ex) {
+            Logger.getLogger(PlayersAndScoresPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bSelectActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelScores;
     private javax.swing.JScrollPane ScrollScores;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton bCreate;
+    private javax.swing.JButton bSelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

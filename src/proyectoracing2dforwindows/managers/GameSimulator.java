@@ -417,12 +417,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
 
     @Override
     public void selectScorePlayerName(int player, String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        scoreManager.setSelectedPlayers(player, name);
     }
 
     @Override
-    public void createScorePlayer(int player, String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addScorePlayer(int player, String name) throws DuplicateScoreException{
+        scoreManager.addScore(name, 0);
+        selectCarPlayer(player, name);
     }
 
     @Override
