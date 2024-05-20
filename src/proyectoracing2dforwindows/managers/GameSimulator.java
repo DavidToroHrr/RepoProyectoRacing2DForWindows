@@ -423,13 +423,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     @Override
     public void addScorePlayer(int player, String name) throws DuplicateScoreException{
         scoreManager.addScore(name, 0);
-        selectCarPlayer(player, name);
     }
 
     @Override
     public void selectCarPlayer(int player, String carname) {
-        ArrayList<BufferedImage> carImages;
-        carImages = imageManager.getImagesCar(carname);
         if(player == 1){
             carplayer1=carname;
         }else{

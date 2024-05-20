@@ -83,19 +83,22 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
     }
     
+    @Override
     public void showAboutUsPanel(){
-    AboutUsPanel aboutUsPanel = new AboutUsPanel(this);
+        AboutUsPanel aboutUsPanel = new AboutUsPanel(this);
         
     
-    setCurrentPanel(aboutUsPanel);
-    aboutUsPanel.requestFocus();
+        setCurrentPanel(aboutUsPanel);
+        aboutUsPanel.requestFocus();
     }
+    
+    @Override
     public void showOptionsPanel(){
-    OptionsPanel optionsPanel = new OptionsPanel(this);
+        OptionsPanel optionsPanel = new OptionsPanel(this);
         
     
-    setCurrentPanel(optionsPanel);
-    optionsPanel.requestFocus();
+        setCurrentPanel(optionsPanel);
+        optionsPanel.requestFocus();
     
     }
     
@@ -111,19 +114,19 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
 
 
     }
-    
+    @Override
     public void showCarSelector(int player){
     
     CarSelector carSelector = new CarSelector(player,game,this);
         
     
-    setCurrentPanel(carSelector);
-    carSelector.requestFocus();
+        setCurrentPanel(carSelector);
+        carSelector.requestFocus();
     
     
     }
     
-
+    @Override
     public void showPlayersAndScoresPanel(int player){
         PlayersAndScoresPanel playersAndScoresPanel = new PlayersAndScoresPanel(game.getScoreNames(), game.getScorePoints(), player, game,this);
         playersAndScoresPanel.showScores();
