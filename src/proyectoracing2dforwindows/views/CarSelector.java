@@ -4,17 +4,22 @@
  */
 package proyectoracing2dforwindows.views;
 
+import proyectoracing2dforwindows.interfaces.Configurable;
+
 /**
  *
  * @author david
  */
 public class CarSelector extends javax.swing.JPanel {
-
+    private int player;
+    private Configurable configurable;
     /**
      * Creates new form CarSelector
      */
-    public CarSelector() {
+    public CarSelector(int player, Configurable configurable) {
         initComponents();
+        this.player=player;
+        this.configurable=configurable;
     }
 
     /**
@@ -180,26 +185,40 @@ public class CarSelector extends javax.swing.JPanel {
 
     private void bSelectPinkCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectPinkCarActionPerformed
         // TODO add your handling code here:
+        String nameCar="pinkcar";
+        configurable.selectCarPlayer(player, nameCar);
+        
+        
     }//GEN-LAST:event_bSelectPinkCarActionPerformed
 
     private void bSelectBlackCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectBlackCarActionPerformed
         // TODO add your handling code here:
+        String nameCar="blackcar";
+        configurable.selectCarPlayer(player, nameCar);
     }//GEN-LAST:event_bSelectBlackCarActionPerformed
 
     private void bSelectBlueCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectBlueCarActionPerformed
         // TODO add your handling code here:
+        String nameCar="bluecar";
+        configurable.selectCarPlayer(player, nameCar);
     }//GEN-LAST:event_bSelectBlueCarActionPerformed
 
     private void bSelectGreenCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectGreenCarActionPerformed
         // TODO add your handling code here:
+        String nameCar="greencar";
+        configurable.selectCarPlayer(player, nameCar);
     }//GEN-LAST:event_bSelectGreenCarActionPerformed
 
     private void bSelectRedCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectRedCarActionPerformed
         // TODO add your handling code here:
+        String nameCar="redcar";
+        configurable.selectCarPlayer(player, nameCar);
     }//GEN-LAST:event_bSelectRedCarActionPerformed
 
     private void bSelectYellowCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectYellowCarActionPerformed
         // TODO add your handling code here:
+        String nameCar="yellowcar";
+        configurable.selectCarPlayer(player, nameCar);
     }//GEN-LAST:event_bSelectYellowCarActionPerformed
 
 

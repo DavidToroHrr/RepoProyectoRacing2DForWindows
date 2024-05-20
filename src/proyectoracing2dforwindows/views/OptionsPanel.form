@@ -200,6 +200,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SELECT"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSelectCarPlayer2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bSelecUserNamePlayer1">
       <Properties>

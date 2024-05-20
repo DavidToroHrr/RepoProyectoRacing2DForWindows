@@ -431,9 +431,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         ArrayList<BufferedImage> carImages;
         carImages = imageManager.getImagesCar(carname);
         if(player == 1){
-            player1.setImages(carImages);
+            carplayer1=carname;
         }else{
-            player2.setImages(carImages);
+            carplayer2=carname;
+
         }
     }
     

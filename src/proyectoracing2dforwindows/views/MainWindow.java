@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
+import proyectoracing2dforwindows.interfaces.Configurable;
 import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
@@ -109,6 +110,17 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         gamePanel.requestFocus(); // Solicitar el foco para recibir eventos de teclado
 
 
+    }
+    
+    public void showCarSelector(int player){
+    
+    CarSelector carSelector = new CarSelector(player,game);
+        
+    
+    setCurrentPanel(carSelector);
+    carSelector.requestFocus();
+    
+    
     }
     
 
