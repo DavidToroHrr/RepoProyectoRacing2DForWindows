@@ -91,6 +91,11 @@ public class OptionsPanel extends javax.swing.JPanel {
 
         bSelectCarPlayer2.setFont(bSelectCarPlayer1.getFont());
         bSelectCarPlayer2.setText("SELECT");
+        bSelectCarPlayer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelectCarPlayer2ActionPerformed(evt);
+            }
+        });
 
         bSelecUserNamePlayer1.setFont(bSelectCarPlayer1.getFont());
         bSelecUserNamePlayer1.setText("Select");
@@ -199,7 +204,18 @@ public class OptionsPanel extends javax.swing.JPanel {
 
     private void bSelectCarPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectCarPlayer1ActionPerformed
         // TODO add your handling code here:
+        int player=1;
+        clickListener.showCarSelector(player);
     }//GEN-LAST:event_bSelectCarPlayer1ActionPerformed
+
+    private void bSelectCarPlayer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectCarPlayer2ActionPerformed
+        // TODO add your handling code here:
+        
+        int player=2;
+        clickListener.showCarSelector(player);
+        
+        
+    }//GEN-LAST:event_bSelectCarPlayer2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
