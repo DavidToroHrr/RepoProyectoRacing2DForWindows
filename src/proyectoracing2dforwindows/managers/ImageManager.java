@@ -35,7 +35,7 @@ public class ImageManager {
         //para el carro 1;
         //se debe de crear una variable para img,
             
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 9; i++) {
             BufferedImage imageCar = null;
             URL Url= null;
             switch (i) {

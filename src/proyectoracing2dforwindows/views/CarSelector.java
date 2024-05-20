@@ -4,6 +4,7 @@
  */
 package proyectoracing2dforwindows.views;
 
+import proyectoracing2dforwindows.interfaces.ClickListener;
 import proyectoracing2dforwindows.interfaces.Configurable;
 
 /**
@@ -13,13 +14,15 @@ import proyectoracing2dforwindows.interfaces.Configurable;
 public class CarSelector extends javax.swing.JPanel {
     private int player;
     private Configurable configurable;
+    private ClickListener clickListener;
     /**
      * Creates new form CarSelector
      */
-    public CarSelector(int player, Configurable configurable) {
+    public CarSelector(int player, Configurable configurable,ClickListener clickListener) {
         initComponents();
         this.player=player;
         this.configurable=configurable;
+        this.clickListener=clickListener;
     }
 
     /**
@@ -187,6 +190,7 @@ public class CarSelector extends javax.swing.JPanel {
         // TODO add your handling code here:
         String nameCar="pinkcar";
         configurable.selectCarPlayer(player, nameCar);
+        clickListener.showOptionsPanel();
         
         
     }//GEN-LAST:event_bSelectPinkCarActionPerformed
@@ -195,32 +199,42 @@ public class CarSelector extends javax.swing.JPanel {
         // TODO add your handling code here:
         String nameCar="blackcar";
         configurable.selectCarPlayer(player, nameCar);
+        clickListener.showOptionsPanel();
+
     }//GEN-LAST:event_bSelectBlackCarActionPerformed
 
     private void bSelectBlueCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectBlueCarActionPerformed
         // TODO add your handling code here:
         String nameCar="bluecar";
         configurable.selectCarPlayer(player, nameCar);
+        clickListener.showOptionsPanel();
+
     }//GEN-LAST:event_bSelectBlueCarActionPerformed
 
     private void bSelectGreenCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectGreenCarActionPerformed
         // TODO add your handling code here:
         String nameCar="greencar";
         configurable.selectCarPlayer(player, nameCar);
+        clickListener.showOptionsPanel();
+
     }//GEN-LAST:event_bSelectGreenCarActionPerformed
 
     private void bSelectRedCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectRedCarActionPerformed
         // TODO add your handling code here:
         String nameCar="redcar";
         configurable.selectCarPlayer(player, nameCar);
+        clickListener.showOptionsPanel();
+
     }//GEN-LAST:event_bSelectRedCarActionPerformed
 
     private void bSelectYellowCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectYellowCarActionPerformed
         // TODO add your handling code here:
         String nameCar="yellowcar";
         configurable.selectCarPlayer(player, nameCar);
-    }//GEN-LAST:event_bSelectYellowCarActionPerformed
+        clickListener.showOptionsPanel();
 
+    }//GEN-LAST:event_bSelectYellowCarActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSelectBlackCar;

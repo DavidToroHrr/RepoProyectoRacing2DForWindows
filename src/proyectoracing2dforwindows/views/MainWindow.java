@@ -114,7 +114,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     
     public void showCarSelector(int player){
     
-    CarSelector carSelector = new CarSelector(player,game);
+    CarSelector carSelector = new CarSelector(player,game,this);
         
     
     setCurrentPanel(carSelector);

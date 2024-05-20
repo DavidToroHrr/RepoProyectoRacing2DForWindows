@@ -99,9 +99,19 @@ public class OptionsPanel extends javax.swing.JPanel {
 
         bSelecUserNamePlayer1.setFont(bSelectCarPlayer1.getFont());
         bSelecUserNamePlayer1.setText("Select");
+        bSelecUserNamePlayer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelecUserNamePlayer1ActionPerformed(evt);
+            }
+        });
 
         bSelectUserNamePlayer2.setFont(bSelecUserNamePlayer1.getFont());
         bSelectUserNamePlayer2.setText("Select");
+        bSelectUserNamePlayer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelectUserNamePlayer2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(bSelectCarPlayer1.getFont());
         jLabel5.setText("Select car");
@@ -216,6 +226,16 @@ public class OptionsPanel extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_bSelectCarPlayer2ActionPerformed
+
+    private void bSelecUserNamePlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelecUserNamePlayer1ActionPerformed
+        // TODO add your handling code here:
+        clickListener.showPlayersAndScoresPanel(1);
+    }//GEN-LAST:event_bSelecUserNamePlayer1ActionPerformed
+
+    private void bSelectUserNamePlayer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectUserNamePlayer2ActionPerformed
+        // TODO add your handling code here:
+        clickListener.showPlayersAndScoresPanel(2);
+    }//GEN-LAST:event_bSelectUserNamePlayer2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

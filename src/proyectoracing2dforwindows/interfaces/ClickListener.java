@@ -23,4 +23,6 @@ public interface ClickListener {
     public void showMapSelector()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException ;
     public void showInitialMenu()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException;
     public void showCarSelector(int player);
+    public void showPlayersAndScoresPanel(int player);
+    
 }
