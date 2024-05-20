@@ -49,17 +49,17 @@ public class AboutUsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(455, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(407, 407, 407)
                 .addComponent(bReturn)
-                .addGap(341, 341, 341))
+                .addContainerGap(418, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(262, 262, 262)
+                .addGap(282, 282, 282)
                 .addComponent(bReturn)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addContainerGap(595, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

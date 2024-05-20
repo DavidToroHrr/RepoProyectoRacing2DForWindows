@@ -223,16 +223,16 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
         
         MainWindow window = new MainWindow();
         GameSimulator game = new GameSimulator();
         window.setGame(game);
         
-        window.showPlayersAndScoresPanel();
+        //window.showPlayersAndScoresPanel();
         
         //window.showMapSelector();
-           
+        window.showInitialMenu();
         
         
 
