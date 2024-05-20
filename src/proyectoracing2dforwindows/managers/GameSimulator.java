@@ -409,5 +409,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         }
     }
     
+    public String getScorePlayerName(int player){
+            return scoreManager.getNameSelectedPlayer(player);
+    }
+    
     
 }

@@ -49,6 +49,14 @@ public abstract class Player {
     public void setCpCurrent(int cpCurrent) {
         this.cpCurrent = cpCurrent;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
     
 }

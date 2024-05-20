@@ -22,7 +22,7 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
     
     
     public PlayersAndScoresPanel(ArrayList<String> names,
-    ArrayList<Integer> scores) {
+    ArrayList<Integer> scores, int player) {
         initComponents();
         this.names = names;
         this.scores = scores;
@@ -60,6 +60,10 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
         PanelScores = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        tName = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 900));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,13 +92,34 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tw Cen MT", 3, 70)); // NOI18N
         jLabel2.setText("Scores:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Tw Cen MT", 0, 60)); // NOI18N
+        jButton1.setText("Select");
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 750, 200, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 80)); // NOI18N
+        jLabel3.setText("Name:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 670, -1, -1));
+
+        tName.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        tName.setForeground(new java.awt.Color(102, 102, 102));
+        tName.setText("Name...");
+        add(tName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 680, 330, -1));
+
+        jButton2.setFont(new java.awt.Font("Tw Cen MT", 0, 60)); // NOI18N
+        jButton2.setText("Create");
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 600, 200, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelScores;
     private javax.swing.JScrollPane ScrollScores;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField tName;
     // End of variables declaration//GEN-END:variables
 }
