@@ -22,7 +22,7 @@ import proyectoracing2dforwindows.models.*;
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate, Movable, Drawable{
+public class GameSimulator implements Coordenate, Movable, Drawable, Configurable{
     Paintable paint;
     //private boolean colision=false;
     private static GameSimulator instance;
@@ -409,8 +409,31 @@ public class GameSimulator implements Coordenate, Movable, Drawable{
         }
     }
     
+    
+    @Override
     public String getScorePlayerName(int player){
             return scoreManager.getNameSelectedPlayer(player);
+    }
+
+    @Override
+    public void selectScorePlayerName(int player, String name) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void createScorePlayer(int player, String name) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void selectCarPlayer(int player, String carname) {
+        ArrayList<BufferedImage> carImages;
+        carImages = imageManager.getImagesCar(carname);
+        if(player == 1){
+            player1.setImages(carImages);
+        }else{
+            player2.setImages(carImages);
+        }
     }
     
     

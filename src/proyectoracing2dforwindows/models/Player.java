@@ -58,5 +58,7 @@ public abstract class Player {
         this.name = name;
     }
     
-    
+    public void setImages(ArrayList<BufferedImage> carImages){
+        car.setCarImages(carImages);
+    }
 }

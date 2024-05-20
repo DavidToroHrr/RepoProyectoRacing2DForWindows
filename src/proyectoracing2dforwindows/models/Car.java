@@ -6,8 +6,6 @@ package proyectoracing2dforwindows.models;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
@@ -223,6 +221,12 @@ public class Car extends Object implements CarCustomable {
     public ArrayList <BufferedImage> getcarImages() {
         return carImages;
     }
+
+    public void setCarImages(ArrayList<BufferedImage> carImages) {
+        this.carImages = carImages;
+        setImage(carImages.get(0));
+    }
+    
     
     
 }
