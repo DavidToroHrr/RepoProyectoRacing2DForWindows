@@ -31,7 +31,7 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
     
     
     public PlayersAndScoresPanel(ArrayList<String> names,
-    ArrayList<Integer> scores, int player, Configurable configurable,ClickListener clickListener) {
+    ArrayList<Integer> scores, int player, Configurable configurable, ClickListener clickListener) {
         initComponents();
         this.names = names;
         this.scores = scores;
@@ -145,16 +145,20 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
 
     private void bCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCreateActionPerformed
         String name = tName.getText();
-        configurable.selectScorePlayerName(player, name);
-    }//GEN-LAST:event_bCreateActionPerformed
-
-    private void bSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectActionPerformed
-        String name = tName.getText();
         try {
             configurable.addScorePlayer(player, name);
+            configurable.selectScorePlayerName(player, name);
         } catch (DuplicateScoreException ex) {
             Logger.getLogger(PlayersAndScoresPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+    }//GEN-LAST:event_bCreateActionPerformed
+
+    private void bSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectActionPerformed
+        
+        String name = tName.getText();
+        configurable.selectScorePlayerName(player, name);
     }//GEN-LAST:event_bSelectActionPerformed
 
     private void bReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReturnActionPerformed

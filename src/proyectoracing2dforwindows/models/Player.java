@@ -22,11 +22,13 @@ public abstract class Player {
     protected String name;
     protected Car car;
     private int cpCurrent;
+    private int lap;
     private Timer timerCar;
     
     public Player(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable){
         this.name = name;
         this.cpCurrent = -1;
+        this.lap = 0;
         car = new Car(900 / 2 - 250, 900 / 2, 34, 60, name, carImages, null, paintable, movable);
         timerCar = new Timer(10, e -> car.actualizar());
         timerCar.start();
@@ -41,7 +43,7 @@ public abstract class Player {
         car.draw(g);
         g.setColor(Color.WHITE); // Establece el color del texto
         g.setFont(new Font("Arial", Font.PLAIN, 15)); // Establece la fuente del texto
-        g.drawString(name, car.getX(), car.getY()); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString(name, car.getX(), car.getY()-10); // Dibuja el texto en las coordenadas (50, 50)
 
     }
     
@@ -55,6 +57,9 @@ public abstract class Player {
 
     public void setCpCurrent(int cpCurrent) {
         this.cpCurrent = cpCurrent;
+        if(cpCurrent == 0){
+            lap += 1;
+        }
     }
 
     public String getName() {
@@ -68,4 +73,10 @@ public abstract class Player {
     public void setImages(ArrayList<BufferedImage> carImages){
         car.setCarImages(carImages);
     }
+
+    public int getLap() {
+        return lap;
+    }
+    
+    
 }

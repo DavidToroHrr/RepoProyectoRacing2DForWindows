@@ -4,6 +4,8 @@
  */
 package proyectoracing2dforwindows.managers;
 import proyectoracing2dforwindows.interfaces.*;
+import proyectoracing2dforwindows.exceptions.*;
+import proyectoracing2dforwindows.models.*;
 import java.awt.Graphics;
 
 import java.awt.event.KeyEvent;
@@ -15,8 +17,6 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import proyectoracing2dforwindows.exceptions.*;
-import proyectoracing2dforwindows.models.*;
 
 /**
  *
@@ -423,13 +423,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     @Override
     public void addScorePlayer(int player, String name) throws DuplicateScoreException{
         scoreManager.addScore(name, 0);
-        selectCarPlayer(player, name);
     }
 
     @Override
     public void selectCarPlayer(int player, String carname) {
-        ArrayList<BufferedImage> carImages;
-        carImages = imageManager.getImagesCar(carname);
         if(player == 1){
             carplayer1=carname;
         }else{

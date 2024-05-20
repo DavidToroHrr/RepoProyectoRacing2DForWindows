@@ -29,7 +29,7 @@ public class ScoreManager {
         names = new ArrayList<>();
         scores = new ArrayList<>();
         player1ScoreSelected = 0;
-        player2ScoreSelected = 0;
+        player2ScoreSelected = 1;
     }
     
     public void loadScores() throws FileManagerException, MapFileNotFoundException{//Se leen los puntajes guardados en el archivo
