@@ -73,7 +73,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="670" max="32767" attributes="0"/>
+              <EmptySpace pref="103" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -130,7 +130,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tw Cen MT" size="70" style="0"/>
+          <Font name="Tw Cen MT" size="70" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Number of laps"/>
       </Properties>
@@ -209,7 +209,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection component="bSelectCarPlayer1" name="font" type="property"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Select"/>
+        <Property name="text" type="java.lang.String" value="SELECT"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSelecUserNamePlayer1ActionPerformed"/>
@@ -220,7 +220,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection component="bSelecUserNamePlayer1" name="font" type="property"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Select"/>
+        <Property name="text" type="java.lang.String" value="SELECT"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSelectUserNamePlayer2ActionPerformed"/>

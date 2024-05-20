@@ -62,7 +62,7 @@ public class OptionsPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 70)); // NOI18N
         jLabel2.setText("Number of laps");
 
         jLabel3.setFont(jLabel2.getFont());
@@ -98,7 +98,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         });
 
         bSelecUserNamePlayer1.setFont(bSelectCarPlayer1.getFont());
-        bSelecUserNamePlayer1.setText("Select");
+        bSelecUserNamePlayer1.setText("SELECT");
         bSelecUserNamePlayer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSelecUserNamePlayer1ActionPerformed(evt);
@@ -106,7 +106,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         });
 
         bSelectUserNamePlayer2.setFont(bSelecUserNamePlayer1.getFont());
-        bSelectUserNamePlayer2.setText("Select");
+        bSelectUserNamePlayer2.setText("SELECT");
         bSelectUserNamePlayer2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bSelectUserNamePlayer2ActionPerformed(evt);
@@ -164,7 +164,7 @@ public class OptionsPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addGap(31, 31, 31)
                             .addComponent(sSetNumPowers, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(670, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

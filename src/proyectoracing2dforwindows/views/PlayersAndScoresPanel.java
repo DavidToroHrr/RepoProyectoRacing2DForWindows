@@ -11,6 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
+import proyectoracing2dforwindows.exceptions.FileManagerException;
+import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
+import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.interfaces.ClickListener;
 import proyectoracing2dforwindows.interfaces.Configurable;
 
@@ -28,13 +31,14 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
     
     
     public PlayersAndScoresPanel(ArrayList<String> names,
-    ArrayList<Integer> scores, int player, Configurable configurable) {
+    ArrayList<Integer> scores, int player, Configurable configurable,ClickListener clickListener) {
         initComponents();
         this.names = names;
         this.scores = scores;
         this.configurable = configurable;
         this.player = player;
         this.tName.setText(configurable.getScorePlayerName(player));
+        this.clickListener=clickListener;
     }
     
     public void showScores(){
@@ -73,6 +77,7 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         tName = new javax.swing.JTextField();
         bCreate = new javax.swing.JButton();
+        bReturn = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 900));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -128,6 +133,14 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
             }
         });
         add(bCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 600, 200, -1));
+
+        bReturn.setText("RETURN");
+        bReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReturnActionPerformed(evt);
+            }
+        });
+        add(bReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 790, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCreateActionPerformed
@@ -144,11 +157,21 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_bSelectActionPerformed
 
+    private void bReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReturnActionPerformed
+        
+        
+            // TODO add your handling code here:
+            clickListener.showOptionsPanel();
+        
+        
+    }//GEN-LAST:event_bReturnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelScores;
     private javax.swing.JScrollPane ScrollScores;
     private javax.swing.JButton bCreate;
+    private javax.swing.JButton bReturn;
     private javax.swing.JButton bSelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

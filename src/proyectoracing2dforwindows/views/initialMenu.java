@@ -50,7 +50,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bPlayActionPerformed(evt);
             }
         });
-        jPanel1.add(bPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 230, 88));
+        jPanel1.add(bPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 230, 88));
 
         bOptions.setFont(bPlay.getFont());
         bOptions.setText("OPTIONS");
@@ -59,7 +59,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bOptionsActionPerformed(evt);
             }
         });
-        jPanel1.add(bOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
+        jPanel1.add(bOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
 
         bAboutUs.setFont(bPlay.getFont());
         bAboutUs.setText("ABOUT US");
@@ -68,7 +68,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bAboutUsActionPerformed(evt);
             }
         });
-        jPanel1.add(bAboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, -1, -1));
+        jPanel1.add(bAboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
 
         bExit.setText("EXIT");
         bExit.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bExitActionPerformed(evt);
             }
         });
-        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 550, -1, -1));
+        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 690, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
