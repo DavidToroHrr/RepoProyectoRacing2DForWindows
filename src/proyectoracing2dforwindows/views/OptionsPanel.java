@@ -120,10 +120,10 @@ public class OptionsPanel extends javax.swing.JPanel {
         jLabel6.setText("Select car");
 
         jLabel7.setFont(bSelectCarPlayer1.getFont());
-        jLabel7.setText("Select user name");
+        jLabel7.setText("Select profile");
 
         jLabel8.setFont(bSelectCarPlayer1.getFont());
-        jLabel8.setText("Select user name");
+        jLabel8.setText("Select profile");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -164,7 +164,7 @@ public class OptionsPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addGap(31, 31, 31)
                             .addComponent(sSetNumPowers, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

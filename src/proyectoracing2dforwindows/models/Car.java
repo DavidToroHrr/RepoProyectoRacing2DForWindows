@@ -4,6 +4,8 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -172,14 +174,18 @@ public class Car extends Object implements CarCustomable {
     }
     @Override
         public void draw(Graphics g) {
- 
+       
         // Dibuja el carro en su posición actual
         Graphics2D g2d =(Graphics2D)g.create(); // Crear una copia del contexto gráfico
         g2d.rotate(Math.toRadians(degree),x+width/2, y+height/2);
 
         super.draw(g2d);
-        g2d.dispose(); // Liberar el contexto gráfico
+        
 
+        g2d.dispose(); // Liberar el contexto gráfico
+        
+        
+        
         paint.repaint();
     }
 

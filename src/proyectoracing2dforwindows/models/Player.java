@@ -4,6 +4,8 @@
  */
 package proyectoracing2dforwindows.models;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -35,7 +37,12 @@ public abstract class Player {
     public abstract void keyReleased(KeyEvent e);
 
     public void draw(Graphics g) {
+        
         car.draw(g);
+        g.setColor(Color.WHITE); // Establece el color del texto
+        g.setFont(new Font("Arial", Font.PLAIN, 15)); // Establece la fuente del texto
+        g.drawString(name, car.getX(), car.getY()); // Dibuja el texto en las coordenadas (50, 50)
+
     }
     
     public void actualizar(){

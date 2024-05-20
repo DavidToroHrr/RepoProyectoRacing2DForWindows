@@ -124,6 +124,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     }
     
 
+    @Override
     public void showPlayersAndScoresPanel(int player){
         PlayersAndScoresPanel playersAndScoresPanel = new PlayersAndScoresPanel(game.getScoreNames(), game.getScorePoints(), player, game,this);
         playersAndScoresPanel.showScores();
