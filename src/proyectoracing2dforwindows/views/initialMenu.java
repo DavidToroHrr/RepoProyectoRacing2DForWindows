@@ -6,6 +6,7 @@ package proyectoracing2dforwindows.views;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -24,6 +25,7 @@ public class InitialMenu extends javax.swing.JPanel {
     public InitialMenu(ClickListener clickListener) {
         initComponents();
         this.clickListener = clickListener;
+        
     }
 
     /**
@@ -40,7 +42,10 @@ public class InitialMenu extends javax.swing.JPanel {
         bOptions = new javax.swing.JButton();
         bAboutUs = new javax.swing.JButton();
         bExit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(900, 900));
+        jPanel1.setPreferredSize(new java.awt.Dimension(900, 900));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bPlay.setFont(bPlay.getFont().deriveFont(bPlay.getFont().getSize()+58f));
@@ -76,21 +81,23 @@ public class InitialMenu extends javax.swing.JPanel {
                 bExitActionPerformed(evt);
             }
         });
-        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 690, -1, -1));
+        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 680, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data.gifs/IntroVideoMenu.gif"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 910));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -99,6 +106,7 @@ public class InitialMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.out.println("play");
         
+        
         try {
             clickListener.showMapSelector();
         } catch (FileManagerException ex) {
@@ -106,8 +114,9 @@ public class InitialMenu extends javax.swing.JPanel {
         } catch (MapFileNotFoundException ex) {
             Logger.getLogger(InitialMenu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidMapFormatException ex) {
-            Logger.getLogger(InitialMenu.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+        
     }//GEN-LAST:event_bPlayActionPerformed
 
     private void bOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOptionsActionPerformed
@@ -137,6 +146,7 @@ public class InitialMenu extends javax.swing.JPanel {
     private javax.swing.JButton bExit;
     private javax.swing.JButton bOptions;
     private javax.swing.JButton bPlay;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

@@ -57,11 +57,19 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     private BufferedImage imageStop;
     URL stopUrl = getClass().getResource("/data/powers/stop.png");
     
+    private static Informable informable;
     
-    
+    private int numPowers=0;
     
 
-    public GameSimulator()throws IOException {
+    public GameSimulator(Informable informable)throws IOException {
+        
+        GameSimulator.informable=informable;
+        
+        
+        System.out.println("-------------------------------------------------------------------------"+informable.getNumPowers());
+
+        
         this.mapManager = new MapManager();
         this.currentRunway = null;
         this.soundManager=new SoundManager();
@@ -69,6 +77,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         this.scoreManager = new ScoreManager();
         this.carplayer1 = "redcar";
         this.carplayer2 = "greencar";
+        
         
         try {
             scoreManager.loadScores();
@@ -273,7 +282,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     public static GameSimulator getInstance() {
         if (instance == null) {
             try {
-                instance = new GameSimulator();
+                instance = new GameSimulator(informable);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -354,7 +363,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
         int contObj=specialsObjects.size();
-        while (contObj<=10) {                    
+        numPowers=informable.getNumPowers();
+        while (contObj<=numPowers-1) {                    
             int px=(int)(Math.random()*900);
             int py=(int)(Math.random() * 900) + 30;
             if (currentRunway.verifyPoint(px, py)) {

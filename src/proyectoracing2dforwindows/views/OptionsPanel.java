@@ -6,6 +6,8 @@ package proyectoracing2dforwindows.views;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -17,12 +19,32 @@ import proyectoracing2dforwindows.interfaces.ClickListener;
  */
 public class OptionsPanel extends javax.swing.JPanel {
     private ClickListener clickListener;
+    private int numLaps=0;
+    private int numPowers=0;
     /**
      * Creates new form OptionsPanel
      */
     public OptionsPanel(ClickListener clickListener) {
         initComponents();
         this.clickListener=clickListener;
+        sSetNumLaps.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                numLaps=(int)sSetNumLaps.getValue();
+                System.out.println("num"+numLaps);
+                sendLapsToMainWindow();
+            }
+            
+        });
+        sSetNumPowers.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                numPowers=(int)sSetNumPowers.getValue();
+                System.out.println("pow"+numPowers);
+                sendPowersToMainWindow();
+            }
+            
+        });
     }
 
     /**
@@ -69,9 +91,11 @@ public class OptionsPanel extends javax.swing.JPanel {
         jLabel3.setText("Number of powers");
 
         sSetNumLaps.setFont(new java.awt.Font("Tw Cen MT", 0, 40)); // NOI18N
+        sSetNumLaps.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
         sSetNumLaps.setPreferredSize(new java.awt.Dimension(90, 60));
 
         sSetNumPowers.setFont(sSetNumLaps.getFont());
+        sSetNumPowers.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
         sSetNumPowers.setMinimumSize(new java.awt.Dimension(90, 60));
         sSetNumPowers.setPreferredSize(new java.awt.Dimension(90, 60));
 
@@ -236,7 +260,15 @@ public class OptionsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         clickListener.showPlayersAndScoresPanel(2);
     }//GEN-LAST:event_bSelectUserNamePlayer2ActionPerformed
-
+    private void sendLapsToMainWindow(){
+       
+        clickListener.setNumLaps(numLaps);
+    }
+    private void sendPowersToMainWindow(){
+         System.out.println("numero de poderes que mando,"+numPowers);
+        clickListener.setNumPowers(numPowers);
+       
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bReturn;

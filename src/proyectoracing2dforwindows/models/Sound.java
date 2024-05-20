@@ -33,24 +33,24 @@ public class Sound {
                 System.out.println("El archivo de audio no se encontró: " + this.filePath);
                 return;
             }
+            
             // Envuelve el InputStream en un BufferedInputStream.
             InputStream bufferedIn = new BufferedInputStream(audioSrc);
+            
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-
+            
             Clip clip = AudioSystem.getClip();
+            
             clip.open(audioStream);
            
             clip.start();
             clip.drain();
         } catch (UnsupportedAudioFileException e) {
             System.out.println("El formato del archivo de audio no es soportado.");
-            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Error al leer el archivo de audio.");
-            e.printStackTrace();
         } catch (LineUnavailableException e) {
             System.out.println("Línea de audio no disponible.");
-            e.printStackTrace();
         }
     }
 }

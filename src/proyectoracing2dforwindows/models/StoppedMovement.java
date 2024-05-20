@@ -34,7 +34,11 @@ public class StoppedMovement extends SpecialObject{
             cb.setVelocityY(0);
             currentTime = System.currentTimeMillis();
         }
-        
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(StoppedMovement.class.getName()).log(Level.SEVERE, null, ex);
+        }
           
     }
     

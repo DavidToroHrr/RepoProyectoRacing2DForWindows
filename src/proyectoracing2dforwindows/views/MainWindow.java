@@ -19,6 +19,7 @@ import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.interfaces.Configurable;
+import proyectoracing2dforwindows.interfaces.Informable;
 import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
@@ -31,10 +32,12 @@ import proyectoracing2dforwindows.models.Runway;
  *
  * @author usuario
  */
-public class MainWindow extends javax.swing.JFrame implements ClickListener, KeyListener{
+public class MainWindow extends javax.swing.JFrame implements ClickListener, KeyListener, Informable{
 
     private GameSimulator game;
     private BufferedImage buffer;
+    private int numLaps=0;
+    private int numPowers=0;
     
     public MainWindow() {
         setUndecorated(true);
@@ -81,6 +84,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
         
         
+        
     }
     
     @Override
@@ -117,7 +121,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     @Override
     public void showCarSelector(int player){
     
-    CarSelector carSelector = new CarSelector(player,game,this);
+        CarSelector carSelector = new CarSelector(player,game,this);
         
     
         setCurrentPanel(carSelector);
@@ -197,7 +201,32 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
     }
     
-
+    
+    
+    @Override
+    public void setNumLaps(int laps){
+        numLaps=laps;
+        
+    }
+    
+    
+    
+    @Override
+    public void setNumPowers(int powers){
+        numPowers=powers;
+        System.out.println("poderes de la main"+numPowers);
+    }
+    @Override
+    public int getNumLaps(){
+        return numLaps;
+    }
+    
+    
+    @Override
+    public int getNumPowers(){
+        return numPowers;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -245,13 +274,16 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     public static void main(String args[]) throws IOException, FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
         
         MainWindow window = new MainWindow();
-        GameSimulator game = new GameSimulator();
+        GameSimulator game = new GameSimulator(window);
         window.setGame(game);
-        
+        //System.out.println("paso por la main");
         //window.showPlayersAndScoresPanel();
         
         //window.showMapSelector();
+        
         window.showInitialMenu();
+         
+        
         
         
 
