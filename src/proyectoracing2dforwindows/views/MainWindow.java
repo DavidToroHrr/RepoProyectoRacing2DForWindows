@@ -113,7 +113,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     
 
     public void showPlayersAndScoresPanel(int player){
-        PlayersAndScoresPanel playersAndScoresPanel = new PlayersAndScoresPanel(game.getScoreNames(), game.getScorePoints(), player);
+        PlayersAndScoresPanel playersAndScoresPanel = new PlayersAndScoresPanel(game.getScoreNames(), game.getScorePoints(), player, game);
         playersAndScoresPanel.showScores();
         setCurrentPanel(playersAndScoresPanel);
     }

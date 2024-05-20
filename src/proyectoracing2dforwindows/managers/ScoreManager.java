@@ -109,6 +109,7 @@ public class ScoreManager {
         }
         if(scoreIndex == -1){
             //Exception indicando que no se encuentra el nombre seleccionado
+            return;
         }
         if(player == 1){
             player1ScoreSelected = scoreIndex;
