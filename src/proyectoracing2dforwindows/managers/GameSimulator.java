@@ -61,8 +61,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     private int numPowers=0;
     
+    private int numLaps=0;
+    
+    private ArrayList <Sound> sounds;
 
     public GameSimulator(Informable informable)throws IOException {
+        
+        
         
         GameSimulator.informable=informable;
         
@@ -77,6 +82,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         this.scoreManager = new ScoreManager();
         this.carplayer1 = "redcar";
         this.carplayer2 = "greencar";
+        
+        this.sounds=new ArrayList<>();
+        sounds=soundManager.getSounds();
         
         
         try {
@@ -200,7 +208,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     
     
-    public ArrayList<String> showMaps() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException{
+    public ArrayList<String> showMaps() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
         mapManager.loadRunways(0, 0);
         return mapManager.getRunwaysNames();
     }
@@ -446,6 +454,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             carplayer2=carname;
 
         }
+    }
+
+    /**
+     * @return the sounds
+     */
+    public ArrayList <Sound> getSounds() {
+        return sounds;
     }
     
     

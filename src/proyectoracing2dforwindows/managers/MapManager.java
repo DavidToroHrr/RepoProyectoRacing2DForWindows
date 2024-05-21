@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.RowFilter;
 import javax.xml.stream.events.Namespace;
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -32,7 +33,7 @@ public class MapManager {
     }
     
     
-    public void loadRunways(int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException{
+    public void loadRunways(int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
         ArrayList<String> mapsNames = fileManager.searchFiles(PATH_MAPS);
         for(String mapName : mapsNames){
             Runway runway = readRunway(mapName, x, y);
@@ -40,7 +41,7 @@ public class MapManager {
         }
     }
     
-  private Runway readRunway(String mapName, int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
+  private Runway readRunway(String mapName, int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException {
         ArrayList<String> map = fileManager.readFile("src/data/maps/" + mapName);
 
         // Verifica que el archivo tenga al menos dos líneas
@@ -85,13 +86,28 @@ public class MapManager {
         if (circuitStr.size() < 25) {
             throw new InvalidMapFormatException("The circuit has less than 25 rows.");
         }
-        
-        
         ArrayList<String> checkpoints_measures = new ArrayList<>();
-        for(int i = 28; i < map.size(); i++){
+        for (int i = 28; i < map.size(); i++) {
             checkpoints_measures.add(map.get(i));
         }
+
+        // Verifica la existencia y formato de los checkpoints
+        if (map.size() <= 27 || !map.get(27).equals("checkpoints")) {
+            throw new CheckpointException("The map must contain a 'checkpoints' section.");
+        }
+
         
+
+        if (checkpoints_measures.size() < 3) {
+            throw new CheckpointException("The map must contain at least three checkpoints.");
+        }
+
+        // Verifica el formato de cada checkpoint
+        for (String checkpoint : checkpoints_measures) {
+            if (!checkpoint.matches("\\d+:\\d+:\\d+:\\d+")) {
+                throw new CheckpointException("Each checkpoint must be in the format x:y:width:height.");
+            }
+        }
 
         Runway runway = new Runway(x, y, trackWidth * Cell.SIZE, trackHeight * Cell.SIZE, name, description, circuitStr, checkpoints_measures);
         return runway;

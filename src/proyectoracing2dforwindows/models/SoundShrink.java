@@ -10,8 +10,8 @@ package proyectoracing2dforwindows.models;
  */
 public class SoundShrink extends Sound{
 
-    public SoundShrink(String id,String filePath) {
-        super(id,filePath);
+    public SoundShrink(String id,String filePath,int timeDuration) {
+        super(id,filePath,timeDuration);
     }
 
     

@@ -16,17 +16,22 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Sound {
     
     protected String id;
     protected String filePath;
-    public Sound(String id,String filePath) {
+    private int timeDuration=0;
+    Clip clip=null;
+    public Sound(String id,String filePath,int timeDuration) {
         this.id = id;
         this.filePath=filePath;
+        this.timeDuration=timeDuration;
     }
     
-    public void playSound() {
+    public void playSound() {//tal cvez tenga que hacer un stop sound
         try {
             InputStream audioSrc = Sound.class.getResourceAsStream(this.filePath);
             if (audioSrc == null) {
@@ -39,12 +44,17 @@ public class Sound {
             
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
             
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             
             clip.open(audioStream);
            
             clip.start();
             clip.drain();
+            try {
+                Thread.sleep(timeDuration);//hacer una variable dependiendo de las necesidades del sonido
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Sound.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (UnsupportedAudioFileException e) {
             System.out.println("El formato del archivo de audio no es soportado.");
         } catch (IOException e) {
@@ -52,5 +62,11 @@ public class Sound {
         } catch (LineUnavailableException e) {
             System.out.println("Línea de audio no disponible.");
         }
+    }
+    
+    public void stopSound(){
+        clip.stop();
+        clip.drain();
+    
     }
 }

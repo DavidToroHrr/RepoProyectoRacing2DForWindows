@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -24,6 +25,8 @@ import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
 import proyectoracing2dforwindows.models.Runway;
+import proyectoracing2dforwindows.models.Sound;
+import proyectoracing2dforwindows.threads.SoundThread;
 
 
 
@@ -35,15 +38,19 @@ import proyectoracing2dforwindows.models.Runway;
 public class MainWindow extends javax.swing.JFrame implements ClickListener, KeyListener, Informable{
 
     private GameSimulator game;
+    private static SoundThread h1;
     private BufferedImage buffer;
     private int numLaps=0;
     private int numPowers=0;
+    private static ArrayList <Sound> sounds;
     
     public MainWindow() {
         setUndecorated(true);
         
         initComponents();
+        
         buffer = new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB);
+        sounds=new ArrayList<>();
     }
 
     public void setGame(GameSimulator game) {
@@ -67,7 +74,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     }
     
     @Override
-    public void showMapSelector() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
+    public void showMapSelector() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException {
         MapSelector mapSelector = new MapSelector(this);
         mapSelector.showMaps(game.showMaps());
         setCurrentPanel(mapSelector);
@@ -80,6 +87,8 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
         setCurrentPanel(initialMenu);
         initialMenu.requestFocus();
+        
+        
         
         
         
@@ -114,7 +123,10 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
         setCurrentPanel(gamePanel);
         gamePanel.requestFocus(); // Solicitar el foco para recibir eventos de teclado
-
+        
+        h1.pause();//puedo despausar cuando regrese al map selector de nuevo
+        
+        
 
     }
     @Override
@@ -275,11 +287,12 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         MainWindow window = new MainWindow();
         GameSimulator game = new GameSimulator(window);
         window.setGame(game);
+        sounds=game.getSounds();
         //System.out.println("paso por la main");
         //window.showPlayersAndScoresPanel();
-        
+        h1= new SoundThread(sounds.get(2));
         //window.showMapSelector();
-        
+        h1.start();
         window.showInitialMenu();
          
         

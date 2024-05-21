@@ -43,7 +43,7 @@ public class ReducedSize extends SpecialObject implements Applicable{
         
         cb.setImage(cb.getcarImages().get(1));
         
-        System.out.println("COLISIONNNNNNNNNNNNNNNN");
+        //System.out.println("COLISIONNNNNNNNNNNNNNNN");
         paintable.repaint();
         
         sound.get(0).playSound();
@@ -56,7 +56,7 @@ public class ReducedSize extends SpecialObject implements Applicable{
         } catch (InterruptedException ex) {
             Logger.getLogger(ReducedSize.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("COLISIONNNNNNNNNNNNNNNN");
+        //System.out.println("COLISIONNNNNNNNNNNNNNNN");
         
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);

@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -169,13 +170,16 @@ public class MapSelector extends javax.swing.JPanel {
             Logger.getLogger(MapSelector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidMapFormatException ex) {
             Logger.getLogger(MapSelector.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckpointException ex) {
+            Logger.getLogger(MapSelector.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_bReturnActionPerformed
 
     private void bJugar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bJugar1ActionPerformed
-        // TODO add your handling code here:
+        if (mapSelected != null && !mapSelected.isEmpty()) {
         clickListener.playButtonClicked(mapSelected);
+        }
     }//GEN-LAST:event_bJugar1ActionPerformed
 
 

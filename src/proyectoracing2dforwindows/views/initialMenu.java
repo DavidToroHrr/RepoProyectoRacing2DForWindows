@@ -7,6 +7,7 @@ package proyectoracing2dforwindows.views;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -50,6 +51,7 @@ public class InitialMenu extends javax.swing.JPanel {
 
         bPlay.setFont(bPlay.getFont().deriveFont(bPlay.getFont().getSize()+58f));
         bPlay.setText("PLAY");
+        bPlay.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bPlayActionPerformed(evt);
@@ -81,7 +83,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bExitActionPerformed(evt);
             }
         });
-        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 680, -1, -1));
+        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data.gifs/IntroVideoMenu.gif"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 910));
@@ -106,16 +108,14 @@ public class InitialMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.out.println("play");
         
-        
         try {
             clickListener.showMapSelector();
-        } catch (FileManagerException ex) {
-            Logger.getLogger(InitialMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MapFileNotFoundException ex) {
-            Logger.getLogger(InitialMenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidMapFormatException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }
+        } catch (FileManagerException | MapFileNotFoundException | InvalidMapFormatException | CheckpointException ex) {
+            JOptionPane.showMessageDialog(this,
+            "An error occurred while initializing the game: " + ex.getMessage(),
+            "Initialization Error",
+            JOptionPane.ERROR_MESSAGE);
+            }
         
     }//GEN-LAST:event_bPlayActionPerformed
 

@@ -6,6 +6,7 @@ package proyectoracing2dforwindows.views;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -35,31 +36,94 @@ public class AboutUsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         bReturn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(900, 900));
         setPreferredSize(new java.awt.Dimension(900, 900));
 
         bReturn.setText("RETURN");
+        bReturn.setAlignmentX(20.0F);
+        bReturn.setAlignmentY(20.0F);
         bReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bReturnActionPerformed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
+        jLabel1.setText("third semester students of systems engineering");
+
+        jLabel2.setFont(jLabel1.getFont());
+        jLabel2.setText("Universidad Autónoma de Manizales");
+
+        jLabel4.setFont(jLabel1.getFont());
+        jLabel4.setText("Santiago Castaño Arcila");
+
+        jLabel5.setFont(jLabel1.getFont());
+        jLabel5.setText("Thomas Alejandro Toro Herrera");
+
+        jLabel6.setFont(jLabel1.getFont());
+        jLabel6.setText("David Esteban Toro Herrera");
+
+        jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
+        jLabel3.setText("This project was developed by");
+
+        jLabel7.setFont(jLabel1.getFont());
+        jLabel7.setText("of de");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(407, 407, 407)
-                .addComponent(bReturn)
-                .addContainerGap(418, Short.MAX_VALUE))
+                .addGap(151, 151, 151)
+                .addComponent(jLabel3))
+            .addComponent(jLabel1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(364, 364, 364)
+                .addComponent(jLabel7))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jLabel2))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(jLabel5))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addComponent(jLabel4))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jLabel6))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(405, 405, 405)
+                .addComponent(bReturn))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(282, 282, 282)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(90, 90, 90)
+                .addComponent(jLabel4)
+                .addGap(53, 53, 53)
+                .addComponent(jLabel5)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel6)
+                .addGap(60, 60, 60)
                 .addComponent(bReturn)
-                .addContainerGap(595, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -73,11 +137,20 @@ public class AboutUsPanel extends javax.swing.JPanel {
             Logger.getLogger(AboutUsPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidMapFormatException ex) {
             Logger.getLogger(AboutUsPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckpointException ex) {
+            Logger.getLogger(AboutUsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bReturnActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bReturn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

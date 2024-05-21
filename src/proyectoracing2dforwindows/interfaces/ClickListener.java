@@ -4,6 +4,7 @@
  */
 package proyectoracing2dforwindows.interfaces;
 
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -20,8 +21,8 @@ public interface ClickListener {
     //public void OptionsButtonClicked(String nameMap);
     //public void playButtonClicked(String nameMap);
     //public void AboutUsButtonClicked(String nameMap);
-    public void showMapSelector()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException ;
-    public void showInitialMenu()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException;
+    public void showMapSelector()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException ;
+    public void showInitialMenu()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException,CheckpointException;
     public void showCarSelector(int player);
     public void showPlayersAndScoresPanel(int player);
     public void setNumLaps(int laps);

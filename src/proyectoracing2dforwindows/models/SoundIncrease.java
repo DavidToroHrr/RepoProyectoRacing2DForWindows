@@ -10,8 +10,8 @@ package proyectoracing2dforwindows.models;
  */
 public class SoundIncrease extends Sound{
     
-    public SoundIncrease(String id, String filePath) {
-        super(id, filePath);
+    public SoundIncrease(String id, String filePath,int timeDuration) {
+        super(id, filePath,timeDuration);
     }
     
 }

@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -232,6 +233,8 @@ public class OptionsPanel extends javax.swing.JPanel {
         } catch (MapFileNotFoundException ex) {
             Logger.getLogger(OptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidMapFormatException ex) {
+            Logger.getLogger(OptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckpointException ex) {
             Logger.getLogger(OptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bReturnActionPerformed
