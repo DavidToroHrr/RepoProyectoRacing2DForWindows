@@ -57,19 +57,18 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     private BufferedImage imageStop;
     URL stopUrl = getClass().getResource("/data/powers/stop.png");
     
-    private static Informable informable;
     
-    private int numPowers=0;
     
-    private int numLaps=0;
+    private int numPowers;
+    
+    private int numLaps;
     
     private ArrayList <Sound> sounds;
 
-    public GameSimulator(Informable informable)throws IOException {
+    public GameSimulator()throws IOException {
         
         
         
-        GameSimulator.informable=informable;
         
         
         System.out.println("-------------------------------------------------------------------------"+informable.getNumPowers());
@@ -293,7 +292,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     public static GameSimulator getInstance() {
         if (instance == null) {
             try {
-                instance = new GameSimulator(informable);
+                instance = new GameSimulator();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -374,8 +373,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
         int contObj=specialsObjects.size();
-        numPowers=informable.getNumPowers();
-        while (contObj<=numPowers-1) {                    
+        setNumPowers(numPowers);
+        while (contObj<=getNumPowers()-1) {                    
             int px=(int)(Math.random()*900);
             int py=(int)(Math.random() * 900) + 30;
             if (currentRunway.verifyPoint(px, py)) {
@@ -416,7 +415,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
             String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
             player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this);
-            
+           
             //PLayer2
             ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
             String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
@@ -461,6 +460,34 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
      */
     public ArrayList <Sound> getSounds() {
         return sounds;
+    }
+
+    /**
+     * @return the numPowers
+     */
+    public int getNumPowers() {
+        return numPowers;
+    }
+
+    /**
+     * @param numPowers the numPowers to set
+     */
+    public void setNumPowers(int numPowers) {
+        this.numPowers = numPowers;
+    }
+
+    /**
+     * @return the numLaps
+     */
+    public int getNumLaps() {
+        return numLaps;
+    }
+
+    /**
+     * @param numLaps the numLaps to set
+     */
+    public void setNumLaps(int numLaps) {
+        this.numLaps = numLaps;
     }
     
     

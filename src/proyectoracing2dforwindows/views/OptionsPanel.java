@@ -13,6 +13,7 @@ import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 import proyectoracing2dforwindows.interfaces.ClickListener;
+import proyectoracing2dforwindows.interfaces.Configurable;
 
 /**
  *
@@ -22,12 +23,14 @@ public class OptionsPanel extends javax.swing.JPanel {
     private ClickListener clickListener;
     private int numLaps=0;
     private int numPowers=0;
+    private Configurable configurable;
     /**
      * Creates new form OptionsPanel
      */
-    public OptionsPanel(ClickListener clickListener) {
+    public OptionsPanel(ClickListener clickListener,Configurable configurable) {
         initComponents();
         this.clickListener=clickListener;
+        this.configurable=configurable;
         sSetNumLaps.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -265,11 +268,11 @@ public class OptionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_bSelectUserNamePlayer2ActionPerformed
     private void sendLapsToMainWindow(){
        
-        clickListener.setNumLaps(numLaps);
+        configurable.setNumLaps(numLaps);
     }
     private void sendPowersToMainWindow(){
          System.out.println("numero de poderes que mando,"+numPowers);
-        clickListener.setNumPowers(numPowers);
+        configurable.setNumPowers(numPowers);
        
     }
 

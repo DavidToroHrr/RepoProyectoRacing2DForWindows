@@ -19,7 +19,6 @@ import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
-import proyectoracing2dforwindows.interfaces.Configurable;
 import proyectoracing2dforwindows.interfaces.Informable;
 import proyectoracing2dforwindows.interfaces.KeyListener;
 import proyectoracing2dforwindows.interfaces.Paintable;
@@ -35,13 +34,13 @@ import proyectoracing2dforwindows.threads.SoundThread;
  *
  * @author usuario
  */
-public class MainWindow extends javax.swing.JFrame implements ClickListener, KeyListener, Informable{
+public class MainWindow extends javax.swing.JFrame implements ClickListener, KeyListener{
 
     private GameSimulator game;
     private static SoundThread h1;
     private BufferedImage buffer;
     private int numLaps=0;
-    private int numPowers=0;
+    private int numPowers=1;
     private static ArrayList <Sound> sounds;
     
     public MainWindow() {
@@ -107,7 +106,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     
     @Override
     public void showOptionsPanel(){
-        OptionsPanel optionsPanel = new OptionsPanel(this);
+        OptionsPanel optionsPanel = new OptionsPanel(this,game);
         
     
         setCurrentPanel(optionsPanel);
@@ -116,6 +115,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     }
     
     public void showGamePanel(String nameMap) throws IOException{
+        
         System.out.println("paso por gamePanelq");
         game.loadMap(nameMap);
         Runway runway =game.getCurrentRunway();
@@ -214,29 +214,15 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     
     
     
-    @Override
-    public void setNumLaps(int laps){
-        numLaps=laps;
-        
-    }
     
     
     
-    @Override
-    public void setNumPowers(int powers){
-        numPowers=powers;
-        System.out.println("poderes de la main"+numPowers);
-    }
-    @Override
-    public int getNumLaps(){
-        return numLaps;
-    }
     
     
-    @Override
-    public int getNumPowers(){
-        return numPowers;
-    }
+    
+    
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -285,7 +271,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     public static void main(String args[]) throws IOException, FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
         
         MainWindow window = new MainWindow();
-        GameSimulator game = new GameSimulator(window);
+        GameSimulator game = new GameSimulator();
         window.setGame(game);
         sounds=game.getSounds();
         //System.out.println("paso por la main");
