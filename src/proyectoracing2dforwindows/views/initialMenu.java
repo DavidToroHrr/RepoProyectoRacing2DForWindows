@@ -57,7 +57,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bPlayActionPerformed(evt);
             }
         });
-        jPanel1.add(bPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 230, 88));
+        jPanel1.add(bPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 360, 88));
 
         bOptions.setFont(bPlay.getFont());
         bOptions.setText("OPTIONS");
@@ -66,7 +66,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bOptionsActionPerformed(evt);
             }
         });
-        jPanel1.add(bOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
+        jPanel1.add(bOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 360, -1));
 
         bAboutUs.setFont(bPlay.getFont());
         bAboutUs.setText("ABOUT US");
@@ -75,7 +75,7 @@ public class InitialMenu extends javax.swing.JPanel {
                 bAboutUsActionPerformed(evt);
             }
         });
-        jPanel1.add(bAboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
+        jPanel1.add(bAboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 360, -1));
 
         bExit.setText("EXIT");
         bExit.addActionListener(new java.awt.event.ActionListener() {
@@ -83,24 +83,24 @@ public class InitialMenu extends javax.swing.JPanel {
                 bExitActionPerformed(evt);
             }
         });
-        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, -1, -1));
+        jPanel1.add(bExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 670, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data.gifs/IntroVideoMenu.gif"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 910));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

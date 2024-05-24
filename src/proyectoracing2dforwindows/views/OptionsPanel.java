@@ -31,21 +31,22 @@ public class OptionsPanel extends javax.swing.JPanel {
         initComponents();
         this.clickListener=clickListener;
         this.configurable=configurable;
+        sSetNumLaps.setValue(configurable.getNumLaps());
+        sSetNumPowers.setValue(configurable.getNumPowers());
+
         sSetNumLaps.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                numLaps=(int)sSetNumLaps.getValue();
+                configurable.setNumLaps((int)sSetNumLaps.getValue());
                 System.out.println("num"+numLaps);
-                sendLapsToMainWindow();
             }
             
         });
         sSetNumPowers.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                numPowers=(int)sSetNumPowers.getValue();
+                configurable.setNumPowers((int)sSetNumPowers.getValue());
                 System.out.println("pow"+numPowers);
-                sendPowersToMainWindow();
             }
             
         });
@@ -266,15 +267,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         clickListener.showPlayersAndScoresPanel(2);
     }//GEN-LAST:event_bSelectUserNamePlayer2ActionPerformed
-    private void sendLapsToMainWindow(){
-       
-        configurable.setNumLaps(numLaps);
-    }
-    private void sendPowersToMainWindow(){
-         System.out.println("numero de poderes que mando,"+numPowers);
-        configurable.setNumPowers(numPowers);
-       
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bReturn;

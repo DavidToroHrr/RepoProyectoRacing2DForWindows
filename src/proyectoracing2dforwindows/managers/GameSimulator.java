@@ -67,13 +67,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
 
     public GameSimulator()throws IOException {
         
-        
-        
-        
-        
-        System.out.println("-------------------------------------------------------------------------"+informable.getNumPowers());
-
-        
         this.mapManager = new MapManager();
         this.currentRunway = null;
         this.soundManager=new SoundManager();
@@ -81,6 +74,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         this.scoreManager = new ScoreManager();
         this.carplayer1 = "redcar";
         this.carplayer2 = "greencar";
+        
+        numLaps = 3;
+        numPowers = 5;
         
         this.sounds=new ArrayList<>();
         sounds=soundManager.getSounds();
@@ -373,8 +369,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
         int contObj=specialsObjects.size();
-        setNumPowers(numPowers);
-        while (contObj<=getNumPowers()-1) {                    
+        while (contObj<getNumPowers()) {                    
             int px=(int)(Math.random()*900);
             int py=(int)(Math.random() * 900) + 30;
             if (currentRunway.verifyPoint(px, py)) {
@@ -462,30 +457,22 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         return sounds;
     }
 
-    /**
-     * @return the numPowers
-     */
+    @Override
     public int getNumPowers() {
         return numPowers;
     }
 
-    /**
-     * @param numPowers the numPowers to set
-     */
+    @Override
     public void setNumPowers(int numPowers) {
         this.numPowers = numPowers;
     }
 
-    /**
-     * @return the numLaps
-     */
+    @Override
     public int getNumLaps() {
         return numLaps;
     }
 
-    /**
-     * @param numLaps the numLaps to set
-     */
+    @Override
     public void setNumLaps(int numLaps) {
         this.numLaps = numLaps;
     }

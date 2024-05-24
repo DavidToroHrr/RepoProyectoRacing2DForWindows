@@ -39,8 +39,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     private GameSimulator game;
     private static SoundThread h1;
     private BufferedImage buffer;
-    private int numLaps=0;
-    private int numPowers=1;
     private static ArrayList <Sound> sounds;
     
     public MainWindow() {
@@ -70,6 +68,8 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         this.currentPanel = currentPanel;
         setContentPane(currentPanel);
         revalidate();
+        pack();
+        setLocationRelativeTo(null);
     }
     
     @Override
@@ -285,7 +285,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
         
 
-        window.setLocationRelativeTo(null);
+        
         window.setVisible(true);
         window.setAlwaysOnTop(true);
 }

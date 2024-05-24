@@ -110,7 +110,7 @@ public class MapSelector extends javax.swing.JPanel {
         bJugar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(900, 780));
+        setPreferredSize(new java.awt.Dimension(900, 900));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelMaps.setPreferredSize(new java.awt.Dimension(910, 508));
