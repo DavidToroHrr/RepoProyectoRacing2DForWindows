@@ -26,7 +26,7 @@ public class InitialMenu extends javax.swing.JPanel {
     public InitialMenu(ClickListener clickListener) {
         initComponents();
         this.clickListener = clickListener;
-        
+       
     }
 
     /**
