@@ -25,19 +25,19 @@ public class Player1 extends Player{
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_LEFT) {
-            car.keyPressed('L');
+            getCar().keyPressed('L');
         }
         // Acelerar el carro hacia la derecha
         else if (tecla == KeyEvent.VK_RIGHT) {
-            car.keyPressed('R');
+            getCar().keyPressed('R');
         }
         // Acelerar el carro hacia arriba
         else if (tecla == KeyEvent.VK_UP) {
-            car.keyPressed('U');
+            getCar().keyPressed('U');
         }
         // Acelerar el carro hacia abajo
         else if (tecla == KeyEvent.VK_DOWN) {
-            car.keyPressed('D');
+            getCar().keyPressed('D');
         }
         
     }
@@ -49,15 +49,15 @@ public class Player1 extends Player{
         // Frenar solo si no se está acelerando en esa dirección
         if (tecla == KeyEvent.VK_LEFT || tecla == KeyEvent.VK_RIGHT) {
             if(tecla == KeyEvent.VK_LEFT){
-                car.keyReleased('L');
+                getCar().keyReleased('L');
             }else{
-                car.keyReleased('R');
+                getCar().keyReleased('R');
             }
         } else if (tecla == KeyEvent.VK_UP || tecla == KeyEvent.VK_DOWN) {
             if(tecla == KeyEvent.VK_UP){
-                car.keyReleased('U');
+                getCar().keyReleased('U');
             }else{
-                car.keyReleased('D');
+                getCar().keyReleased('D');
             }
         }
         

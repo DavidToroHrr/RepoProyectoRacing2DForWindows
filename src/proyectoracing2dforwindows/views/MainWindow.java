@@ -271,7 +271,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     public static void main(String args[]) throws IOException, FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
         
         MainWindow window = new MainWindow();
-        GameSimulator game = new GameSimulator();
+        GameSimulator game = new GameSimulator(window);
         window.setGame(game);
         sounds=game.getSounds();
         //System.out.println("paso por la main");

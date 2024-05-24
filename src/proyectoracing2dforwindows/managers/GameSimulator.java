@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyectoracing2dforwindows.managers;
+import java.awt.Color;
+import java.awt.Font;
 import proyectoracing2dforwindows.interfaces.*;
 import proyectoracing2dforwindows.exceptions.*;
 import proyectoracing2dforwindows.models.*;
@@ -22,11 +24,10 @@ import javax.swing.Timer;
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate, Movable, Drawable, Configurable{
+public class GameSimulator implements Coordenate, Movable, Drawable, Configurable, SpecialMovable{
     Paintable paint;
     //private boolean colision=false;
-    private static GameSimulator instance;
-
+    
     private MapManager mapManager;
     private ScoreManager scoreManager;
     private Runway currentRunway;
@@ -45,6 +46,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
   
     private ArrayList <SpecialObject> specialsObjects;
     
+ 
     
     
     private BufferedImage imageShrink;
@@ -67,10 +69,16 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     private int lapsPlayer1;
     private int lapsPlayer2;
+    
+    private ClickListener clickListener;
 
-    public GameSimulator()throws IOException {
+    public GameSimulator(ClickListener clickListener)throws IOException {
+        
+        
         this.lapsPlayer1 = 0;
         this.lapsPlayer2 = 0;
+        
+        this.clickListener=clickListener;
         
         this.mapManager = new MapManager();
         this.currentRunway = null;
@@ -98,6 +106,8 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     @Override
     public void drawElements(Graphics g) throws InterruptedException{
+        
+        
         if(currentRunway != null){
             currentRunway.draw(g);
         }
@@ -118,7 +128,19 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             player2.draw(g);
             
         }
+        g.setColor(Color.WHITE);
+        
+        g.fillRect(900/2-50, 900/2-50, 100, 100);
+        g.setColor(Color.BLACK); // Establece el color del texto
+        g.setFont(new Font(("Arial"), Font.BOLD, 15)); // Establece la fuente del texto
+        g.drawString(player1.getName()+": "+String.valueOf(player1.getLap()), 900/2-50,900/2-30 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString("Score: ", 900/2-50,900/2-12 ); // Dibuja el texto en las coordenadas (50, 50)
+        
+        g.drawString(player2.getName()+": "+String.valueOf(player2.getLap()), 900/2-50,900/2+20 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString("Score: ", 900/2-50,900/2+38 ); // Dibuja el texto en las coordenadas (50, 50)
+
         paint.repaint();
+        
         
         
     }
@@ -164,7 +186,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
                 lapsPlayer1++;
-                System.out.println("--------------------------------------------ply1 "+lapsPlayer1);
+                player1.setLap(lapsPlayer1);
+                System.out.println("--------------------------------------------ply1 "+player1.getLap());
+                
 
             }
             
@@ -177,12 +201,39 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
                 lapsPlayer2++;
-                System.out.println("--------------------------------------------ply2 "+lapsPlayer2);
+                player2.setLap(lapsPlayer2);
+                System.out.println("--------------------------------------------ply2 "+player2.getLap());
             }
             //System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
         }
         
+        verifyLapsPerPlayer(player1, player2);
+    }
+    
+    public void verifyLapsPerPlayer(Player player1,Player player2){
+        if (player1.getLap()==numLaps && player1.getLap()==numLaps) {
+            System.out.println("SALIR");
+            try {
+                clickListener.showMapSelector();
+            } catch (FileManagerException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (MapFileNotFoundException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidMapFormatException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CheckpointException ex) {
+                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (player1.getLap()==numLaps) {          
+               player1.getCar().setVelocityX(0);
+            
+        }else if (player1.getLap()==numLaps) {
+            player1.getCar().setVelocityX(0);
+        }
         
+        
+    
     }
 
     public void keyPressed(KeyEvent e) throws InterruptedException {
@@ -255,6 +306,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     // this function is used to verify the collision between the specialobjects and the runwayyyyyy
 
+    @Override
     public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
     if (currentRunway != null) {
         //System.out.println("Verifying collision for SpecialObject at newY: " + newY);
@@ -300,16 +352,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
 
 
     
-    public static GameSimulator getInstance() {
-        if (instance == null) {
-            try {
-                instance = new GameSimulator();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return instance;
-    }
+    
     
     public void updateGame() {
         for (SpecialObject specialObject : specialsObjects) {
@@ -392,13 +435,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 int decision=(int)(Math.random()*3);
                 SpecialObject e=null;
                 if (decision==0) {
-                    e=new ReducedSize(px, py, 30, 30, "shrink", imageShrink, shrinkUrl1,paint);
+                    e=new ReducedSize(px, py, 30, 30, "shrink", imageShrink, shrinkUrl1,paint,this);
 
                 }else if(decision==1){
-                    e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, shrinkUrl2,paint);
+                    e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, shrinkUrl2,paint,this);
                 
                 }else if(decision==2){
-                    e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint) ;               }
+                    e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint,this) ;               }
                 
                 specialsObjects.add(e);
                 contObj+=1;
@@ -492,6 +535,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     @Override
     public void setNumLaps(int numLaps) {
         this.numLaps = numLaps;
+    }
+
+    private String toString(int lap) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

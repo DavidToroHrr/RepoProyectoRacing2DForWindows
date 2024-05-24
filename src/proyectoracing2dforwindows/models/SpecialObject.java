@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
-import proyectoracing2dforwindows.managers.GameSimulator;
+import proyectoracing2dforwindows.interfaces.SpecialMovable;
 
 /**
  *
@@ -21,9 +21,13 @@ public abstract class SpecialObject extends Object implements Applicable{
     
     protected int velocityY;
     protected int directionY; 
+    private SpecialMovable specialMovable;
     
-    public SpecialObject(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable paintable) {
+    public SpecialObject(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable paintable,SpecialMovable specialMovable) {
         super(x, y, width, height, id, image, url);
+        
+        this.specialMovable=specialMovable;
+        
         this.paintable=paintable;
         this.velocityY=1; // esta es la velocidad inicial del objeto
         this.directionY=-1; // esta es la dirección del objeto 1 es para abajo y -1 es para arriba
@@ -36,7 +40,8 @@ public abstract class SpecialObject extends Object implements Applicable{
     
      public void updatePosition() {
         int newY = y + velocityY * directionY;
-        GameSimulator.getInstance().verifySpecialObjectCollision(this, newY);
+        
+        specialMovable.verifySpecialObjectCollision(this, newY);
         y = newY;
     }
 

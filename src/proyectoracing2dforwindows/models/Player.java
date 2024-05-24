@@ -29,8 +29,8 @@ public abstract class Player {
         this.name = name;
         this.cpCurrent = -1;
         this.lap = 0;
-        car = new Car(900 / 2 - 250, 900 / 2, 34, 60, name, carImages, null, paintable, movable);
-        timerCar = new Timer(10, e -> car.actualizar());
+        car = new Car(900 / 2 - 240, 900 / 2, 34, 60, name, carImages, null, paintable, movable);
+        timerCar = new Timer(10, e -> getCar().actualizar());
         timerCar.start();
     }
     
@@ -40,15 +40,15 @@ public abstract class Player {
 
     public void draw(Graphics g) {
         
-        car.draw(g);
+        getCar().draw(g);
         g.setColor(Color.WHITE); // Establece el color del texto
         g.setFont(new Font("Arial", Font.PLAIN, 15)); // Establece la fuente del texto
-        g.drawString(name, car.getX(), car.getY()-10); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString(name, getCar().getX(), getCar().getY()-10); // Dibuja el texto en las coordenadas (50, 50)
 
     }
     
     public void actualizar(){
-        car.actualizar();
+        getCar().actualizar();
     }
 
     public int getCpCurrent() {
@@ -58,7 +58,7 @@ public abstract class Player {
     public void setCpCurrent(int cpCurrent) {
         this.cpCurrent = cpCurrent;
         if(cpCurrent == 0){
-            lap += 1;
+            setLap(getLap() + 1);
         }
     }
 
@@ -71,11 +71,32 @@ public abstract class Player {
     }
     
     public void setImages(ArrayList<BufferedImage> carImages){
-        car.setCarImages(carImages);
+        getCar().setCarImages(carImages);
     }
 
     public int getLap() {
         return lap;
+    }
+
+    /**
+     * @param lap the lap to set
+     */
+    public void setLap(int lap) {
+        this.lap = lap;
+    }
+
+    /**
+     * @return the car
+     */
+    public Car getCar() {
+        return car;
+    }
+
+    /**
+     * @param car the car to set
+     */
+    public void setCar(Car car) {
+        this.car = car;
     }
     
     

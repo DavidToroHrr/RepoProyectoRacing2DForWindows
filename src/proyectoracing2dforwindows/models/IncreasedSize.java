@@ -11,14 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.interfaces.SpecialMovable;
 
 /**
  *
  * @author david
  */
 public class IncreasedSize extends SpecialObject{
-    public IncreasedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable paintable) {
-        super(x, y, width, height, id, image, url,paintable);
+    
+    public IncreasedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable paintable,SpecialMovable specialMovable) {
+        super(x, y, width, height, id, image, url,paintable,specialMovable);
         
     }
 

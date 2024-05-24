@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.interfaces.SpecialMovable;
 
 /**
  *
@@ -21,8 +22,8 @@ import proyectoracing2dforwindows.interfaces.Paintable;
  */
 public class ReducedSize extends SpecialObject implements Applicable{
     
-    public ReducedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1) {
-        super(x, y, width, height, id, image, url,p1);
+    public ReducedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,SpecialMovable specialMovable) {
+        super(x, y, width, height, id, image, url,p1,specialMovable);
     }
     
     

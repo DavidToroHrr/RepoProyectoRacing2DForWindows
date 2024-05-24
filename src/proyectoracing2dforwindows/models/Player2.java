@@ -18,6 +18,7 @@ public class Player2 extends Player{
     public Player2(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable) {
         super(name, carImages, paintable, movable);
         car.setX(900 / 2 - 300);
+        
     }
 
     public void keyPressed(KeyEvent e) {
@@ -25,19 +26,19 @@ public class Player2 extends Player{
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_A) {
-            car.keyPressed('L');
+            getCar().keyPressed('L');
         }
         // Acelerar el carro hacia la derecha
         else if (tecla == KeyEvent.VK_D) {
-            car.keyPressed('R');
+            getCar().keyPressed('R');
         }
         // Acelerar el carro hacia arriba
         else if (tecla == KeyEvent.VK_W) {
-            car.keyPressed('U');
+            getCar().keyPressed('U');
         }
         // Acelerar el carro hacia abajo
         else if (tecla == KeyEvent.VK_S) {
-            car.keyPressed('D');
+            getCar().keyPressed('D');
         }
         
     }
@@ -49,15 +50,15 @@ public class Player2 extends Player{
         // Frenar solo si no se está acelerando en esa dirección
         if (tecla == KeyEvent.VK_A || tecla == KeyEvent.VK_D) {
             if(tecla == KeyEvent.VK_A){
-                car.keyReleased('L');
+                getCar().keyReleased('L');
             }else{
-                car.keyReleased('R');
+                getCar().keyReleased('R');
             }
         } else if (tecla == KeyEvent.VK_W || tecla == KeyEvent.VK_S) {
             if(tecla == KeyEvent.VK_W){
-                car.keyReleased('U');
+                getCar().keyReleased('U');
             }else{
-                car.keyReleased('D');
+                getCar().keyReleased('D');
             }
         }
         
