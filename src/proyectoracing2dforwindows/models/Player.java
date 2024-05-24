@@ -58,7 +58,7 @@ public abstract class Player {
     public void setCpCurrent(int cpCurrent) {
         this.cpCurrent = cpCurrent;
         if(cpCurrent == 0){
-            setLap(getLap() + 1);
+            lap += 1;
         }
     }
 
@@ -99,5 +99,7 @@ public abstract class Player {
         this.car = car;
     }
     
-    
+    public void stopCar(){
+        timerCar.stop();
+    }
 }

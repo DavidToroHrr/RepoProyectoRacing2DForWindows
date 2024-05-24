@@ -74,9 +74,11 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     
     @Override
     public void showMapSelector() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException {
+        
         MapSelector mapSelector = new MapSelector(this);
         mapSelector.showMaps(game.showMaps());
         setCurrentPanel(mapSelector);
+        h1.pause();
     }
     @Override
     public void showInitialMenu() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
@@ -118,7 +120,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
         System.out.println("paso por gamePanelq");
         game.loadMap(nameMap);
-        Runway runway =game.getCurrentRunway();
         GamePanel gamePanel = new GamePanel(this, game);
         
         setCurrentPanel(gamePanel);

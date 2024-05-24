@@ -67,16 +67,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     
     private ArrayList <Sound> sounds;
     
-    private int lapsPlayer1;
-    private int lapsPlayer2;
-    
     private ClickListener clickListener;
 
     public GameSimulator(ClickListener clickListener)throws IOException {
         
-        
-        this.lapsPlayer1 = 0;
-        this.lapsPlayer2 = 0;
         
         this.clickListener=clickListener;
         
@@ -185,8 +179,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 player1.setCpCurrent(cp_collided);
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
-                lapsPlayer1++;
-                player1.setLap(lapsPlayer1);
                 System.out.println("--------------------------------------------ply1 "+player1.getLap());
                 
 
@@ -200,20 +192,19 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 player2.setCpCurrent(cp_collided);
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
-                lapsPlayer2++;
-                player2.setLap(lapsPlayer2);
                 System.out.println("--------------------------------------------ply2 "+player2.getLap());
             }
             //System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
         }
         
-        verifyLapsPerPlayer(player1, player2);
+        verifyLapsPerPlayer();
     }
     
-    public void verifyLapsPerPlayer(Player player1,Player player2){
-        if (player1.getLap()==numLaps && player1.getLap()==numLaps) {
+    public void verifyLapsPerPlayer(){
+        if (player1.getLap() > numLaps && player2.getLap() > numLaps) {
             System.out.println("SALIR");
             try {
+                finalizePlayers();
                 clickListener.showMapSelector();
             } catch (FileManagerException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
@@ -225,11 +216,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        else if (player1.getLap()==numLaps) {          
+        else if (player1.getLap() > numLaps) {          
                player1.getCar().setVelocityX(0);
+               player2.getCar().setVelocityY(0);
             
-        }else if (player1.getLap()==numLaps) {
-            player1.getCar().setVelocityX(0);
+        }else if (player2.getLap() > numLaps) {
+            player2.getCar().setVelocityX(0);
+            player2.getCar().setVelocityY(0);
+
         }
         
         
@@ -484,6 +478,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         }
     }
     
+    private void finalizePlayers(){
+        
+        gameUpdateTimer = null;
+        player1.stopCar();
+        player1 = null;
+        player2.stopCar();
+        player2 = null;
+    }
     
     @Override
     public String getScorePlayerName(int player){
