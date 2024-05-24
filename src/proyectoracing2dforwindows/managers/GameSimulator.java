@@ -64,8 +64,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     private int numLaps;
     
     private ArrayList <Sound> sounds;
+    
+    private int lapsPlayer1;
+    private int lapsPlayer2;
 
     public GameSimulator()throws IOException {
+        this.lapsPlayer1 = 0;
+        this.lapsPlayer2 = 0;
         
         this.mapManager = new MapManager();
         this.currentRunway = null;
@@ -142,10 +147,15 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     public void verifyCheckpoints(int x, int y, int width, int height, String id) {
         int cp_collided = currentRunway.verifyCheckpointCollision(x, y, width, height);
         if(cp_collided == -1){
+            
             return;
         }
+        //System.out.println("antes de entrat");
         int cp_current;
-        if(id.equals(carplayer1)){
+        if(id.equals(player1.getName())){
+            
+
+            //System.out.println("player1 checpoint actual:"+player1.getCpCurrent());
             cp_current = player1.getCpCurrent();
             if(cp_current == -1 & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
@@ -153,9 +163,12 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 player1.setCpCurrent(cp_collided);
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
+                lapsPlayer1++;
+                System.out.println("--------------------------------------------ply1 "+lapsPlayer1);
+
             }
-            System.out.println("player1 checpoint actual:"+player1.getCpCurrent());
-        }else if(id.equals(carplayer2)){
+            
+        }else if(id.equals(player2.getName())){
             cp_current = player2.getCpCurrent();
             if(cp_current == -1 & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
@@ -163,8 +176,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 player2.setCpCurrent(cp_collided);
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
+                lapsPlayer2++;
+                System.out.println("--------------------------------------------ply2 "+lapsPlayer2);
             }
-            System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
+            //System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
         }
         
         
@@ -242,14 +257,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
 
     public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
     if (currentRunway != null) {
-        System.out.println("Verifying collision for SpecialObject at newY: " + newY);
+        //System.out.println("Verifying collision for SpecialObject at newY: " + newY);
 
         //Use the current x position of the special object
         int newX = specialObject.getX();
         Cell cell = currentRunway.verifyCellCollision(newX, newY, specialObject.getWidth(), specialObject.getHeight());
 
         if (cell != null) {
-            System.out.println("Collision detected with cell ID: " + cell.getId());
+            //System.out.println("Collision detected with cell ID: " + cell.getId());
 
             if (cell.getId().equals(CellWall.CELL_ID)) {
                 int cellTop = cell.getY();
@@ -257,27 +272,27 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 int objectTop = newY;
                 int objectBottom = newY + specialObject.getHeight();
 
-                System.out.println("objectTop: " + objectTop + ", objectBottom: " + objectBottom);
-                System.out.println("cellTop: " + cellTop + ", cellBottom: " + cellBottom);
+                //System.out.println("objectTop: " + objectTop + ", objectBottom: " + objectBottom);
+                //System.out.println("cellTop: " + cellTop + ", cellBottom: " + cellBottom);
 
                 // Determine the side of the collision
                 if (specialObject.getDirectionY() == 1) { //Moving down
                     if (objectBottom >= cellTop) {
                         specialObject.setDirectionY(-1); //Change direction to up
-                        System.out.println("Direction changed to up");
+                        //System.out.println("Direction changed to up");
                     }
                 } else if (specialObject.getDirectionY() == -1) { // Moving up
                     if (objectTop <= cellBottom) {
                         specialObject.setDirectionY(1); // Change direction to down
-                        System.out.println("Direction changed to down");
+                        //System.out.println("Direction changed to down");
                     }
                 }
             }
         } else {
-            System.out.println("No collision detected at newY: " + newY);
+            //System.out.println("No collision detected at newY: " + newY);
         }
     } else {
-        System.out.println("CurrentRunway is null");
+        //System.out.println("CurrentRunway is null");
     }
 }
 
@@ -302,6 +317,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             verifySpecialObjectCollision(specialObject, newY);
             specialObject.updatePosition(); // Asume que este método actualiza la posición basada en la dirección y velocidad
         }
+        
     // Redibujar o actualizar el estado del juego aquí si es necesario
         paint.repaint(); // Llama a repaint para actualizar la visualización si es necesario
     }
@@ -420,6 +436,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             gameUpdateTimer = new Timer(10, e -> updateGame()); 
             gameUpdateTimer.start();
             nCheckpoints = currentRunway.getnCheckpoints()-1;
+            
 
         }
     }

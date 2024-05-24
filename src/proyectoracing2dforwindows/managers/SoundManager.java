@@ -32,7 +32,7 @@ public class SoundManager {
         getSounds().add(sh);
         si=new SoundIncrease("increase","/proyectoracing2dforwindows/sounds/inflar.wav",0);
         getSounds().add(si);
-        sm=new SoundInitialMenu("soundinitialmenu", "/proyectoracing2dforwindows/sounds/gameSound.wav",110000);
+        sm=new SoundInitialMenu("soundinitialmenu", "/proyectoracing2dforwindows/sounds/gameSound.wav",30000);
         getSounds().add(sm);
         
     

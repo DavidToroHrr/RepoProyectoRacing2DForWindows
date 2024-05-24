@@ -33,7 +33,7 @@ public class Car extends Object implements CarCustomable {
     protected final int BRAKE=0;
     private ArrayList <BufferedImage> carImages;
     
-     Graphics2D g2d;
+     
      
      private int degree;
     
@@ -62,6 +62,7 @@ public class Car extends Object implements CarCustomable {
         if(xNuevo != x || yNuevo != y){
             movable.verifyRunwayCollision(xNuevo, yNuevo, this);
             paint.repaint();
+            
             
         }
         
@@ -117,7 +118,7 @@ public class Car extends Object implements CarCustomable {
     public void keyReleased(char key){
         paint.repaint(x, y, width, height);
 
-        System.out.println("entro a keyrealeased");
+        //System.out.println("entro a keyrealeased");
         // Frenar solo si no se está acelerando en esa dirección
         if (key == 'L' || key == 'R') {
             if (getVelocityX() > 0) {
@@ -142,7 +143,7 @@ public class Car extends Object implements CarCustomable {
             t1.start();
             return true;
         }
-        System.out.println("no se pudo crear");
+        //System.out.println("no se pudo crear");
         return false;
         
         
