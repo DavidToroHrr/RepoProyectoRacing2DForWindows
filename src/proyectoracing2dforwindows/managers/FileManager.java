@@ -47,6 +47,7 @@ public class FileManager {
             BufferedWriter writer = new BufferedWriter(route);
             for(String line : text){
                 writer.write(line);
+                writer.newLine();
             }
             writer.close();
         } catch (IOException e) {
