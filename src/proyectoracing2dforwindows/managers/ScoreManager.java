@@ -5,6 +5,8 @@
 package proyectoracing2dforwindows.managers;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -61,15 +63,21 @@ public class ScoreManager {
         return true;
     }
     
-    public boolean updateScore(String name, int score){//Se actualiza un puntaje ya existente
+    public void updateScore(String name, int score){//Se actualiza un puntaje ya existente
         for(int i = 0; i < names.size(); i++){
             if (names.get(i).equals(name)){
                 scores.set(i, score);
-                return true;
             }
         }
         
-        return false;
+        saveScores();
+        try {
+            loadScores();
+        } catch (FileManagerException ex) {
+            Logger.getLogger(ScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MapFileNotFoundException ex) {
+            Logger.getLogger(ScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void saveScores(){//Se guardan los puntajes en el archivo scores.csv

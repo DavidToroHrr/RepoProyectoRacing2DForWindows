@@ -15,8 +15,8 @@ import proyectoracing2dforwindows.interfaces.Paintable;
  * @author usuario
  */
 public class Player2 extends Player{
-    public Player2(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable) {
-        super(name, carImages, paintable, movable);
+    public Player2(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score) {
+        super(name, carImages, paintable, movable, score);
         car.setX(900 / 2 - 300);
         
     }

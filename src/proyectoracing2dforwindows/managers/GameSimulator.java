@@ -126,12 +126,12 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         
         g.fillRect(900/2-50, 900/2-50, 100, 100);
         g.setColor(Color.BLACK); // Establece el color del texto
-        g.setFont(new Font(("Arial"), Font.BOLD, 15)); // Establece la fuente del texto
+        g.setFont(new Font(("Tw Cen MT"), Font.BOLD, 15)); // Establece la fuente del texto
         g.drawString(player1.getName()+": "+String.valueOf(player1.getLap()), 900/2-50,900/2-30 ); // Dibuja el texto en las coordenadas (50, 50)
-        g.drawString("Score: ", 900/2-50,900/2-12 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString("Score: "+player1.getScore(), 900/2-50,900/2-12 ); // Dibuja el texto en las coordenadas (50, 50)
         
         g.drawString(player2.getName()+": "+String.valueOf(player2.getLap()), 900/2-50,900/2+20 ); // Dibuja el texto en las coordenadas (50, 50)
-        g.drawString("Score: ", 900/2-50,900/2+38 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString("Score: "+player2.getScore(), 900/2-50,900/2+38 ); // Dibuja el texto en las coordenadas (50, 50)
 
         paint.repaint();
         
@@ -177,8 +177,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 player1.setCpCurrent(cp_collided);
             }else if(cp_current + 1 == cp_collided){
                 player1.setCpCurrent(cp_collided);
+                player1.setScore(15);
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
+                player1.setScore(60);
                 System.out.println("--------------------------------------------ply1 "+player1.getLap());
                 
 
@@ -190,8 +192,10 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
                 player2.setCpCurrent(cp_collided);
             }else if(cp_current + 1 == cp_collided){
                 player2.setCpCurrent(cp_collided);
+                player2.setScore(15);
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
+                player2.setScore(60);
                 System.out.println("--------------------------------------------ply2 "+player2.getLap());
             }
             //System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
@@ -218,12 +222,13 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
         }
         else if (player1.getLap() > numLaps) {          
                player1.getCar().setVelocityX(0);
-               player2.getCar().setVelocityY(0);
+               player1.getCar().setVelocityY(0);
+               player1.setScore(1);
             
         }else if (player2.getLap() > numLaps) {
             player2.getCar().setVelocityX(0);
             player2.getCar().setVelocityY(0);
-
+            player2.setScore(1);
         }
         
         
@@ -446,6 +451,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     }
     
     public ArrayList<String> getScoreNames(){
+        
         return scoreManager.getNames();
     }
     
@@ -462,12 +468,14 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             //Player1
             ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
             String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
-            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this);
+            int scorePlayer1 = scoreManager.getScorePlayer(namePlayer1);
+            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this, scorePlayer1);
            
             //PLayer2
             ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
             String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
-            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this);
+            int scorePlayer2 = scoreManager.getScorePlayer(namePlayer2);
+            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this, scorePlayer2);
             
             createSpecialObject();
             gameUpdateTimer = new Timer(10, e -> updateGame()); 
@@ -479,6 +487,9 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     }
     
     private void finalizePlayers(){
+        
+        scoreManager.updateScore(player1.getName(), player1.getScore());
+        scoreManager.updateScore(player2.getName(), player2.getScore());
         
         gameUpdateTimer = null;
         player1.stopCar();

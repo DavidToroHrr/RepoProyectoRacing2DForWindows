@@ -23,12 +23,14 @@ public abstract class Player {
     protected Car car;
     private int cpCurrent;
     private int lap;
+    private int score;
     private Timer timerCar;
     
-    public Player(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable){
+    public Player(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score){
         this.name = name;
         this.cpCurrent = -1;
         this.lap = 0;
+        this.score = score;
         car = new Car(900 / 2 - 240, 900 / 2, 34, 60, name, carImages, null, paintable, movable);
         timerCar = new Timer(10, e -> getCar().actualizar());
         timerCar.start();
@@ -102,4 +104,14 @@ public abstract class Player {
     public void stopCar(){
         timerCar.stop();
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score += score;
+    }
+    
+    
 }
