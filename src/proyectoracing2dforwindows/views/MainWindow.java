@@ -78,17 +78,18 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         MapSelector mapSelector = new MapSelector(this);
         mapSelector.showMaps(game.showMaps());
         setCurrentPanel(mapSelector);
-        h1.pause();
+        //h1.pause();
     }
     @Override
     public void showInitialMenu() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
+        
         System.out.println("Pasando por el menú inicial");
         InitialMenu initialMenu = new InitialMenu(this);
         
         
         setCurrentPanel(initialMenu);
         initialMenu.requestFocus();
-        
+        //h1.pause();
         
         
         

@@ -13,15 +13,17 @@ import proyectoracing2dforwindows.models.Sound;
 public class SoundThread extends Thread{
     
     //debo de ir pasando el hilo por map selector y que cuando lo detenga lo pause y pause también el sonido
-    private String nombre;
+    
     private boolean running;
     private volatile boolean paused;
+    private volatile boolean play;
     private Sound sound;
     
     public SoundThread(Sound sound){
-        this.nombre = nombre;
+        
         this.running = true;
         this.paused = false;
+        this.play = true;
         this.sound=sound;
     }
     
@@ -32,7 +34,13 @@ public class SoundThread extends Thread{
     
     public void pause(){
         this.paused = !this.paused;
-        sound.stopSound();
+        this.play=!this.play;
+        if (!play) {
+            sound.stopSound();
+            return;
+        }
+        sound.playSound();
+        
 
     }
     
