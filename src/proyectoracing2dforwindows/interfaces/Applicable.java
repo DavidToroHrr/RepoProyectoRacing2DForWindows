@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
- *
- * @author david
- */
+* interfaces.Applicable
+* Interfaz encarga a aplicar efectos sobre los players y carros
+*/
 public interface Applicable {
     public void applyEfect(CarCustomable cc,ArrayList <Sound>sound);
     

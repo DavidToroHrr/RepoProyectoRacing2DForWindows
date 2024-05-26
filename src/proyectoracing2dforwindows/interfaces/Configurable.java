@@ -7,9 +7,10 @@ package proyectoracing2dforwindows.interfaces;
 import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
 
 /**
- *
- * @author usuario
- */
+* interfaces.Configurable
+* Interfaz que permite editar los valores basicos del juego, como color de carro
+* nombre de player, o vueltas por carrera
+*/
 public interface Configurable {
     public String getScorePlayerName(int player);
     public void selectScorePlayerName(int player, String name);

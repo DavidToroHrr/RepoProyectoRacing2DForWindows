@@ -10,9 +10,10 @@ import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 
 /**
- *
- * @author usuario
- */
+* interfaces.ClickListener
+* Interfaz para detectar en la mainwindow los botones y acciones realizadas
+* en otros paneles
+*/
 public interface ClickListener {
     public void menuButtonClicked(String nameButton);
     public void playButtonClicked(String nameMap);
