@@ -36,13 +36,13 @@ public class SoundManager {
     */
     
     public void createSounds(){
-        sh=new SoundShrink("shrink","/proyectoracing2dforwindows/sounds/desinflar.wav",0);
+        sh=new SoundShrink("shrink","/data/sounds/desinflar.wav",0);
         getSounds().add(sh);
-        si=new SoundIncrease("increase","/proyectoracing2dforwindows/sounds/inflar.wav",0);
+        si=new SoundIncrease("increase","/data/sounds/inflar.wav",0);
         getSounds().add(si);
-        sm=new SoundInitialMenu("soundinitialmenu", "/proyectoracing2dforwindows/sounds/gameSound.wav",30000);
+        sm=new SoundInitialMenu("soundinitialmenu", "/data/sounds/gameSound.wav",30000);
         getSounds().add(sm);
-        ss=new SoundStopped("stopped", "/proyectoracing2dforwindows/sounds/frenadoCarro.wav",0);
+        ss=new SoundStopped("stopped", "/data/sounds/frenadoCarro.wav",0);
         getSounds().add(ss);
         
     

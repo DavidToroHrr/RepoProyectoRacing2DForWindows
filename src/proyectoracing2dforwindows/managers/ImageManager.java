@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import proyectoracing2dforwindows.specialobjetcs.ReducedSize;
+import proyectoracing2dforwindows.specialobjects.ReducedSize;
 
 /**
 * managers.ImageManager

@@ -4,7 +4,7 @@
  */
 package proyectoracing2dforwindows.interfaces;
 
-import proyectoracing2dforwindows.specialobjetcs.SpecialObject;
+import proyectoracing2dforwindows.specialobjects.SpecialObject;
 
 /**
  *

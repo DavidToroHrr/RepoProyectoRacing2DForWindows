@@ -19,11 +19,17 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+* sound.specialsounds
+* Clase encargada de manejar la reproducción de los sonidos en el juego
+* @david
+*/
+
 public class Sound {
     
-    protected String id;
-    protected String filePath;
-    private int timeDuration=0;
+    protected String id; //nos indica el identificador de nuestros sonidos
+    protected String filePath;//nos indica la ruta con la que cuentan nuestros sonidos
+    private int timeDuration=0;//nos indica cuánto tiempo debe de pausar el hilo correspondiente
     Clip clip=null;
     public Sound(String id,String filePath,int timeDuration) {
         this.id = id;

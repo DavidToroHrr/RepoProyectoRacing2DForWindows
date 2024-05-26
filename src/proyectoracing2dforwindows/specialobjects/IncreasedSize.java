@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoracing2dforwindows.specialobjetcs;
+package proyectoracing2dforwindows.specialobjects;
 
-import proyectoracing2dforwindows.specialobjetcs.SpecialObject;
-import proyectoracing2dforwindows.specialobjetcs.ReducedSize;
+import proyectoracing2dforwindows.specialobjects.SpecialObject;
+import proyectoracing2dforwindows.specialobjects.ReducedSize;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
