@@ -25,6 +25,9 @@ public class ImageManager {
     private ArrayList <BufferedImage> imagesRedCar;
     private ArrayList <BufferedImage> imagesGreenCar;
     private ArrayList <BufferedImage> imagesPinkCar;
+    private ArrayList <BufferedImage> imagesBlueCar;
+    private ArrayList <BufferedImage> imagesYellowCar;
+    private ArrayList <BufferedImage> imagesBlackCar;
     
 
     public ImageManager() throws IOException {
@@ -32,6 +35,9 @@ public class ImageManager {
         imagesRedCar=new ArrayList<>();
         imagesGreenCar=new ArrayList<>();
         imagesPinkCar=new ArrayList<>();
+        imagesBlueCar=new ArrayList<>();
+        imagesYellowCar=new ArrayList<>();
+        imagesBlackCar=new ArrayList<>();
         createCarImages();
         
     }
@@ -45,7 +51,7 @@ public class ImageManager {
         //para el carro 1;
         //se debe de crear una variable para img,
             
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 18; i++) {
             BufferedImage imageCar = null;
             URL Url= null;
             switch (i) {
@@ -76,6 +82,33 @@ public class ImageManager {
                 case 8:
                     Url = getClass().getResource("/data/cars/bigpinkcar.png");
                     break;
+                case 9:
+                    Url = getClass().getResource("/data/cars/bluecar.png");
+                    break;
+                case 10:
+                    Url = getClass().getResource("/data/cars/littlebluecar.png");
+                    break;
+                case 11:
+                    Url = getClass().getResource("/data/cars/bigbluecar.png");
+                    break;
+                case 12:
+                    Url = getClass().getResource("/data/cars/yellowcar.png");
+                    break;
+                case 13:
+                    Url = getClass().getResource("/data/cars/yellowcar.png");
+                    break;
+                case 14:
+                    Url = getClass().getResource("/data/cars/bigyellowcar.png");
+                    break;
+                case 15:
+                    Url = getClass().getResource("/data/cars/blackcar.png");
+                    break;
+                case 16:
+                    Url = getClass().getResource("/data/cars/littleblackcar.png");
+                    break;
+                case 17:
+                    Url = getClass().getResource("/data/cars/bigblackcar.png");
+                    break;
                 default:
                     break;
             }
@@ -87,6 +120,14 @@ public class ImageManager {
             }
             else if (i<=8) {
                 getImagesPinkCar().add(imageCar);
+            }else if (i<=11) {
+                getImagesBlueCar().add(imageCar);
+            }
+            else if (i<=14) {
+                getImagesYellowCar().add(imageCar);
+            }
+            else if (i<=17) {
+                getImagesBlackCar().add(imageCar);
             }
             
             
@@ -110,6 +151,12 @@ public class ImageManager {
                 return imagesGreenCar;
             case "pinkcar":
                 return imagesPinkCar;
+            case "bluecar":
+                return imagesBlueCar;
+            case "yellowcar":
+                return imagesYellowCar;
+            case "blackcar":
+                return imagesBlackCar;
             default:
                 return null;
         }
@@ -135,6 +182,18 @@ public class ImageManager {
         return imagesPinkCar;
     }
 
+    public ArrayList<BufferedImage> getImagesBlueCar() {
+        return imagesBlueCar;
+    }
+
+    public ArrayList<BufferedImage> getImagesYellowCar() {
+        return imagesYellowCar;
+    }
+
+    public ArrayList<BufferedImage> getImagesBlackCar() {
+        return imagesBlackCar;
+    }
+    
     
     
     

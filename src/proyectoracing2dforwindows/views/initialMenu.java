@@ -49,7 +49,9 @@ public class InitialMenu extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(900, 900));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bPlay.setFont(bPlay.getFont().deriveFont(bPlay.getFont().getSize()+58f));
+        bPlay.setBackground(new java.awt.Color(195, 21, 18));
+        bPlay.setFont(new java.awt.Font("Tw Cen MT", 0, 80)); // NOI18N
+        bPlay.setForeground(new java.awt.Color(255, 255, 255));
         bPlay.setText("PLAY");
         bPlay.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -57,26 +59,33 @@ public class InitialMenu extends javax.swing.JPanel {
                 bPlayActionPerformed(evt);
             }
         });
-        jPanel1.add(bPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 360, 88));
+        jPanel1.add(bPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 380, 88));
 
+        bOptions.setBackground(new java.awt.Color(195, 21, 18));
         bOptions.setFont(bPlay.getFont());
+        bOptions.setForeground(new java.awt.Color(255, 255, 255));
         bOptions.setText("OPTIONS");
         bOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOptionsActionPerformed(evt);
             }
         });
-        jPanel1.add(bOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 360, -1));
+        jPanel1.add(bOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 380, -1));
 
+        bAboutUs.setBackground(new java.awt.Color(195, 21, 18));
         bAboutUs.setFont(bPlay.getFont());
+        bAboutUs.setForeground(new java.awt.Color(255, 255, 255));
         bAboutUs.setText("ABOUT US");
         bAboutUs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAboutUsActionPerformed(evt);
             }
         });
-        jPanel1.add(bAboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 360, -1));
+        jPanel1.add(bAboutUs, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, 380, -1));
 
+        bExit.setBackground(new java.awt.Color(195, 21, 18));
+        bExit.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bExit.setForeground(new java.awt.Color(255, 255, 255));
         bExit.setText("EXIT");
         bExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

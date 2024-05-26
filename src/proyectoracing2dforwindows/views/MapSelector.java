@@ -57,10 +57,11 @@ public class MapSelector extends javax.swing.JPanel {
             labelDesc.setFont(new Font("Tw Cen MT", Font.PLAIN, 24));
             JButton button = new JButton();
             button.setBounds(35, 270, 200, 60);
-            button.setText("Seleccionar");
+            button.setText("Select");
             button.setFont(new Font("Tw Cen MT", Font.PLAIN, 24));
             button.setFocusPainted(false);
-            button.setBackground(new Color(0, 153, 255));
+            button.setBackground(new Color(240, 34, 54));
+            button.setForeground(Color.WHITE);
             int index = i;
             button.addActionListener(new ActionListener() {
                 @Override
@@ -89,7 +90,7 @@ public class MapSelector extends javax.swing.JPanel {
     private void selectedMap(int index, String nameMapSelected, JPanel background){
         indexSelected = index;
         mapSelected = nameMapSelected;
-        background.setBackground(new Color(153, 204, 255));
+        background.setBackground(new Color(245, 76, 93));
         int j = 0;
         for(JPanel panel : panels){
             if(j!=indexSelected){
@@ -109,10 +110,11 @@ public class MapSelector extends javax.swing.JPanel {
         bReturn = new javax.swing.JButton();
         bJugar1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(102, 102, 102));
         setPreferredSize(new java.awt.Dimension(900, 900));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        PanelMaps.setBackground(new java.awt.Color(153, 153, 153));
         PanelMaps.setPreferredSize(new java.awt.Dimension(910, 508));
 
         javax.swing.GroupLayout PanelMapsLayout = new javax.swing.GroupLayout(PanelMaps);
@@ -130,15 +132,16 @@ public class MapSelector extends javax.swing.JPanel {
 
         add(ScrollMaps, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 104, 900, 510));
 
-        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
-        jLabel1.setText("jLabel1");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 0, 718, 98));
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Level Selector");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 390, 98));
 
-        bReturn.setBackground(new java.awt.Color(0, 153, 0));
+        bReturn.setBackground(new java.awt.Color(195, 21, 18));
         bReturn.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         bReturn.setForeground(new java.awt.Color(255, 255, 255));
         bReturn.setText("Return");
-        bReturn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 0), 5, true));
+        bReturn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 5, true));
         bReturn.setFocusPainted(false);
         bReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,11 +150,11 @@ public class MapSelector extends javax.swing.JPanel {
         });
         add(bReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 690, 192, 104));
 
-        bJugar1.setBackground(new java.awt.Color(0, 153, 0));
-        bJugar1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        bJugar1.setBackground(new java.awt.Color(195, 21, 18));
+        bJugar1.setFont(new java.awt.Font("Tw Cen MT", 0, 48)); // NOI18N
         bJugar1.setForeground(new java.awt.Color(255, 255, 255));
         bJugar1.setText("Jugar");
-        bJugar1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 204, 0), 5, true));
+        bJugar1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 5, true));
         bJugar1.setFocusPainted(false);
         bJugar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

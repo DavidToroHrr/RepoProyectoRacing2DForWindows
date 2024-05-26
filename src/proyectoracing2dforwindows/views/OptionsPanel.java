@@ -62,10 +62,6 @@ public class OptionsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         bReturn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        sSetNumLaps = new javax.swing.JSpinner();
-        sSetNumPowers = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         bSelectCarPlayer1 = new javax.swing.JButton();
@@ -76,11 +72,19 @@ public class OptionsPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        sSetNumLaps = new javax.swing.JSpinner();
+        sSetNumPowers = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(102, 102, 102));
         setMaximumSize(new java.awt.Dimension(900, 900));
         setMinimumSize(new java.awt.Dimension(900, 900));
         setPreferredSize(new java.awt.Dimension(900, 900));
 
+        bReturn.setBackground(new java.awt.Color(204, 204, 204));
         bReturn.setFont(sSetNumLaps.getFont());
         bReturn.setText("RETURN");
         bReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -89,10 +93,74 @@ public class OptionsPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 70)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Settings player 1");
+
+        jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Settings player 2");
+
+        bSelectCarPlayer1.setBackground(new java.awt.Color(204, 204, 204));
+        bSelectCarPlayer1.setFont(new java.awt.Font("Tw Cen MT", 0, 40)); // NOI18N
+        bSelectCarPlayer1.setText("SELECT");
+        bSelectCarPlayer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelectCarPlayer1ActionPerformed(evt);
+            }
+        });
+
+        bSelectCarPlayer2.setBackground(new java.awt.Color(204, 204, 204));
+        bSelectCarPlayer2.setFont(bSelectCarPlayer1.getFont());
+        bSelectCarPlayer2.setText("SELECT");
+        bSelectCarPlayer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelectCarPlayer2ActionPerformed(evt);
+            }
+        });
+
+        bSelecUserNamePlayer1.setBackground(new java.awt.Color(204, 204, 204));
+        bSelecUserNamePlayer1.setFont(bSelectCarPlayer1.getFont());
+        bSelecUserNamePlayer1.setText("SELECT");
+        bSelecUserNamePlayer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelecUserNamePlayer1ActionPerformed(evt);
+            }
+        });
+
+        bSelectUserNamePlayer2.setBackground(new java.awt.Color(204, 204, 204));
+        bSelectUserNamePlayer2.setFont(bSelecUserNamePlayer1.getFont());
+        bSelectUserNamePlayer2.setText("SELECT");
+        bSelectUserNamePlayer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSelectUserNamePlayer2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(bSelectCarPlayer1.getFont());
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Select car");
+
+        jLabel6.setFont(bSelectCarPlayer1.getFont());
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Select car");
+
+        jLabel7.setFont(bSelectCarPlayer1.getFont());
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Select profile");
+
+        jLabel8.setFont(bSelectCarPlayer1.getFont());
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Select profile");
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 60)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Number of laps");
 
         jLabel3.setFont(jLabel2.getFont());
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Number of powers");
 
         sSetNumLaps.setFont(new java.awt.Font("Tw Cen MT", 0, 40)); // NOI18N
@@ -104,109 +172,81 @@ public class OptionsPanel extends javax.swing.JPanel {
         sSetNumPowers.setMinimumSize(new java.awt.Dimension(90, 60));
         sSetNumPowers.setPreferredSize(new java.awt.Dimension(90, 60));
 
-        jLabel1.setFont(jLabel2.getFont());
-        jLabel1.setText("Settings player 1");
+        jLabel9.setFont(new java.awt.Font("Tw Cen MT", 0, 70)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Game Settings");
 
-        jLabel4.setFont(jLabel2.getFont());
-        jLabel4.setText("Settings player 2");
-
-        bSelectCarPlayer1.setFont(new java.awt.Font("Tw Cen MT", 0, 40)); // NOI18N
-        bSelectCarPlayer1.setText("SELECT");
-        bSelectCarPlayer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelectCarPlayer1ActionPerformed(evt);
-            }
-        });
-
-        bSelectCarPlayer2.setFont(bSelectCarPlayer1.getFont());
-        bSelectCarPlayer2.setText("SELECT");
-        bSelectCarPlayer2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelectCarPlayer2ActionPerformed(evt);
-            }
-        });
-
-        bSelecUserNamePlayer1.setFont(bSelectCarPlayer1.getFont());
-        bSelecUserNamePlayer1.setText("SELECT");
-        bSelecUserNamePlayer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelecUserNamePlayer1ActionPerformed(evt);
-            }
-        });
-
-        bSelectUserNamePlayer2.setFont(bSelecUserNamePlayer1.getFont());
-        bSelectUserNamePlayer2.setText("SELECT");
-        bSelectUserNamePlayer2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelectUserNamePlayer2ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(bSelectCarPlayer1.getFont());
-        jLabel5.setText("Select car");
-
-        jLabel6.setFont(bSelectCarPlayer1.getFont());
-        jLabel6.setText("Select car");
-
-        jLabel7.setFont(bSelectCarPlayer1.getFont());
-        jLabel7.setText("Select profile");
-
-        jLabel8.setFont(bSelectCarPlayer1.getFont());
-        jLabel8.setText("Select profile");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sSetNumPowers, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sSetNumLaps, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(88, 88, 88))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(241, 241, 241)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(sSetNumLaps, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(sSetNumPowers, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(bSelectCarPlayer2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(bSelectCarPlayer1)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(jLabel7)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bSelecUserNamePlayer1)
-                                    .addComponent(bSelectUserNamePlayer2)))
-                            .addComponent(bReturn)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(sSetNumLaps, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(31, 31, 31)
-                            .addComponent(sSetNumPowers, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(159, Short.MAX_VALUE))
+                                .addComponent(bSelectCarPlayer2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(bSelectCarPlayer1)
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel7)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bSelecUserNamePlayer1)
+                            .addComponent(bSelectUserNamePlayer2)))
+                    .addComponent(bReturn)
+                    .addComponent(jLabel1))
+                .addContainerGap(82, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(sSetNumLaps, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(sSetNumPowers, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -222,9 +262,9 @@ public class OptionsPanel extends javax.swing.JPanel {
                     .addComponent(bSelectCarPlayer2)
                     .addComponent(jLabel8)
                     .addComponent(bSelectUserNamePlayer2))
-                .addGap(57, 57, 57)
+                .addGap(51, 51, 51)
                 .addComponent(bReturn)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -283,6 +323,8 @@ public class OptionsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner sSetNumLaps;
     private javax.swing.JSpinner sSetNumPowers;
     // End of variables declaration//GEN-END:variables
