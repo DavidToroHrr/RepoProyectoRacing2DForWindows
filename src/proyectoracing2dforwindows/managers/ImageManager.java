@@ -13,11 +13,15 @@ import java.util.logging.Logger;
 import proyectoracing2dforwindows.models.ReducedSize;
 
 /**
- *
- * @author david
- */
+* managers.ImageManager
+* Clase encargada de guardar las imagenes de los principales
+* componentes en el sistema
+*/
 public class ImageManager {
-
+    
+/**
+* Todos estos arreglos guardan las imagenes que pueden tener color de carro
+*/
     private ArrayList <BufferedImage> imagesRedCar;
     private ArrayList <BufferedImage> imagesGreenCar;
     private ArrayList <BufferedImage> imagesPinkCar;
@@ -31,6 +35,12 @@ public class ImageManager {
         createCarImages();
         
     }
+
+/**
+* managers.ImageManager#createCarImages()
+* Metodo encargado de cargar en memoria las imagenes de los carros, 
+* en todos sus tamaños
+*/
     private void createCarImages() throws IOException{
         //para el carro 1;
         //se debe de crear una variable para img,
@@ -85,6 +95,13 @@ public class ImageManager {
     
     }
 
+/**
+* managers.ImageManager#getImagesCar()
+* Metodo encargado de cargar en memoria las imagenes de los carros, 
+* en todos sus tamaños
+     * @param car: Nombre del carro del que se requieren las imagenes
+     * @return : Un arreglo con todas la imagenes del carro solicitado
+*/
     public ArrayList <BufferedImage> getImagesCar(String car){
         switch (car) {
             case "redcar":
@@ -111,6 +128,9 @@ public class ImageManager {
     public ArrayList <BufferedImage> getImagesGreenCar() {
         return imagesGreenCar;
     }
+    /**
+     * @return the imagesPinkCar
+     */
     public ArrayList <BufferedImage> getImagesPinkCar() {
         return imagesPinkCar;
     }

@@ -12,9 +12,10 @@ import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 
 /**
- *
- * @author usuario
- */
+* managers.ScoreManager
+* Clase encargada del manejo de puntajes y nombres de usuario
+* componentes en el sistema
+*/
 public class ScoreManager {
     FileManager fileManager;
     ArrayList<String> names;//Se guardan los nombres de los jugadores

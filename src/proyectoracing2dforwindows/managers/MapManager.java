@@ -17,12 +17,13 @@ import proyectoracing2dforwindows.models.Runway;
 import proyectoracing2dforwindows.models.Sprite;
 
 /**
- *
- * @author usuario
- */
+* managers.MapManager
+* Clase encargada de manejar el cargado de mapas
+* y sus partes
+*/
 public class MapManager {
-    FileManager fileManager;
-    ArrayList<Runway> runways;
+    FileManager fileManager;//Para manejo de archivos de texto plano
+    ArrayList<Runway> runways;//Para guardar las pistas que se contruyan a partir de los archivos
     
     //Valores estaticos:
     public static final String PATH_MAPS = "src/data/maps/";
@@ -32,7 +33,16 @@ public class MapManager {
         this.runways = new ArrayList<>();
     }
     
-    
+    /**
+     * managers.MapManager#loadRunways()
+     * Este metodo obtiene todos los archivos de la carpeta maps y llama a readRunways para que este lea cada uno de ellos
+     * @param x:Coordenada en x donde se ubicara la pista una vez construida
+     * @param y:Coordenada en y donde se ubicara la pista una vez construida
+     * @throws proyectoracing2dforwindows.exceptions.FileManagerException
+     * @throws proyectoracing2dforwindows.exceptions.MapFileNotFoundException
+     * @throws proyectoracing2dforwindows.exceptions.InvalidMapFormatException
+     * @throws proyectoracing2dforwindows.exceptions.CheckpointException
+    */
     public void loadRunways(int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
         ArrayList<String> mapsNames = fileManager.searchFiles(PATH_MAPS);
         for(String mapName : mapsNames){
@@ -41,7 +51,15 @@ public class MapManager {
         }
     }
     
-  private Runway readRunway(String mapName, int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException {
+    /**
+     * managers.MapManager#readRunway()
+     * Este metodo se encarga de leer y contruir cada pista
+     * @param mapName:Nombre del archivo de mapa
+     * @param x:Coordenada en x donde se ubicara la pista una vez construida
+     * @param y:Coordenada en y donde se ubicara la pista una vez construida
+     * @return : Retorna una pista ya contruida
+    */
+    private Runway readRunway(String mapName, int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException {
         ArrayList<String> map = fileManager.readFile("src/data/maps/" + mapName);
 
         // Verifica que el archivo tenga al menos dos líneas
@@ -117,7 +135,11 @@ public class MapManager {
 
 
 
-    
+    /**
+     * managers.MapManager#getRunwaysNames()
+     * Este metodo se encarga de obtener los nombres y descripciones de cada pista
+     * @return 
+    */
     public ArrayList<String> getRunwaysNames(){
         ArrayList<String> names = new ArrayList<>();
         for(Runway runway : runways){
@@ -126,6 +148,12 @@ public class MapManager {
         
         return names;
     }
+    /**
+     * managers.MapManager#getRunway()
+     * Busca la pista seleccionada y la retorna
+     * @param name:Nombre de la pista que se quiere obtener
+     * @return : Retorna la pista solicitada
+    */
     
     public Runway getRunway(String name){
         for(Runway runway : runways){

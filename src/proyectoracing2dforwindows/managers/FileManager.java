@@ -17,30 +17,44 @@ import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
 
 
 /**
- *
- * @author usuario
- */
+* managers.FileManager
+* Clase encargada de todo el manejo de archivos planos, lectura
+* y escritura
+*/
 public class FileManager {
     
     public FileManager(){
         
     }
-    
-    public ArrayList<String> readFile(String path) throws MapFileNotFoundException, FileManagerException {
-    ArrayList<String> text = new ArrayList<>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            text.add(line);
+/**
+* managers.FileManager#readFile(String path)
+* Este metodo se encarga de la lectura de archivos
+     * @param path: Ruta del archivo a leer
+     * @return : Arreglo de string donde cada string representa una linea del archivo
+*/
+    public ArrayList<String> readFile(String path) throws 
+            MapFileNotFoundException, FileManagerException {//Lee el a
+        
+        ArrayList<String> text = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                text.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            throw new MapFileNotFoundException("File not found: " + path);
+        } catch (IOException e) {
+            throw new FileManagerException("An error occurred while reading the file " + path + ": " + e.getMessage());
         }
-    } catch (FileNotFoundException e) {
-        throw new MapFileNotFoundException("File not found: " + path);
-    } catch (IOException e) {
-        throw new FileManagerException("An error occurred while reading the file " + path + ": " + e.getMessage());
+        return text;
     }
-    return text;
-}
-    
+
+/**
+* managers.writeFile(ArrayList<String> text, String path)
+* Este metodo se encarga de la escritura de archivos
+     * @param text: Arreglo de los string que se deben escribir(cada string es una linea)
+     * @param path: Ruta del archivo a escribir
+*/
     public void writeFile(ArrayList<String> text, String path){
         try {
             FileWriter route = new FileWriter(path);
@@ -55,6 +69,13 @@ public class FileManager {
         }
     }
     
+/**
+* managers.searchFiles(String path)
+* Este metodo se encarga de encontrar todos los archivos de una carpeta
+     * @param path: Ruta de la carpeta donde buscar los archivos
+     * @return : Arreglo de string donde cada string es el nombre de un archivo
+     * @throws proyectoracing2dforwindows.exceptions.FileManagerException
+*/
     public ArrayList<String> searchFiles(String path) throws FileManagerException{
         // Especifica la ruta de la carpeta
         
@@ -63,7 +84,7 @@ public class FileManager {
         ArrayList<String> filesNames = new ArrayList<>();
         // Verifica si la carpeta existe
         if (folder.exists() && folder.isDirectory()) {
-            // Obtiene una matriz de archivos y subdirectorios dentro de la carpeta
+            // Obtiene una matriz de archivos dentro de la carpeta
             File[] files = folder.listFiles();
             
             // Itera sobre la matriz de archivos
