@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoracing2dforwindows.models;
+package proyectoracing2dforwindows.specialobjetcs;
 
+import proyectoracing2dforwindows.specialobjetcs.SpecialObject;
+import proyectoracing2dforwindows.specialobjetcs.ReducedSize;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,18 +14,21 @@ import java.util.logging.Logger;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.interfaces.SpecialMovable;
+import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
- *
- * @author david
- */
+* managers.MapManager
+* Clase encargada de manejar el cargado de mapas
+* y sus partes
+* @david
+*/
 public class IncreasedSize extends SpecialObject{
     
     public IncreasedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable paintable,SpecialMovable specialMovable) {
         super(x, y, width, height, id, image, url,paintable,specialMovable);
         
     }
-
+    
     @Override
     public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
         int temporalHeight=cb.getHeight();

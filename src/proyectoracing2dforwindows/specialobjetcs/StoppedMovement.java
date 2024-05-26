@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoracing2dforwindows.models;
+package proyectoracing2dforwindows.specialobjetcs;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.interfaces.SpecialMovable;
+import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
  *
@@ -29,7 +30,7 @@ public class StoppedMovement extends SpecialObject{
         
         long startTime = System.currentTimeMillis();
         long currentTime = System.currentTimeMillis();
-        
+        sound.get(3).playSound();
         while(currentTime-startTime < 500){
             cb.setVelocityX(0);
             cb.setVelocityY(0);

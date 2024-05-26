@@ -3,6 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyectoracing2dforwindows.managers;
+import proyectoracing2dforwindows.car.Car;
+import proyectoracing2dforwindows.players.Player2;
+import proyectoracing2dforwindows.players.Player1;
+import proyectoracing2dforwindows.specialsounds.Sound;
+import proyectoracing2dforwindows.specialobjetcs.IncreasedSize;
+import proyectoracing2dforwindows.specialobjetcs.SpecialObject;
+import proyectoracing2dforwindows.specialobjetcs.ReducedSize;
+import proyectoracing2dforwindows.specialobjetcs.StoppedMovement;
 import java.awt.Color;
 import java.awt.Font;
 import proyectoracing2dforwindows.interfaces.*;
@@ -24,7 +32,7 @@ import javax.swing.Timer;
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate, Movable, Drawable, Configurable, SpecialMovable{
+public class GameSimulator implements Movable, Drawable, Configurable, SpecialMovable{
     Paintable paint;
     //private boolean colision=false;
     
@@ -209,7 +217,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             System.out.println("SALIR");
             try {
                 finalizePlayers();
-                clickListener.showMapSelector();
+                clickListener.returnMapSelector();
             } catch (FileManagerException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             } catch (MapFileNotFoundException ex) {
@@ -257,10 +265,6 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
     }
     if (player2 != null) {
         player2.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
-        //TO DO:
-        //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
-        //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
-        // Llama al método de keyPressed de la clase Car
         
     }
     

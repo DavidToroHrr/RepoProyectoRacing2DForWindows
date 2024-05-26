@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoracing2dforwindows.models;
+package proyectoracing2dforwindows.players;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.car.Car;
 
 /**
  *

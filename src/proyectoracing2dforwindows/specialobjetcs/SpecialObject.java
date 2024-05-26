@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoracing2dforwindows.models;
+package proyectoracing2dforwindows.specialobjetcs;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -11,13 +11,15 @@ import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.interfaces.SpecialMovable;
+import proyectoracing2dforwindows.models.Object;
+import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
  *
  * @author david
  */
 public abstract class SpecialObject extends Object implements Applicable{
-    Paintable paintable;
+    public Paintable paintable;
     
     protected int velocityY;
     protected int directionY; 

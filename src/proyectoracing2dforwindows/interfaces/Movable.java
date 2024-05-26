@@ -1,6 +1,6 @@
 package proyectoracing2dforwindows.interfaces;
 
-import proyectoracing2dforwindows.models.Car;
+import proyectoracing2dforwindows.car.Car;
 import proyectoracing2dforwindows.models.Sprite;
 
 /*

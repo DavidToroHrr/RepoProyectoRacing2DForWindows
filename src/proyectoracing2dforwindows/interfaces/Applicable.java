@@ -5,7 +5,7 @@
 package proyectoracing2dforwindows.interfaces;
 
 import java.util.ArrayList;
-import proyectoracing2dforwindows.models.Sound;
+import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
  *

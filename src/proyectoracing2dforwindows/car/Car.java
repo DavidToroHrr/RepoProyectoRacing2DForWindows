@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyectoracing2dforwindows.models;
+package proyectoracing2dforwindows.car;
 
+import proyectoracing2dforwindows.specialsounds.Sound;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,6 +16,7 @@ import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.models.Object;
 import proyectoracing2dforwindows.threads.CarEngine;
 
 public class Car extends Object implements CarCustomable {

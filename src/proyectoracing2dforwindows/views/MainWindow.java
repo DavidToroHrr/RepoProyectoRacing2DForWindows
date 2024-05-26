@@ -13,18 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
-import proyectoracing2dforwindows.interfaces.Informable;
 import proyectoracing2dforwindows.interfaces.KeyListener;
-import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.managers.GameSimulator;
-import proyectoracing2dforwindows.models.Runway;
-import proyectoracing2dforwindows.models.Sound;
+import proyectoracing2dforwindows.specialsounds.Sound;
 import proyectoracing2dforwindows.threads.SoundThread;
 
 
@@ -78,7 +74,7 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         MapSelector mapSelector = new MapSelector(this);
         mapSelector.showMaps(game.showMaps());
         setCurrentPanel(mapSelector);
-        //h1.pause();
+
     }
     @Override
     public void showInitialMenu() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
@@ -214,7 +210,12 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
     }
     
-    
+    @Override
+    public void returnMapSelector()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
+   
+            h1.pause();
+            showMapSelector();
+    }
     
     
     

@@ -7,7 +7,7 @@ package proyectoracing2dforwindows.threads;
 import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
-import proyectoracing2dforwindows.models.Sound;
+import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
  *
