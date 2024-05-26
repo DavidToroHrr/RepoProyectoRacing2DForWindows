@@ -209,7 +209,7 @@ public class GameSimulator implements Coordenate, Movable, Drawable, Configurabl
             System.out.println("SALIR");
             try {
                 finalizePlayers();
-                clickListener.showMapSelector();
+                clickListener.returnMapSelector();
             } catch (FileManagerException ex) {
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             } catch (MapFileNotFoundException ex) {

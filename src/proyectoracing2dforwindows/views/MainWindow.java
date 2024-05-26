@@ -78,7 +78,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         MapSelector mapSelector = new MapSelector(this);
         mapSelector.showMaps(game.showMaps());
         setCurrentPanel(mapSelector);
-        h1.pause();
     }
     @Override
     public void showInitialMenu() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException {
@@ -213,7 +212,12 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         
     }
     
-    
+    @Override
+    public void returnMapSelector()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
+   
+            h1.pause();
+            showMapSelector();
+    }
     
     
     
