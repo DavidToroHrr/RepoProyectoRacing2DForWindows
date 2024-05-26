@@ -24,7 +24,7 @@ import javax.swing.Timer;
  *
  * @author usuario
  */
-public class GameSimulator implements Coordenate, Movable, Drawable, Configurable, SpecialMovable{
+public class GameSimulator implements Movable, Drawable, Configurable, SpecialMovable{
     Paintable paint;
     //private boolean colision=false;
     
