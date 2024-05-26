@@ -18,9 +18,12 @@ import proyectoracing2dforwindows.interfaces.SpecialMovable;
 import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
- *
- * @author david
- */
+* specialobject.ReducedSize
+* Clase encargada de almacenar la información del poder de reducir tamaño
+* y encargada de aplicar su determinado efecto
+* @david
+*/
+
 public class ReducedSize extends SpecialObject implements Applicable{
     
     public ReducedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable p1,SpecialMovable specialMovable) {
@@ -30,22 +33,26 @@ public class ReducedSize extends SpecialObject implements Applicable{
     
 
     
-
+/**
+* specialobject.ReducedSize#applyEfect(CarCustomable cb, ArrayList <Sound>sound)
+* éste método aplica el efecto correspondiente, en este caso, aumenta el tamaño del carro
+* @param cb:interfaz que contiene los atributos del carro para poder modificarlos
+* @param sound:arreglo de sonidos de tipo Sound para ejecutar el sonido correspondiente
+* al poder
+* @david
+*/
     @Override
     public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
-        paintable.repaint(cb.getX(), cb.getY(), width, height);
+        //paintable.repaint(cb.getX(), cb.getY(), width, height);
 
         int temporalHeight=cb.getHeight();
         int temporalWidth=cb.getWidth();
         
-        
         cb.setHeight(10);
         cb.setWidth(34);
         
-        
         cb.setImage(cb.getcarImages().get(1));
         
-        //System.out.println("COLISIONNNNNNNNNNNNNNNN");
         paintable.repaint();
         
         sound.get(0).playSound();
@@ -54,11 +61,11 @@ public class ReducedSize extends SpecialObject implements Applicable{
         System.out.println(cb.getHeight()+"ancho despues");
         
         try {
-            Thread.sleep(3000);
+            Thread.sleep(3000);//hacemos que el hilo el cual es independiente al hilo pricipal
+                               //se detenga unos segundos para que no pueda recibir varios poderes
         } catch (InterruptedException ex) {
             Logger.getLogger(ReducedSize.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //System.out.println("COLISIONNNNNNNNNNNNNNNN");
         
         cb.setHeight(temporalHeight);
         cb.setWidth(temporalWidth);

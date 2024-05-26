@@ -4,8 +4,6 @@
  */
 package proyectoracing2dforwindows.specialobjects;
 
-import proyectoracing2dforwindows.specialobjects.SpecialObject;
-import proyectoracing2dforwindows.specialobjects.ReducedSize;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,17 +15,27 @@ import proyectoracing2dforwindows.interfaces.SpecialMovable;
 import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
-* managers.MapManager
-* Clase encargada de manejar el cargado de mapas
-* y sus partes
+* specialobject.IncreasedSize
+* Clase encargada de almacenar la información del poder de aumentar tamaño
+* y encargada de aplicar su determinado efecto
 * @david
 */
+
 public class IncreasedSize extends SpecialObject{
     
     public IncreasedSize(int x, int y, int width, int height, String id, BufferedImage image, URL url,Paintable paintable,SpecialMovable specialMovable) {
         super(x, y, width, height, id, image, url,paintable,specialMovable);
         
     }
+    
+    /**
+     * specialobject.IncreasedSize#applyEfect(CarCustomable cb, ArrayList <Sound>sound)
+     * éste método aplica el efecto correspondiente, en este caso, aumenta el tamaño del carro
+     * @param cb:interfaz que contiene los atributos del carro para poder modificarlos
+     * @param sound:arreglo de sonidos de tipo Sound para ejecutar el sonido correspondiente
+     * al poder
+     * @david
+    */
     
     @Override
     public void applyEfect(CarCustomable cb,ArrayList <Sound>sound) {
