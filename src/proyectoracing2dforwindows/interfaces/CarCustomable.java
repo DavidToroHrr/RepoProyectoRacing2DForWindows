@@ -8,9 +8,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- *
- * @author david
- */
+* interfaces.CarCustomable
+* Interfaz para editar los valores basicos del carro
+*/
 public interface CarCustomable {
     public int getX();
     public void setImage(BufferedImage image);
