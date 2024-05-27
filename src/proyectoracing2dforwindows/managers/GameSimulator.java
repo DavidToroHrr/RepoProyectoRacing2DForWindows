@@ -53,14 +53,10 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     private Player2 player2;
   
     private ArrayList <SpecialObject> specialsObjects;
-    
- 
-    
-    
+
     private BufferedImage imageShrink;
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
-    
-    
+
     private BufferedImage imageIncrease;
     URL shrinkUrl2 = getClass().getResource("/data/powers/hongo.png");
 
@@ -257,10 +253,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     public void keyReleased(KeyEvent e) throws InterruptedException {
     if (player1 != null) {
         player1.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
-        //TO DO:
-        //AQUI ADENTRO IRIA E POLIMORFISMO PARA VER CUAL MUEVE,DEPENDIENDO
-        //DE LO QUE SE LE MANDE HARÁ LA ACCIÓN DEL MOC¿VIMIENTO
-        // Llama al método de keyPressed de la clase Car
+        
         
     }
     if (player2 != null) {
@@ -282,10 +275,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
             
     }
     
-    public void addSpecialObject(){
     
-    
-    }
     /**
      * @return the currentRunway
      */
@@ -351,12 +341,6 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     }
 }
 
-
-
-
-    
-    
-    
     public void updateGame() {
         for (SpecialObject specialObject : specialsObjects) {
             int newY = specialObject.getY() + specialObject.getVelocityY() * specialObject.getDirectionY();
@@ -370,6 +354,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
 
     
     // aqui se esta verificando la colision con el borde de la pista
+    @Override
     public void verifyRunwayCollision(int newX, int newY, Car car) {
         Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
         if(cell != null){
@@ -554,9 +539,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         this.numLaps = numLaps;
     }
 
-    private String toString(int lap) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
     
 }

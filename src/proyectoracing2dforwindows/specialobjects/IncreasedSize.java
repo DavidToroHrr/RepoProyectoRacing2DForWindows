@@ -50,7 +50,8 @@ public class IncreasedSize extends SpecialObject{
         sound.get(1).playSound();
         
         try {
-            Thread.sleep(2000);
+            Thread.sleep(2000);//hacemos que el hilo el cual es independiente al hilo pricipal
+                               //se detenga unos segundos para que no pueda recibir varios poderes
         } catch (InterruptedException ex) {
             Logger.getLogger(ReducedSize.class.getName()).log(Level.SEVERE, null, ex);
         }
