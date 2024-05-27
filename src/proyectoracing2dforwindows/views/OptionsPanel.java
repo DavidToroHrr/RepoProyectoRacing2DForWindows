@@ -31,13 +31,13 @@ public class OptionsPanel extends javax.swing.JPanel {
         initComponents();
         this.clickListener=clickListener;
         this.configurable=configurable;
-        sSetNumLaps.setValue(configurable.getNumLaps());
+        sSetNumLaps.setValue(configurable.getMaxLaps());
         sSetNumPowers.setValue(configurable.getNumPowers());
 
         sSetNumLaps.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                configurable.setNumLaps((int)sSetNumLaps.getValue());
+                configurable.setMaxLaps((int)sSetNumLaps.getValue());
                 System.out.println("num"+numLaps);
             }
             

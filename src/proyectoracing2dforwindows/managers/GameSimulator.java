@@ -4,13 +4,9 @@
  */
 package proyectoracing2dforwindows.managers;
 import proyectoracing2dforwindows.car.Car;
-import proyectoracing2dforwindows.players.Player2;
-import proyectoracing2dforwindows.players.Player1;
+import proyectoracing2dforwindows.players.*;
 import proyectoracing2dforwindows.specialsounds.Sound;
-import proyectoracing2dforwindows.specialobjects.IncreasedSize;
-import proyectoracing2dforwindows.specialobjects.SpecialObject;
-import proyectoracing2dforwindows.specialobjects.ReducedSize;
-import proyectoracing2dforwindows.specialobjects.StoppedMovement;
+import proyectoracing2dforwindows.specialobjects.*;
 import java.awt.Color;
 import java.awt.Font;
 import proyectoracing2dforwindows.interfaces.*;
@@ -42,14 +38,14 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     private SoundManager soundManager;
     private ImageManager imageManager;
     
-    private int nCheckpoints;
+    private int nCheckpoints;//Guarda el numero de checkpoints en pista
     
     private Timer gameUpdateTimer;
     
-    private String carplayer1;
+    private String carplayer1;//Color del carro del player 1
     private Player1 player1;
     
-    private String carplayer2;
+    private String carplayer2;//Color del carro del player 1
     private Player2 player2;
   
     private ArrayList <SpecialObject> specialsObjects;
@@ -65,13 +61,15 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     
     
     
-    private int numPowers;
+    private int numPowers; //Define el numero de poderes que apareceran en el juego
     
-    private int numLaps;
+    private int maxLaps; //Define el numero de vueltas maximas
     
     private ArrayList <Sound> sounds;
     
-    private ClickListener clickListener;
+    private ClickListener clickListener;//Sirve para avisar a la mainwindow que ya termino la partida
+    
+    private String winner; //Guarda el nombre del jugador que gane en cada ronda
 
     public GameSimulator(ClickListener clickListener)throws IOException {
         
@@ -86,7 +84,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         this.carplayer1 = "redcar";
         this.carplayer2 = "greencar";
         
-        numLaps = 3;
+        maxLaps = 3;
         numPowers = 5;
         
         this.sounds=new ArrayList<>();
@@ -131,16 +129,75 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         g.fillRect(900/2-50, 900/2-50, 100, 100);
         g.setColor(Color.BLACK); // Establece el color del texto
         g.setFont(new Font(("Tw Cen MT"), Font.BOLD, 15)); // Establece la fuente del texto
-        g.drawString(player1.getName()+": "+String.valueOf(player1.getLap()), 900/2-50,900/2-30 ); // Dibuja el texto en las coordenadas (50, 50)
+        String lapsplayer1;
+        if(player1.getLap()<maxLaps){
+            lapsplayer1 = String.valueOf(player1.getLap());
+        }else{
+            lapsplayer1 = String.valueOf(maxLaps);
+        }
+        g.drawString(player1.getName()+": "+lapsplayer1, 900/2-50,900/2-30 ); // Dibuja el texto en las coordenadas (50, 50)
         g.drawString("Score: "+player1.getScore(), 900/2-50,900/2-12 ); // Dibuja el texto en las coordenadas (50, 50)
         
-        g.drawString(player2.getName()+": "+String.valueOf(player2.getLap()), 900/2-50,900/2+20 ); // Dibuja el texto en las coordenadas (50, 50)
+        String lapsplayer2;
+        if(player2.getLap()<maxLaps){
+            lapsplayer2 = String.valueOf(player2.getLap());
+        }else{
+            lapsplayer2 = String.valueOf(maxLaps);
+        }
+        g.drawString(player2.getName()+": "+lapsplayer2, 900/2-50,900/2+20 ); // Dibuja el texto en las coordenadas (50, 50)
         g.drawString("Score: "+player2.getScore(), 900/2-50,900/2+38 ); // Dibuja el texto en las coordenadas (50, 50)
 
         paint.repaint();
         
         
         
+    }
+    
+    public void applyScore(String player, String opt){
+        switch(opt){
+                case "check":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(10);
+                    }else{
+                        player2.setScore(10);
+                    }
+                    break;
+                case "lap":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(40);
+                    }else{
+                        player2.setScore(40);
+                    }
+                    break;
+                case "shrink":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(-5);
+                    }else{
+                        player2.setScore(-5);
+                    }
+                    break;
+                case "grow":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(5);
+                    }else{
+                        player2.setScore(5);
+                    }
+                    break;
+                case "stop":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(-10);
+                    }else{
+                        player2.setScore(-10);
+                    }
+                    break;
+                case "win":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(150);
+                    }else{
+                        player2.setScore(150);
+                    }
+                    break;
+        }
     }
     
     @Override
@@ -152,9 +209,10 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
             if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
                 if(car.receiveEffect(specialObject,soundManager.getSounds())){
                     iterator.remove(); // Elimina el objeto actual de la lista de manera segura
-                    //System.out.println(car.getWidth()+"despues de la fn");
+                    
+                    applyScore(car.getId(), specialObject.getId());
+                    
                     createSpecialObject();
-                    //paint.repaint();
                     
                 }
                 break;
@@ -181,11 +239,10 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                 player1.setCpCurrent(cp_collided);
             }else if(cp_current + 1 == cp_collided){
                 player1.setCpCurrent(cp_collided);
-                player1.setScore(15);
+                applyScore(player1.getName(), "check");
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player1.setCpCurrent(cp_collided);
-                player1.setScore(60);
-                System.out.println("--------------------------------------------ply1 "+player1.getLap());
+                applyScore(player1.getName(), "lap");
                 
 
             }
@@ -196,11 +253,10 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                 player2.setCpCurrent(cp_collided);
             }else if(cp_current + 1 == cp_collided){
                 player2.setCpCurrent(cp_collided);
-                player2.setScore(15);
+                applyScore(player2.getName(), "check");
             }else if(cp_current == nCheckpoints & cp_collided == 0){
                 player2.setCpCurrent(cp_collided);
-                player2.setScore(60);
-                System.out.println("--------------------------------------------ply2 "+player2.getLap());
+                applyScore(player2.getName(), "ap");
             }
             //System.out.println("player2 checpoint actual:"+player2.getCpCurrent());
         }
@@ -209,7 +265,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     }
     
     public void verifyLapsPerPlayer(){
-        if (player1.getLap() > numLaps && player2.getLap() > numLaps) {
+        if (player1.getLap() > maxLaps && player2.getLap() > maxLaps) {
             System.out.println("SALIR");
             try {
                 finalizePlayers();
@@ -224,15 +280,17 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                 Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        else if (player1.getLap() > numLaps) {          
+        else if (player1.getLap() > maxLaps & winner.equals("none")) {          
                player1.getCar().setVelocityX(0);
                player1.getCar().setVelocityY(0);
-               player1.setScore(1);
+               winner = player1.getName();
+               applyScore(player1.getName(), "win");
             
-        }else if (player2.getLap() > numLaps) {
+        }else if (player2.getLap() > maxLaps & winner.equals("none")) {
             player2.getCar().setVelocityX(0);
             player2.getCar().setVelocityY(0);
-            player2.setScore(1);
+               winner = player2.getName();
+               applyScore(player2.getName(), "win");
         }
         
         
@@ -452,7 +510,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
 
                 
         this.specialsObjects = new ArrayList<>();
-        
+        winner = "none";
         if (getCurrentRunway() != null) {
             
             int carCoorX = currentRunway.getCheckPoints().get(0).getX()+36;
@@ -534,17 +592,19 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     }
 
     @Override
-    public int getNumLaps() {
-        return numLaps;
+    public int getMaxLaps() {
+        return maxLaps;
     }
 
     @Override
-    public void setNumLaps(int numLaps) {
-        this.numLaps = numLaps;
+    public void setMaxLaps(int maxLaps) {
+        this.maxLaps = maxLaps;
     }
+    @Override
     public int getGameWidth(){
         return currentRunway.getWidth();
     }
+    @Override
     public int getGameHeight(){
         return currentRunway.getHeight();
     }

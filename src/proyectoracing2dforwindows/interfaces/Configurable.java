@@ -16,8 +16,8 @@ public interface Configurable {
     public void selectScorePlayerName(int player, String name);
     public void addScorePlayer(int player, String name)throws DuplicateScoreException;
     public void selectCarPlayer(int player, String carname);
-    public int getNumLaps();
-    public void setNumLaps(int numLaps);
+    public int getMaxLaps();
+    public void setMaxLaps(int numLaps);
     public int getNumPowers();
     public void setNumPowers(int numPowers);
 }
