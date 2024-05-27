@@ -203,5 +203,10 @@ public class Runway extends Sprite{
     public int getnCheckpoints(){
         return checkPoints.size();
     }
+
+    public ArrayList<Checkpoint> getCheckPoints() {
+        return checkPoints;
+    }
+    
     
 }

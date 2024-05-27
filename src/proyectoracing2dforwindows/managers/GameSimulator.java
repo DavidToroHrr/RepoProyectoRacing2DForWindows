@@ -454,17 +454,21 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         this.specialsObjects = new ArrayList<>();
         
         if (getCurrentRunway() != null) {
+            
+            int carCoorX = currentRunway.getCheckPoints().get(0).getX()+36;
+            int carCoorY = currentRunway.getCheckPoints().get(0).getY()+36;
+            
             //Player1
             ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
             String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
             int scorePlayer1 = scoreManager.getScorePlayer(namePlayer1);
-            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this, scorePlayer1);
+            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this, scorePlayer1, carCoorX, carCoorY);
            
             //PLayer2
             ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
             String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
             int scorePlayer2 = scoreManager.getScorePlayer(namePlayer2);
-            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this, scorePlayer2);
+            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this, scorePlayer2, carCoorX+40, carCoorY);
             
             createSpecialObject();
             gameUpdateTimer = new Timer(10, e -> updateGame()); 
