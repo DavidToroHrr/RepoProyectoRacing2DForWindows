@@ -4,6 +4,7 @@
  */
 package proyectoracing2dforwindows.views;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.logging.Level;
@@ -25,6 +26,9 @@ public class GamePanel extends javax.swing.JPanel implements Paintable{
         this.drawable = drawable;
         this.drawable.setPaint(this);
         initComponents();
+        int width = this.drawable.getGameWidth();
+        int height = this.drawable.getGameHeight();
+        setPreferredSize(new Dimension(width, height));
         
         this.keylistener=keylistener;
         setFocusTraversalKeysEnabled(false); // Desactivar el paso de foco para evitar interferencias con los eventos de teclado

@@ -538,6 +538,12 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     public void setNumLaps(int numLaps) {
         this.numLaps = numLaps;
     }
+    public int getGameWidth(){
+        return currentRunway.getWidth();
+    }
+    public int getGameHeight(){
+        return currentRunway.getHeight();
+    }
 
     
     
