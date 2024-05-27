@@ -58,10 +58,13 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
 
     private BufferedImage imageIncrease;
-    URL shrinkUrl2 = getClass().getResource("/data/powers/hongo.png");
+    URL increaseUrl = getClass().getResource("/data/powers/hongo.png");
 
     private BufferedImage imageStop;
     URL stopUrl = getClass().getResource("/data/powers/stop.png");
+    
+    private BufferedImage imageCoin;
+    URL coinUrl = getClass().getResource("/data/powers/coin.png");
     
     
     
@@ -100,6 +103,11 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         } catch (MapFileNotFoundException ex) {
             Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        imageIncrease = javax.imageio.ImageIO.read(increaseUrl);
+        imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
+        imageStop = javax.imageio.ImageIO.read(stopUrl);
+        imageCoin=javax.imageio.ImageIO.read(coinUrl);
     }
     
     @Override
@@ -406,30 +414,26 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     
     public void createSpecialObject(){
         
-        try {
-                // Si se cargó la pista, inicializa el carro
-                imageIncrease = javax.imageio.ImageIO.read(shrinkUrl2);
-                imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
-                imageStop = javax.imageio.ImageIO.read(stopUrl);
-
-            } catch (IOException ex) {
-                Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        
         int contObj=specialsObjects.size();
         while (contObj<getNumPowers()) {                    
-            int px=(int)(Math.random()*900);
-            int py=(int)(Math.random() * 900) + 30;
+            int px=(int)(Math.random()*1800);
+            int py=(int)(Math.random() * 1800) + 30;
             if (currentRunway.verifyPoint(px, py)) {
-                int decision=(int)(Math.random()*3);
+                int decision=(int)(Math.random()*4);
                 SpecialObject e=null;
                 if (decision==0) {
                     e=new ReducedSize(px, py, 30, 30, "shrink", imageShrink, shrinkUrl1,paint,this);
 
                 }else if(decision==1){
-                    e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, shrinkUrl2,paint,this);
+                    e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, increaseUrl,paint,this);
                 
                 }else if(decision==2){
-                    e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint,this) ;               }
+                    e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint,this) ;               
+                }else if(decision==3){
+                    e=new StoppedMovement(px, py, 30, 30, "coin", imageCoin, coinUrl, paint,this) ;         
+                    
+                }
                 
                 specialsObjects.add(e);
                 contObj+=1;
@@ -542,9 +546,11 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     public void setNumLaps(int numLaps) {
         this.numLaps = numLaps;
     }
+    @Override
     public int getGameWidth(){
         return currentRunway.getWidth();
     }
+    @Override
     public int getGameHeight(){
         return currentRunway.getHeight();
     }
