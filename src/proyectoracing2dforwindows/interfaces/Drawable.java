@@ -13,4 +13,6 @@ import java.awt.Graphics;
 public interface Drawable {
     public void drawElements(Graphics g) throws InterruptedException;
     public void setPaint(Paintable paint);
+    public int getGameWidth();
+    public int getGameHeight();
 }

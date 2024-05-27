@@ -553,6 +553,12 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     public void setNumLaps(int numLaps) {
         this.numLaps = numLaps;
     }
+    public int getGameWidth(){
+        return currentRunway.getWidth();
+    }
+    public int getGameHeight(){
+        return currentRunway.getHeight();
+    }
 
     private String toString(int lap) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
