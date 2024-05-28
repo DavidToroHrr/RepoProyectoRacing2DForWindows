@@ -48,6 +48,8 @@ public class AboutUsPanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(900, 900));
         setPreferredSize(new java.awt.Dimension(900, 900));
 
+        bReturn.setBackground(new java.awt.Color(204, 204, 204));
+        bReturn.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         bReturn.setText("RETURN");
         bReturn.setAlignmentX(20.0F);
         bReturn.setAlignmentY(20.0F);
@@ -61,19 +63,19 @@ public class AboutUsPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("third semester students of systems engineering");
 
-        jLabel2.setFont(jLabel1.getFont());
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Universidad Autónoma de Manizales");
 
-        jLabel4.setFont(jLabel1.getFont());
+        jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Santiago Castaño Arcila");
 
-        jLabel5.setFont(jLabel1.getFont());
+        jLabel5.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Thomas Alejandro Toro Herrera");
 
-        jLabel6.setFont(jLabel1.getFont());
+        jLabel6.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("David Esteban Toro Herrera");
 
@@ -81,7 +83,7 @@ public class AboutUsPanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("This project was developed by");
 
-        jLabel7.setFont(jLabel1.getFont());
+        jLabel7.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("of de");
 
@@ -134,7 +136,7 @@ public class AboutUsPanel extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(60, 60, 60)
                 .addComponent(bReturn)
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
