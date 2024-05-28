@@ -22,7 +22,6 @@ import javax.imageio.ImageIO;
 public abstract class GameObject extends Sprite{
 
     /**
-     * @return the id
      */
     
     protected String id;

@@ -7,8 +7,9 @@ package proyectoracing2dforwindows.models;
 import java.awt.image.BufferedImage;
 
 /**
- *
- * @author usuario
+ * models.Cell
+ * Clase abstracta que sirve para representar las diferentes celdas que componen el circuito
+ * cada celda tiene un efecto distinto sobre la velocidad del vehiculo
  */
 public abstract class Cell extends GameObject{
 
@@ -18,6 +19,14 @@ public abstract class Cell extends GameObject{
         super(x, y, SIZE, SIZE, id,null,null);
         setImage(image);
     }
+    
+    /**
+    * verifyTouchCell
+    * Verifica la colision de otro sprite con la celda
+     * @param x Posicion en x del otro sprite
+     * @param y Posicion en y del otro sprite
+     * @return 
+    */
     public boolean verifyTouchCell(int x, int y) {
         if (x >= this.x && x <= this.x + width &&
             y >= this.y && y <= this.y + height) {

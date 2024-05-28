@@ -22,7 +22,11 @@ public class Player2 extends Player{
         super(name, carImages, paintable, movable, score, x, y,sounds,st);
         
     }
-
+    /**
+     * players.player1#KeyPressed
+     * al tratarse del player 2 reconoce solo las letras (A,S,D,W)
+     * @param e Orden enviada por el usuario
+     */
     public void keyPressed(KeyEvent e) {
         if(brake){
             return;

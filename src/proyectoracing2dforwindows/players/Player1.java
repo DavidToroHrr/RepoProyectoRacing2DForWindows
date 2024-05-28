@@ -13,16 +13,19 @@ import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.specialsounds.Sound;
 import proyectoracing2dforwindows.threads.SoundThread;
 
-/**
- *
- * @author usuario
- */
+
 public class Player1 extends Player{
 
     public Player1(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y,Sound sounds,SoundThread st) {
         super(name, carImages, paintable, movable, score, x, y,sounds,st);
     }
 
+    /**
+     * players.player1#KeyPressed
+     * al tratarse del player 1 reconoce solo las flechas
+     * @param e Orden enviada por el usuario
+     */
+    @Override
     public void keyPressed(KeyEvent e) {
         if(brake){
             return;
