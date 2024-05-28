@@ -389,14 +389,12 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
             }
         }
         else if (player1.getLap() > maxLaps & winner.equals("none")) {          
-               player1.getCar().setVelocityX(0);
-               player1.getCar().setVelocityY(0);
+               player1.stepBrakes();
                winner = player1.getName();
                applyScore(player1.getName(), "win");
             
         }else if (player2.getLap() > maxLaps & winner.equals("none")) {
-            player2.getCar().setVelocityX(0);
-            player2.getCar().setVelocityY(0);
+            player2.stepBrakes();
                winner = player2.getName();
                applyScore(player2.getName(), "win");
         }
