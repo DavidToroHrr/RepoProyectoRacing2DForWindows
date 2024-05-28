@@ -41,7 +41,8 @@ public class ScoreManager {
     }
     
     private void readScores(ArrayList<String> dataScores){//Se separan los nombres de los puntajes
-        
+        names = new ArrayList<>();
+        scores = new ArrayList<>();
         for(int i = 1; i < dataScores.size(); i++){
             String line = dataScores.get(i);
             String[] data = line.split(",");
