@@ -24,7 +24,9 @@ public class Player1 extends Player{
     }
 
     public void keyPressed(KeyEvent e) {
-        
+        if(brake){
+            return;
+        }
         int tecla = e.getKeyCode();
         // Acelerar el carro hacia la izquierda
         if (tecla == KeyEvent.VK_LEFT) {

@@ -27,6 +27,7 @@ public abstract class Player {
     private int cpCurrent;
     private int lap;
     private int score;
+    protected boolean brake;
     private Timer timerCar;
     
     
@@ -36,6 +37,7 @@ public abstract class Player {
         this.cpCurrent = -1;
         this.lap = 0;
         this.score = score;
+        this.brake = false;
         
         car = new Car(x, y, 34, 60, name, carImages, null, paintable, movable,sounds,st);
         timerCar = new Timer(10, e -> getCar().update());
@@ -118,5 +120,9 @@ public abstract class Player {
         this.score += score;
     }
     
-    
+    public void stepBrakes(){
+        brake = true;
+        car.setVelocityX(0);
+        car.setVelocityY(0);
+    }
 }

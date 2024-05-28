@@ -1,4 +1,5 @@
 name,score
+<<<<<<< HEAD
 player1,6080
 player2,3766
 player1,6080
@@ -294906,6 +294907,10 @@ player1,6080
 player2,3766
 player1,6080
 player2,3766
+=======
+player1,8270
+player2,5156
+>>>>>>> 9d84cd3ceb5126d0d5f4017e4e0c3ae1a96df093
 santiago,200
 thomas,190
 david,199
