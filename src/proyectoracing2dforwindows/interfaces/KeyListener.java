@@ -8,8 +8,7 @@ package proyectoracing2dforwindows.interfaces;
  *
  * @author david
  */
-public interface KeyListener {
-    public void formKeyReleased(java.awt.event.KeyEvent evt);                                
+public interface KeyListener {                               
     public void formKeyPressed(java.awt.event.KeyEvent evt);                                
 
 }

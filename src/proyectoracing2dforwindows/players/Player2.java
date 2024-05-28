@@ -45,24 +45,5 @@ public class Player2 extends Player{
         
     }
 
-    public void keyReleased(KeyEvent e) {
-
-        System.out.println("entro a keyrealeased");
-        int tecla = e.getKeyCode();
-        // Frenar solo si no se está acelerando en esa dirección
-        if (tecla == KeyEvent.VK_A || tecla == KeyEvent.VK_D) {
-            if(tecla == KeyEvent.VK_A){
-                getCar().keyReleased('L');
-            }else{
-                getCar().keyReleased('R');
-            }
-        } else if (tecla == KeyEvent.VK_W || tecla == KeyEvent.VK_S) {
-            if(tecla == KeyEvent.VK_W){
-                getCar().keyReleased('U');
-            }else{
-                getCar().keyReleased('D');
-            }
-        }
-        
-    }
+    
 }

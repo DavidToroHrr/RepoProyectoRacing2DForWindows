@@ -45,9 +45,11 @@ public class MapManager {
     */
     public void loadRunways(int x, int y) throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
         ArrayList<String> mapsNames = fileManager.searchFiles(PATH_MAPS);
-        for(String mapName : mapsNames){
-            Runway runway = readRunway(mapName, x, y);
-            runways.add(runway);
+        if(runways.size()<=0){
+            for(String mapName : mapsNames){
+                Runway runway = readRunway(mapName, x, y);
+                runways.add(runway);
+            }
         }
     }
     

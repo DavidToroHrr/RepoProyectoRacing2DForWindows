@@ -47,7 +47,7 @@ public class MapSelector extends javax.swing.JPanel {
             x = (i*300) + 15;
             JPanel background = new JPanel();
             background.setBounds(x, 60, 275, 380);
-            background.setBackground(new Color(204, 204, 204));
+            background.setBackground(new Color(255, 255, 255));
             JLabel labelName = new JLabel(namedesc[0]);
             labelName.setBounds(30, 15, 150, 80);
             labelName.setFont(new Font("Tw Cen MT", Font.PLAIN, 50));
@@ -94,7 +94,7 @@ public class MapSelector extends javax.swing.JPanel {
         int j = 0;
         for(JPanel panel : panels){
             if(j!=indexSelected){
-                panel.setBackground(new Color(204, 204, 204));
+                panel.setBackground(new Color(255, 255, 255));
             }
             j += 1;
         }
@@ -153,7 +153,7 @@ public class MapSelector extends javax.swing.JPanel {
         bJugar1.setBackground(new java.awt.Color(195, 21, 18));
         bJugar1.setFont(new java.awt.Font("Tw Cen MT", 0, 48)); // NOI18N
         bJugar1.setForeground(new java.awt.Color(255, 255, 255));
-        bJugar1.setText("Jugar");
+        bJugar1.setText("Start");
         bJugar1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 5, true));
         bJugar1.setFocusPainted(false);
         bJugar1.addActionListener(new java.awt.event.ActionListener() {
