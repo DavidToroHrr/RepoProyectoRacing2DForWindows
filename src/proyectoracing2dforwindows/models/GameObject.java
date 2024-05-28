@@ -44,6 +44,8 @@ public abstract class GameObject extends Sprite{
             Logger.getLogger(GameObject.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
     @Override
     public void draw(Graphics g) {

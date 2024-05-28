@@ -19,7 +19,12 @@ import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.GameObject;
 import proyectoracing2dforwindows.threads.CarEngine;
 import proyectoracing2dforwindows.threads.SoundThread;
-
+/**
+* car.Car
+* Clase encargada de modelar todo lo relacionado al carro, en donde esta
+* nos permite implementar las funciones del carro como lo son moverse, recibir un
+* poder, girar dependiendo de sus velocidades en los ejes X e Y
+*/
 public class Car extends GameObject implements CarCustomable {
     Paintable paint;
     protected CarEngine ce;//motor que me permite aplicar los efectos en el carro
@@ -55,10 +60,11 @@ public class Car extends GameObject implements CarCustomable {
     public Car(int x, int y, int width, int height, String id, ArrayList <BufferedImage> carImages, URL url,Paintable p1,Movable movable,Sound sound,SoundThread st) {
         super(x, y, width, height, id, carImages.get(0), url);
         movement=true;
-        st=new SoundThread(sound);
-        this.st=st;
-        st.start();
         this.sound=sound;
+        st=new SoundThread(this.sound);
+        this.st=st;
+        this.st.start();
+        
         maxSpeed = MAX_SPEED_TRAIL;
         this.carImages=new ArrayList<>();
         this.carImages=carImages;
@@ -71,7 +77,14 @@ public class Car extends GameObject implements CarCustomable {
         initialY=y;
         
     }
-    public void actualizar() {
+    /**
+* car.Car#update()
+* éste método se encarga de actualizar de manera constante el estado del carro, como lo son las 
+* velocidades en los ejes X e Y, su rotación, sus colisiones con los objetos especiales de la pista,
+* sus colisiones con los bordes de la pista y sus colisiones con los checkpoints
+* @david
+*/
+    public void update() {
         paint.repaint(x,y,width,height);
         
         int xNuevo = x;
@@ -108,15 +121,19 @@ public class Car extends GameObject implements CarCustomable {
 
         movable.verifyCheckpoints(x, y, width, height, id);
         rotateCar();
-        verifyMovement();
         
     }
     public void verifyMovement(){
         
-        if (movement==false &&(initialX!=x && initialY!=y)) {
-            st.pause();
-        }
+        
     }
+    
+/**
+* car.Car#keyPressed(char key)
+* Este metodo se encarga de mover el vehículo dependiendo de la dirección determinada por las teclas
+* @param char:es la letra que indica el movimiento. Bien sea up, down, left o right
+     
+*/
     public void keyPressed(char key){
         paint.repaint(x,y,width,height);
         
@@ -137,9 +154,14 @@ public class Car extends GameObject implements CarCustomable {
             setVelocityY(getVelocityY() + SPEED_INCREMENT);
         }
     }
-
-    
-    
+/**
+* car.Car#receiveEffect(Applicable ap,ArrayList <Sound>sound)
+* Este metodo se encarga de que el carro reciba el efecto que le manda un determinado poder
+* respectivamente.
+* @param ap:es el método del objeto especial a aplicar, este se pasa mediante una interfaz
+* @param sound:es el arreglo de efectos especiales en donde se reproducirá el sonido respectivo
+* @return: retorna un booleano que indica si el efecto se aplicó o no
+*/
     public boolean receiveEffect(Applicable ap,ArrayList <Sound>sound){
         if (ce==null || ce.isControl() ) {
             ce=new CarEngine(ap, this,sound);
@@ -153,6 +175,13 @@ public class Car extends GameObject implements CarCustomable {
         
         
     }
+/**
+* car.Car#rotateCar()
+* Este metodo se encarga de que el carro rote dependiendo de sus velocidades en los ejes X e Y
+* dependiendo de la velocidad que lleve se le asignarán unos ángulos, los cuales permitirán 
+* definir de manera gráfica la dirección de movimiento del carro en cuestión
+* @david
+*/
     public void rotateCar(){
         if(velocityX>0 && velocityY<0){
             degree=45;
@@ -177,19 +206,22 @@ public class Car extends GameObject implements CarCustomable {
             degree=0;
         }
     }
+    
+/**
+* car.Car#draw(Graphics g)
+* Este método se encarga de dibujar el carro
+* @param g:Indica el contexto gráfico
+*/
     @Override
         public void draw(Graphics g) {
        
         // Dibuja el carro en su posición actual
         Graphics2D g2d =(Graphics2D)g.create(); // Crear una copia del contexto gráfico
-        g2d.rotate(Math.toRadians(degree),x+width/2, y+height/2);
-
-        super.draw(g2d);
-        
-
+        g2d.rotate(Math.toRadians(degree),x+width/2, y+height/2);//se rota el carro tomando como referencia
+                                                                 //el centro del mismo
+        super.draw(g2d);//se dibuja el carro
+       
         g2d.dispose(); // Liberar el contexto gráfico
-        
-        
         
         paint.repaint();
     }
@@ -197,6 +229,7 @@ public class Car extends GameObject implements CarCustomable {
     /**
      * @return the velocityX
      */
+    @Override
     public int getVelocityX() {
         return velocityX;
     }
@@ -211,6 +244,7 @@ public class Car extends GameObject implements CarCustomable {
     /**
      * @return the velocityY
      */
+    @Override
     public int getVelocityY() {
         return velocityY;
     }
@@ -218,10 +252,13 @@ public class Car extends GameObject implements CarCustomable {
     /**
      * @param velocityY the velocityY to set
      */
+    @Override
     public void setVelocityY(int velocityY) {
         this.velocityY = velocityY;
     }
-
+    /**
+     * @param maxSpeed the Maxspeed to set
+     */
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
@@ -232,7 +269,9 @@ public class Car extends GameObject implements CarCustomable {
     public ArrayList <BufferedImage> getcarImages() {
         return carImages;
     }
-
+    /**
+     * @param carImages the images to set
+     */
     public void setCarImages(ArrayList<BufferedImage> carImages) {
         this.carImages = carImages;
         setImage(carImages.get(0));
