@@ -234,7 +234,19 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         }
     }
 }
-    
+        /**
+         * @ author thomas
+     * Verifica y maneja la colisión de un objeto especial con las celdas en la pista actual.
+     * 
+     * Este método utiliza la coordenada X actual del objeto especial y una nueva coordenada Y
+     * para verificar si el objeto colisiona con alguna celda en la pista. Si se detecta una 
+     * colisión con una celda de tipo pared, cambia la dirección del movimiento del objeto en 
+     * el eje Y.
+     * 
+     *
+     * @param specialObject El objeto especial cuya colisión se está verificando.
+     * @param newY La nueva coordenada Y del objeto especial.
+     */
     @Override
     public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
     if (currentRunway != null) {
