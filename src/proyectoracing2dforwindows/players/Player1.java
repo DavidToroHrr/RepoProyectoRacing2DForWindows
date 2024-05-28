@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.specialsounds.Sound;
+import proyectoracing2dforwindows.threads.SoundThread;
 
 /**
  *
@@ -17,8 +19,8 @@ import proyectoracing2dforwindows.interfaces.Paintable;
  */
 public class Player1 extends Player{
 
-    public Player1(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y) {
-        super(name, carImages, paintable, movable, score, x, y);
+    public Player1(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y,Sound sounds,SoundThread st) {
+        super(name, carImages, paintable, movable, score, x, y,sounds,st);
     }
 
     public void keyPressed(KeyEvent e) {

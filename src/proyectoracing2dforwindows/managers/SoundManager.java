@@ -6,6 +6,8 @@ package proyectoracing2dforwindows.managers;
 
 import java.util.ArrayList;
 import proyectoracing2dforwindows.specialsounds.Sound;
+import proyectoracing2dforwindows.specialsounds.SoundCar;
+import proyectoracing2dforwindows.specialsounds.SoundCoins;
 import proyectoracing2dforwindows.specialsounds.SoundIncrease;
 import proyectoracing2dforwindows.specialsounds.SoundInitialMenu;
 import proyectoracing2dforwindows.specialsounds.SoundShrink;
@@ -16,11 +18,13 @@ import proyectoracing2dforwindows.specialsounds.SoundStopped;
 * @author david 
 */
 public class SoundManager {
-    private ArrayList <Sound> sounds;
-    private SoundShrink sh;
-    private SoundIncrease si;
-    private SoundInitialMenu sm;           
-    private SoundStopped ss;           
+    private ArrayList <Sound> sounds;//aqui almacenamos los sonidos 
+    private SoundShrink sh;//Se declara el sonido del poder de encoger
+    private SoundIncrease si;//se declara el sonido del poder  de crecer
+    private SoundInitialMenu sm;//se declara el sonido del menú inicial           
+    private SoundStopped ss;//se declara el sonido del poder de detener el movimiento
+    private SoundCar sc;//se declara el sonido del motor del carro
+    private SoundCoins sco;//se declara el sonido del poder de monedas
     
     
     public SoundManager() {
@@ -45,7 +49,10 @@ public class SoundManager {
         ss=new SoundStopped("stopped", "/data/sounds/frenadoCarro.wav",0);
         getSounds().add(ss);
         
-    
+        sco=new SoundCoins("coins", "/data/sounds/coins.wav", 0);
+        getSounds().add(sco);
+        sc=new SoundCar("car", "/data/sounds/carSound.wav", 5000);
+        getSounds().add(sc);
     }
 
    /**

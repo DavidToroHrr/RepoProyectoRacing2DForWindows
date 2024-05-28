@@ -14,6 +14,8 @@ import javax.swing.Timer;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.car.Car;
+import proyectoracing2dforwindows.specialsounds.Sound;
+import proyectoracing2dforwindows.threads.SoundThread;
 
 /**
  *
@@ -27,12 +29,15 @@ public abstract class Player {
     private int score;
     private Timer timerCar;
     
-    public Player(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y){
+    
+    public Player(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y,Sound sounds,SoundThread st){
+        
         this.name = name;
         this.cpCurrent = -1;
         this.lap = 0;
         this.score = score;
-        car = new Car(x, y, 34, 60, name, carImages, null, paintable, movable);
+        
+        car = new Car(x, y, 34, 60, name, carImages, null, paintable, movable,sounds,st);
         timerCar = new Timer(10, e -> getCar().actualizar());
         timerCar.start();
     }

@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+import proyectoracing2dforwindows.threads.SoundThread;
 
 /**
  *
@@ -35,12 +36,13 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     private MapManager mapManager;
     private ScoreManager scoreManager;
     private Runway currentRunway;
-    private SoundManager soundManager;
-    private ImageManager imageManager;
+    private SoundManager soundManager;//maneja todos los efectos especiales del juego
+    private ImageManager imageManager;//maneja las imágenes de todos los carros
     
     private int nCheckpoints;//Guarda el numero de checkpoints en pista
     
-    private Timer gameUpdateTimer;
+    private Timer gameUpdateTimer;//permite llamar el método de actualizar objetos especiales
+                                  //de manera constante y cada cierto tiempo
     
     private String carplayer1;//Color del carro del player 1
     private Player1 player1;
@@ -48,18 +50,18 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     private String carplayer2;//Color del carro del player 1
     private Player2 player2;
   
-    private ArrayList <SpecialObject> specialsObjects;
+    private ArrayList <SpecialObject> specialsObjects;//Objetos especiales que tiene game simulator
 
-    private BufferedImage imageShrink;
+    private BufferedImage imageShrink;//declaración de la imagen del poder de encoger
     URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
 
-    private BufferedImage imageIncrease;
+    private BufferedImage imageIncrease;//declaración de la imagen del poder de crecer
     URL increaseUrl = getClass().getResource("/data/powers/hongo.png");
 
-    private BufferedImage imageStop;
+    private BufferedImage imageStop;//declaración de la imagen del poder de detener movimiento
     URL stopUrl = getClass().getResource("/data/powers/stop.png");
     
-    private BufferedImage imageCoin;
+    private BufferedImage imageCoin;//declaración de la imagen del poder de ganar puntos
     URL coinUrl = getClass().getResource("/data/powers/coin.png");
     
     
@@ -68,14 +70,15 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     
     private int maxLaps; //Define el numero de vueltas maximas
     
-    private ArrayList <Sound> sounds;
+    private ArrayList <Sound> sounds;//almacena los sonidos o efectos especiales del juego
     
     private ClickListener clickListener;//Sirve para avisar a la mainwindow que ya termino la partida
     
     private String winner; //Guarda el nombre del jugador que gane en cada ronda
 
-    public GameSimulator(ClickListener clickListener)throws IOException {
-        
+    private SoundThread st;
+    public GameSimulator(ClickListener clickListener,SoundThread st)throws IOException {
+        this.st=st;
         
         this.clickListener=clickListener;
         
@@ -196,6 +199,13 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                         player1.setScore(-10);
                     }else{
                         player2.setScore(-10);
+                    }
+                    break;
+                case "coin":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(+500);
+                    }else{
+                        player2.setScore(+500);
                     }
                     break;
                 case "win":
@@ -489,7 +499,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                 }else if(decision==2){
                     e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint,this) ;               
                 }else if(decision==3){
-                    e=new StoppedMovement(px, py, 30, 30, "coin", imageCoin, coinUrl, paint,this) ;         
+                    e=new AddedPoints(px, py, 30, 30, "coin", imageCoin, coinUrl, paint,this) ;         
                     
                 }
                 
@@ -524,13 +534,13 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
             ArrayList<BufferedImage> imagesCarPlayer1 = imageManager.getImagesCar(carplayer1);
             String namePlayer1 = scoreManager.getNameSelectedPlayer(1);
             int scorePlayer1 = scoreManager.getScorePlayer(namePlayer1);
-            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this, scorePlayer1, carCoorX, carCoorY);
+            player1 = new Player1(namePlayer1, imagesCarPlayer1, paint, this, scorePlayer1, carCoorX, carCoorY,sounds.get(5),st);
            
             //PLayer2
             ArrayList<BufferedImage> imagesCarPlayer2 = imageManager.getImagesCar(carplayer2);
             String namePlayer2 = scoreManager.getNameSelectedPlayer(2);
             int scorePlayer2 = scoreManager.getScorePlayer(namePlayer2);
-            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this, scorePlayer2, carCoorX+40, carCoorY);
+            player2 = new Player2(namePlayer2, imagesCarPlayer2, paint, this, scorePlayer2, carCoorX+40, carCoorY,sounds.get(5),st);
             
             createSpecialObject();
             gameUpdateTimer = new Timer(10, e -> updateGame()); 
@@ -546,6 +556,8 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         scoreManager.updateScore(player1.getName(), player1.getScore());
         scoreManager.updateScore(player2.getName(), player2.getScore());
         
+        player1.getCar().getSt().pause();
+        player2.getCar().getSt().pause();
         gameUpdateTimer = null;
         player1.stopCar();
         player1 = null;

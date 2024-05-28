@@ -89,7 +89,11 @@ public class Sound {
             System.out.println("Línea de audio no disponible.");
         }
     }
-    
+    /**
+     * specialsounds.Sound#stopSound()
+     * este método detiene el sonido actual
+     * @david
+    */
     public void stopSound(){
         clip.stop();//se detiene la reproducción del clip
         clip.drain();

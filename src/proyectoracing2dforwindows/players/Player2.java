@@ -10,14 +10,16 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
+import proyectoracing2dforwindows.specialsounds.Sound;
+import proyectoracing2dforwindows.threads.SoundThread;
 
 /**
  *
  * @author usuario
  */
 public class Player2 extends Player{
-    public Player2(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y) {
-        super(name, carImages, paintable, movable, score, x, y);
+    public Player2(String name, ArrayList <BufferedImage> carImages, Paintable paintable, Movable movable, int score, int x, int y,Sound sounds,SoundThread st) {
+        super(name, carImages, paintable, movable, score, x, y,sounds,st);
         
     }
 

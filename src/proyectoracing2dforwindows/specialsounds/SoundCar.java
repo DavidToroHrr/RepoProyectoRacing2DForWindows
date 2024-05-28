@@ -5,14 +5,14 @@
 package proyectoracing2dforwindows.specialsounds;
 
 /**
-* clase encargada de almacenar el efecto especial o sonido de 
-* inflar el carro
+* clase encargada de almacenar el efecto especial del carro
+* o su sonido
 * @author david 
 */
-public class SoundIncrease extends Sound{
+public class SoundCar extends Sound{
     
-    public SoundIncrease(String id, String filePath,int timeDuration) {
-        super(id, filePath,timeDuration);
+    public SoundCar(String id, String filePath, int timeDuration) {
+        super(id, filePath, timeDuration);
     }
     
 }

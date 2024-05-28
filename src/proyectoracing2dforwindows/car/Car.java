@@ -18,6 +18,7 @@ import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.models.Object;
 import proyectoracing2dforwindows.threads.CarEngine;
+import proyectoracing2dforwindows.threads.SoundThread;
 
 public class Car extends Object implements CarCustomable {
     Paintable paint;
@@ -25,6 +26,12 @@ public class Car extends Object implements CarCustomable {
     protected Thread t1;
     protected Movable movable;
     protected int maxSpeed;
+    
+    
+    private boolean movement;
+    
+    int initialX;
+    int initialY;
     
     protected int velocityX; // Velocidad horizontal del carro
     protected int velocityY; // Velocidad vertical del carro
@@ -38,9 +45,16 @@ public class Car extends Object implements CarCustomable {
      
      
      private int degree;
-    
-    public Car(int x, int y, int width, int height, String id, ArrayList <BufferedImage> carImages, URL url,Paintable p1,Movable movable) {
+     
+     private SoundThread st;
+     private Sound sound;
+    public Car(int x, int y, int width, int height, String id, ArrayList <BufferedImage> carImages, URL url,Paintable p1,Movable movable,Sound sound,SoundThread st) {
         super(x, y, width, height, id, carImages.get(0), url);
+        movement=true;
+        st=new SoundThread(sound);
+        this.st=st;
+        st.start();
+        this.sound=sound;
         maxSpeed = MAX_SPEED_TRAIL;
         this.carImages=new ArrayList<>();
         this.carImages=carImages;
@@ -49,12 +63,13 @@ public class Car extends Object implements CarCustomable {
         this.paint=p1;
         this.movable = movable;
         degree=0;
-        
+        initialX=x;
+        initialY=y;
         
     }
     public void actualizar() {
         paint.repaint(x,y,width,height);
-
+        
         int xNuevo = x;
         int yNuevo = y;
         // Actualizar la posición del carro
@@ -62,18 +77,14 @@ public class Car extends Object implements CarCustomable {
         yNuevo += getVelocityY();
         
         if(xNuevo != x || yNuevo != y){
+            movement=true;
             movable.verifyRunwayCollision(xNuevo, yNuevo, this);
-            paint.repaint();
-            
-            
-        }
+            paint.repaint();   
+        }else{movement=false;}
         
-        
-
         // Limitar la velocidad máxima
         if (getVelocityX() > maxSpeed) {
-            setVelocityX(maxSpeed);
-            
+            setVelocityX(maxSpeed);   
         }
         if (getVelocityX() < -maxSpeed) {
             setVelocityX(-maxSpeed);
@@ -93,9 +104,15 @@ public class Car extends Object implements CarCustomable {
 
         movable.verifyCheckpoints(x, y, width, height, id);
         rotateCar();
+        verifyMovement();
         
     }
-
+    public void verifyMovement(){
+        
+        if (movement==false &&(initialX!=x && initialY!=y)) {
+            st.pause();
+        }
+    }
     public void keyPressed(char key){
         paint.repaint(x,y,width,height);
         
@@ -234,6 +251,20 @@ public class Car extends Object implements CarCustomable {
     public void setCarImages(ArrayList<BufferedImage> carImages) {
         this.carImages = carImages;
         setImage(carImages.get(0));
+    }
+
+    /**
+     * @return the st
+     */
+    public SoundThread getSt() {
+        return st;
+    }
+
+    /**
+     * @param st the st to set
+     */
+    public void setSt(SoundThread st) {
+        this.st = st;
     }
     
     
