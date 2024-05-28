@@ -15,14 +15,14 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- *
- * @author usuario
+ * models.Runway Esta clase representa la pista donde los vehiculos correran
  */
 public class Runway extends Sprite{
 
     /**
-     * @return the circuit
-     */
+    * models.Runway#getCircuit()
+     * @return retorna el circuito, es decir la matriz de celdas
+    */
     public ArrayList<ArrayList<Cell>> getCircuit() {
         return circuit;
     }
@@ -33,11 +33,11 @@ public class Runway extends Sprite{
     public void setCircuit(ArrayList<ArrayList<Cell>> circuit) {
         this.circuit = circuit;
     }
-    private String name;
-    private String description;
-    private ArrayList<String> circuitStr;
-    private ArrayList<ArrayList<Cell>> circuit;
-    private ArrayList<BufferedImage> cellImages;
+    private String name;//Guarda el nombre de la ísta
+    private String description;//guarda la descripcion de la pista
+    private ArrayList<String> circuitStr;//Guarda el arreglo de strings que representa la pista antes de ser construida
+    private ArrayList<ArrayList<Cell>> circuit;//Guarda la matriz de celdas una vez de ha creado la pista
+    private ArrayList<BufferedImage> cellImages;//Guarda las imagenes de todas las celdas
     
     private final int CELL_IMAGE_TRAIL = 0;
     private final int CELL_IMAGE_BORDER = 1;

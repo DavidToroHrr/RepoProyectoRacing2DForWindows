@@ -18,8 +18,8 @@ import proyectoracing2dforwindows.specialsounds.Sound;
 import proyectoracing2dforwindows.threads.SoundThread;
 
 /**
- *
- * @author david
+ *players.Player
+ * Esta clase recibe las ordenes de cada jugador y las ejecuta sobre el vehiculo
  */
 public abstract class Player {
     protected String name;

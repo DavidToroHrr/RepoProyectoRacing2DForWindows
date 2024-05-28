@@ -5,12 +5,13 @@
 package proyectoracing2dforwindows.models;
 
 /**
- *
- * @author usuario
+ * models.Checkpoint 
+ * Esta clase representa los checkpoints por los cuales 
+ * debe pasar el carro para que se cuente una vuelta
  */
 public class Checkpoint extends Sprite{
     
-    private int priority;
+    private int priority;//Guarda la prioridad u orden del checkpoint con respecto al resto
     
     public Checkpoint(int x, int y, int width, int height, int priority) {
         super(x, y, width, height);
