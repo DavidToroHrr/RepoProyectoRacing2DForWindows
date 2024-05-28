@@ -22,16 +22,18 @@ public class ImageManager {
 /**
 * Todos estos arreglos guardan las imagenes que pueden tener color de carro
 */
+    private ArrayList <BufferedImage> imagesSpecialObjects;
     private ArrayList <BufferedImage> imagesRedCar;
     private ArrayList <BufferedImage> imagesGreenCar;
     private ArrayList <BufferedImage> imagesPinkCar;
     private ArrayList <BufferedImage> imagesBlueCar;
     private ArrayList <BufferedImage> imagesYellowCar;
     private ArrayList <BufferedImage> imagesBlackCar;
-    
+  
 
     public ImageManager() throws IOException {
         
+        imagesSpecialObjects=new ArrayList<>();
         imagesRedCar=new ArrayList<>();
         imagesGreenCar=new ArrayList<>();
         imagesPinkCar=new ArrayList<>();
@@ -51,7 +53,7 @@ public class ImageManager {
         //para el carro 1;
         //se debe de crear una variable para img,
             
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 22; i++) {
             BufferedImage imageCar = null;
             URL Url= null;
             switch (i) {
@@ -109,6 +111,18 @@ public class ImageManager {
                 case 17:
                     Url = getClass().getResource("/data/cars/bigblackcar.png");
                     break;
+                case 18:
+                    Url = getClass().getResource("/data/powers/reducesize.png");
+                    break;
+                case 19:
+                    Url = getClass().getResource("/data/powers/hongo.png");
+                    break;
+                case 20:
+                    Url = getClass().getResource("/data/powers/stop.png");
+                    break;
+                case 21:
+                    Url = getClass().getResource("/data/powers/coin.png");
+                    break;
                 default:
                     break;
             }
@@ -128,6 +142,8 @@ public class ImageManager {
             }
             else if (i<=17) {
                 getImagesBlackCar().add(imageCar);
+            }else if(i<=21){
+                getImagesSpecialObjects().add(imageCar);
             }
             
             
@@ -181,17 +197,30 @@ public class ImageManager {
     public ArrayList <BufferedImage> getImagesPinkCar() {
         return imagesPinkCar;
     }
-
+    /**
+     * @return the getImagesBlueCar
+     */
     public ArrayList<BufferedImage> getImagesBlueCar() {
         return imagesBlueCar;
     }
-
+    /**
+     * @return the getImagesYellowCar
+     */
     public ArrayList<BufferedImage> getImagesYellowCar() {
         return imagesYellowCar;
     }
-
+    /**
+     * @return the getImagesBlackCar
+     */
     public ArrayList<BufferedImage> getImagesBlackCar() {
         return imagesBlackCar;
+    }
+
+    /**
+     * @return the imagesSpecialObjects
+     */
+    public ArrayList <BufferedImage> getImagesSpecialObjects() {
+        return imagesSpecialObjects;
     }
     
     

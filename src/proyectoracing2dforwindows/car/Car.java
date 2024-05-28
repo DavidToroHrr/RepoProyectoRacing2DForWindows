@@ -132,7 +132,6 @@ public class Car extends GameObject implements CarCustomable {
 * car.Car#keyPressed(char key)
 * Este metodo se encarga de mover el vehículo dependiendo de la dirección determinada por las teclas
 * @param char:es la letra que indica el movimiento. Bien sea up, down, left o right
-     
 */
     public void keyPressed(char key){
         paint.repaint(x,y,width,height);
