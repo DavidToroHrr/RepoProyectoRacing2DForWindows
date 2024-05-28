@@ -161,7 +161,7 @@ public class Runway extends Sprite{
         try {
             cellImage = ImageIO.read(file);
         } catch (IOException ex) {
-            Logger.getLogger(Object.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameObject.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cellImage;
     }

@@ -7,9 +7,9 @@ package proyectoracing2dforwindows.interfaces;
 import proyectoracing2dforwindows.specialobjects.SpecialObject;
 
 /**
- *
- * @author david
- */
+* interfaces.SpecialMovable
+* Interfaz que sirve para llamar el método de verificar la colisión de los objetos especiales
+*/
 public interface SpecialMovable {
     public void verifySpecialObjectCollision(SpecialObject specialObject, int newY);
 }

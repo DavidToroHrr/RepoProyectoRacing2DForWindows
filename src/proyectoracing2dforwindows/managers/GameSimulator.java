@@ -76,7 +76,8 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     
     private String winner; //Guarda el nombre del jugador que gane en cada ronda
 
-    private SoundThread st;
+    private SoundThread st;//Hilo que se encarga de ejecutar los sonidos en bucle
+    
     public GameSimulator(ClickListener clickListener,SoundThread st)throws IOException {
         this.st=st;
         
@@ -135,19 +136,20 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
             player2.draw(g);
             
         }
-        g.setColor(Color.WHITE);
+        g.setColor(Color.LIGHT_GRAY);
         
-        g.fillRect(900/2-50, 900/2-50, 100, 100);
+        g.fillRect(900/2-90, 0, 180, 37);
         g.setColor(Color.BLACK); // Establece el color del texto
-        g.setFont(new Font(("Tw Cen MT"), Font.BOLD, 15)); // Establece la fuente del texto
+        
+        g.setFont(new Font(("Tw Cen MT"), Font.BOLD, 17)); // Establece la fuente del texto
         String lapsplayer1;
         if(player1.getLap()<maxLaps){
             lapsplayer1 = String.valueOf(player1.getLap());
         }else{
             lapsplayer1 = String.valueOf(maxLaps);
         }
-        g.drawString(player1.getName()+": "+lapsplayer1, 900/2-50,900/2-30 ); // Dibuja el texto en las coordenadas (50, 50)
-        g.drawString("Score: "+player1.getScore(), 900/2-50,900/2-12 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString(player1.getName()+": "+lapsplayer1, 360,10 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString("Score: "+player1.getScore(), 360,27); // Dibuja el texto en las coordenadas (50, 50)
         
         String lapsplayer2;
         if(player2.getLap()<maxLaps){
@@ -155,13 +157,10 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         }else{
             lapsplayer2 = String.valueOf(maxLaps);
         }
-        g.drawString(player2.getName()+": "+lapsplayer2, 900/2-50,900/2+20 ); // Dibuja el texto en las coordenadas (50, 50)
-        g.drawString("Score: "+player2.getScore(), 900/2-50,900/2+38 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString(player2.getName()+": "+lapsplayer2, 360+90,10 ); // Dibuja el texto en las coordenadas (50, 50)
+        g.drawString("Score: "+player2.getScore(), 360+90,27 ); // Dibuja el texto en las coordenadas (50, 50)
 
         paint.repaint();
-        
-        
-        
     }
     
     public void applyScore(String player, String opt){
@@ -234,6 +233,97 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                     
                 }
                 break;
+            }
+        }
+        
+    }
+    
+    @Override
+    public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
+    if (currentRunway != null) {
+        //System.out.println("Verifying collision for SpecialObject at newY: " + newY);
+
+        //Use the current x position of the special object
+        int newX = specialObject.getX();
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, specialObject.getWidth(), specialObject.getHeight());
+
+        if (cell != null) {
+            //System.out.println("Collision detected with cell ID: " + cell.getId());
+
+            if (cell.getId().equals(CellWall.CELL_ID)) {
+                int cellTop = cell.getY();
+                int cellBottom = cell.getY() + cell.getHeight();
+                int objectTop = newY;
+                int objectBottom = newY + specialObject.getHeight();
+
+                //System.out.println("objectTop: " + objectTop + ", objectBottom: " + objectBottom);
+                //System.out.println("cellTop: " + cellTop + ", cellBottom: " + cellBottom);
+
+                // Determine the side of the collision
+                if (specialObject.getDirectionY() == 1) { //Moving down
+                    if (objectBottom >= cellTop) {
+                        specialObject.setDirectionY(-1); //Change direction to up
+                        //System.out.println("Direction changed to up");
+                    }
+                } else if (specialObject.getDirectionY() == -1) { // Moving up
+                    if (objectTop <= cellBottom) {
+                        specialObject.setDirectionY(1); // Change direction to down
+                        //System.out.println("Direction changed to down");
+                    }
+                }
+            }
+        } else {
+            //System.out.println("No collision detected at newY: " + newY);
+        }
+    } else {
+        //System.out.println("CurrentRunway is null");
+    }
+}
+     // aqui se esta verificando la colision con el borde de la pista
+    @Override
+    public void verifyRunwayCollision(int newX, int newY, Car car) {
+        Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
+        if(cell != null){
+            if(cell.getId().equals(CellTrail.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_TRAIL);
+            }
+            if(cell.getId().equals(CellBorder.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_BORDER);
+            }
+            if(cell.getId().equals(CellGrass.CELL_ID)){
+                car.setMaxSpeed(Car.MAX_SPEED_GRASS);
+            }
+            if(cell.getId().equals(CellWall.CELL_ID)){
+                int collisionX = Math.max(newX, cell.getX());
+                int collisionY = Math.max(newY, cell.getY());
+
+                // Determina qué lado está colisionando
+                if (collisionX == newX && collisionY == newY + car.getHeight()) {
+                    //Superior
+                    car.setVelocityY(0);
+                } if (collisionX == newX && collisionY == newY) {
+                    //Inferior
+                    car.setVelocityY(0);
+                } if (collisionX == newX + car.getWidth() && collisionY == newY) {
+                    //Derecho
+                    car.setVelocityX(0);
+                } if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
+                    //Esquina
+                } if (collisionX == newX){
+                    //Izquierdo
+                    car.setVelocityX(0);
+                }
+                else {
+                    // Si no está en un lado, podría ser un lado lateral
+                    if (collisionX == newX || collisionX == newX + car.getWidth()) {
+                        //Lateral
+                        car.setVelocityX(0);
+                    } else {
+                        // Podría ser un lado superior o inferior
+                        //Superior o inferior
+                        car.setVelocityY(0);
+                    }
+                }
             }
         }
         
@@ -327,84 +417,13 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     paint.repaint();
 }
     
-    
-    
-    
     public ArrayList<String> showMaps() throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
         mapManager.loadRunways(0, 0);
         return mapManager.getRunwaysNames();
     }
+   
+
     
-    public void loadMap(String nameMap) throws IOException{
-            setCurrentRunway(mapManager.getRunway(nameMap));
-            
-    }
-    
-    
-    /**
-     * @return the currentRunway
-     */
-    public Runway getCurrentRunway() {
-        return currentRunway;
-    }
-
-    /**
-     * @param currentRunway the currentRunway to set
-     */
-    public void setCurrentRunway(Runway currentRunway) {
-        this.currentRunway = currentRunway;
-    }
-    
-    
-    @Override
-    public void setPaint(Paintable paint) {
-        this.paint = paint;
-        initializePlayers();
-    }
-    
-    // this function is used to verify the collision between the specialobjects and the runwayyyyyy
-
-    @Override
-    public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
-    if (currentRunway != null) {
-        //System.out.println("Verifying collision for SpecialObject at newY: " + newY);
-
-        //Use the current x position of the special object
-        int newX = specialObject.getX();
-        Cell cell = currentRunway.verifyCellCollision(newX, newY, specialObject.getWidth(), specialObject.getHeight());
-
-        if (cell != null) {
-            //System.out.println("Collision detected with cell ID: " + cell.getId());
-
-            if (cell.getId().equals(CellWall.CELL_ID)) {
-                int cellTop = cell.getY();
-                int cellBottom = cell.getY() + cell.getHeight();
-                int objectTop = newY;
-                int objectBottom = newY + specialObject.getHeight();
-
-                //System.out.println("objectTop: " + objectTop + ", objectBottom: " + objectBottom);
-                //System.out.println("cellTop: " + cellTop + ", cellBottom: " + cellBottom);
-
-                // Determine the side of the collision
-                if (specialObject.getDirectionY() == 1) { //Moving down
-                    if (objectBottom >= cellTop) {
-                        specialObject.setDirectionY(-1); //Change direction to up
-                        //System.out.println("Direction changed to up");
-                    }
-                } else if (specialObject.getDirectionY() == -1) { // Moving up
-                    if (objectTop <= cellBottom) {
-                        specialObject.setDirectionY(1); // Change direction to down
-                        //System.out.println("Direction changed to down");
-                    }
-                }
-            }
-        } else {
-            //System.out.println("No collision detected at newY: " + newY);
-        }
-    } else {
-        //System.out.println("CurrentRunway is null");
-    }
-}
 
     public void updateGame() {
         for (SpecialObject specialObject : specialsObjects) {
@@ -418,55 +437,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     }
 
     
-    // aqui se esta verificando la colision con el borde de la pista
-    @Override
-    public void verifyRunwayCollision(int newX, int newY, Car car) {
-        Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
-        if(cell != null){
-            if(cell.getId().equals(CellTrail.CELL_ID)){
-                car.setMaxSpeed(Car.MAX_SPEED_TRAIL);
-            }
-            if(cell.getId().equals(CellBorder.CELL_ID)){
-                car.setMaxSpeed(Car.MAX_SPEED_BORDER);
-            }
-            if(cell.getId().equals(CellGrass.CELL_ID)){
-                car.setMaxSpeed(Car.MAX_SPEED_GRASS);
-            }
-            if(cell.getId().equals(CellWall.CELL_ID)){
-                int collisionX = Math.max(newX, cell.getX());
-                int collisionY = Math.max(newY, cell.getY());
-
-                // Determina qué lado está colisionando
-                if (collisionX == newX && collisionY == newY + car.getHeight()) {
-                    //Superior
-                    car.setVelocityY(0);
-                } if (collisionX == newX && collisionY == newY) {
-                    //Inferior
-                    car.setVelocityY(0);
-                } if (collisionX == newX + car.getWidth() && collisionY == newY) {
-                    //Derecho
-                    car.setVelocityX(0);
-                } if (collisionX == newX + car.getWidth() && collisionY == newY + car.getHeight()) {
-                    //Esquina
-                } if (collisionX == newX){
-                    //Izquierdo
-                    car.setVelocityX(0);
-                }
-                else {
-                    // Si no está en un lado, podría ser un lado lateral
-                    if (collisionX == newX || collisionX == newX + car.getWidth()) {
-                        //Lateral
-                        car.setVelocityX(0);
-                    } else {
-                        // Podría ser un lado superior o inferior
-                        //Superior o inferior
-                        car.setVelocityY(0);
-                    }
-                }
-            }
-        }
-        
-    }
+   
     
     
     public void createSpecialObject(){
@@ -621,6 +592,25 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     public int getScoreWinner(){
         return scoreManager.getScorePlayer(winner);
     }
+    public void loadMap(String nameMap) throws IOException{
+            setCurrentRunway(mapManager.getRunway(nameMap));
+            
+    }
     
+
+    public Runway getCurrentRunway() {
+        return currentRunway;
+    }
+
+ 
+    public void setCurrentRunway(Runway currentRunway) {
+        this.currentRunway = currentRunway;
+    }
+    
+    @Override
+    public void setPaint(Paintable paint) {
+        this.paint = paint;
+        initializePlayers();
+    }
     
 }

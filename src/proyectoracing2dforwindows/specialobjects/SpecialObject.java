@@ -11,14 +11,14 @@ import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Paintable;
 import proyectoracing2dforwindows.interfaces.SpecialMovable;
-import proyectoracing2dforwindows.models.Object;
+import proyectoracing2dforwindows.models.GameObject;
 import proyectoracing2dforwindows.specialsounds.Sound;
 
 /**
  *
  * @author david
  */
-public abstract class SpecialObject extends Object implements Applicable{
+public abstract class SpecialObject extends GameObject implements Applicable{
     public Paintable paintable;
     
     protected int velocityY;//velocidad en y del objeto especial

@@ -14,5 +14,4 @@ import proyectoracing2dforwindows.specialsounds.Sound;
 public interface Applicable {
     public void applyEfect(CarCustomable cc,ArrayList <Sound>sound);
     
-    
 }

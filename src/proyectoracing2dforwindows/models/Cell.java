@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  *
  * @author usuario
  */
-public abstract class Cell extends Object{
+public abstract class Cell extends GameObject{
 
     public static final int SIZE = 36;
     

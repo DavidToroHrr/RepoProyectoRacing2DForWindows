@@ -8,10 +8,11 @@ import proyectoracing2dforwindows.models.Sprite;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 
+
 /**
- *
- * @author usuario
- */
+* interfaces.CarCustomable
+* Sirve para verificar el movimiento de los carros y su interacción con los elementos de la pista
+*/
 public interface Movable {
     public void verifyObjectCollision(Car car);
     public void verifyRunwayCollision(int newX, int newY, Car car);

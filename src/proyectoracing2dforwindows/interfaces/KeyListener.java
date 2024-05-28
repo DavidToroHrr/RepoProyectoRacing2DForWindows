@@ -5,9 +5,9 @@
 package proyectoracing2dforwindows.interfaces;
 
 /**
- *
- * @author david
- */
+* interfaces.KeyListener
+* interfaz que permite detectar los eventos de teclado de el game panel
+*/
 public interface KeyListener {                               
     public void formKeyPressed(java.awt.event.KeyEvent evt);                                
 

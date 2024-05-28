@@ -16,22 +16,25 @@ import proyectoracing2dforwindows.interfaces.Applicable;
 import proyectoracing2dforwindows.interfaces.CarCustomable;
 import proyectoracing2dforwindows.interfaces.Movable;
 import proyectoracing2dforwindows.interfaces.Paintable;
-import proyectoracing2dforwindows.models.Object;
+import proyectoracing2dforwindows.models.GameObject;
 import proyectoracing2dforwindows.threads.CarEngine;
 import proyectoracing2dforwindows.threads.SoundThread;
 
-public class Car extends Object implements CarCustomable {
+public class Car extends GameObject implements CarCustomable {
     Paintable paint;
-    protected CarEngine ce;
-    protected Thread t1;
-    protected Movable movable;
-    protected int maxSpeed;
+    protected CarEngine ce;//motor que me permite aplicar los efectos en el carro
+    
+    protected Thread t1;//hilo el cual es vacío y en donde se mete el motor
+    
+    protected Movable movable;//
+    
+    protected int maxSpeed;//indica la velocidad máxima de los carros en determinado tramo
     
     
-    private boolean movement;
+    private boolean movement;//me indica si el carro está o no en movimiento
     
-    int initialX;
-    int initialY;
+    int initialX;//velocidad inicial en x
+    int initialY;//velocidad inicial en y
     
     protected int velocityX; // Velocidad horizontal del carro
     protected int velocityY; // Velocidad vertical del carro
@@ -39,15 +42,16 @@ public class Car extends Object implements CarCustomable {
     public static final int MAX_SPEED_TRAIL = 3; // Velocidad máxima del carro
     public static final int MAX_SPEED_BORDER = 2; // Velocidad máxima del carro
     public static final int MAX_SPEED_GRASS = 1; // Velocidad máxima del carro
-    protected final int BRAKE=0;
-    private ArrayList <BufferedImage> carImages;
+    
+    private ArrayList <BufferedImage> carImages;//arreglo de imagenes del carro respectivo
     
      
      
-     private int degree;
+    private int degree;//grados del carro, depende de sys velocidades en x e y
      
-     private SoundThread st;
-     private Sound sound;
+     private SoundThread st;//hilo que permite ejecutar sonidos en bucle
+     private Sound sound;//sonido respectivo del motor del carro
+     
     public Car(int x, int y, int width, int height, String id, ArrayList <BufferedImage> carImages, URL url,Paintable p1,Movable movable,Sound sound,SoundThread st) {
         super(x, y, width, height, id, carImages.get(0), url);
         movement=true;

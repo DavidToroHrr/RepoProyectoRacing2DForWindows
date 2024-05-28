@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  *
  * @author david
  */
-public abstract class Object extends Sprite{
+public abstract class GameObject extends Sprite{
 
     /**
      * @return the id
@@ -29,7 +29,7 @@ public abstract class Object extends Sprite{
     protected BufferedImage image;
     protected URL url;
 
-    public Object(int x, int y, int width, int height, String id,BufferedImage image,URL url) {
+    public GameObject(int x, int y, int width, int height, String id,BufferedImage image,URL url) {
         super(x, y, width, height);
         this.id = id;
         this.image=image;
@@ -41,7 +41,7 @@ public abstract class Object extends Sprite{
         try {
             setImage(ImageIO.read(file));
         } catch (IOException ex) {
-            Logger.getLogger(Object.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameObject.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
