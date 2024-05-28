@@ -39,9 +39,11 @@ public class CarEngine implements Runnable {
         
     }
 
-    /**
-     * @return the control
-     */
+ /**
+* threads.CarEngine#isControl()
+* éste método me sirve para retornar el estado de ejecución del método
+* @david
+*/
     public boolean isControl() {
         return control;
     }
