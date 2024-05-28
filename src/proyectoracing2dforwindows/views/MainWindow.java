@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import proyectoracing2dforwindows.exceptions.CheckpointException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
@@ -165,22 +166,6 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
         }
     }
     
-    @Override
-    public void formKeyReleased(KeyEvent evt) {
-        //System.out.println("REALEASED");
-        if (evt.getKeyCode()==KeyEvent.VK_UP |
-                evt.getKeyCode()==KeyEvent.VK_LEFT|
-                evt.getKeyCode()==KeyEvent.VK_RIGHT|
-                evt.getKeyCode()==KeyEvent.VK_DOWN) 
-        {
-            try {
-                game.keyReleased(evt);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //System.out.println("Nos vamos para arriba");
-        }
-    }
 
     @Override
     public void formKeyPressed(KeyEvent evt) {
@@ -212,9 +197,10 @@ public class MainWindow extends javax.swing.JFrame implements ClickListener, Key
     
     @Override
     public void returnMapSelector()throws FileManagerException, MapFileNotFoundException, InvalidMapFormatException, CheckpointException{
-   
+            
             h1.pause();
             showMapSelector();
+            JOptionPane.showMessageDialog(this, "The winner is: "+game.getWinner()+".\nHis score was: "+game.getScoreWinner()+".", "Finished game", JOptionPane.INFORMATION_MESSAGE);
     }
     
     

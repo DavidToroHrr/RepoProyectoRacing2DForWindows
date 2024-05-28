@@ -168,51 +168,51 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         switch(opt){
                 case "check":
                     if(player1.getName().equals(player)){
+                        player1.setScore(20);
+                    }else{
+                        player2.setScore(20);
+                    }
+                    break;
+                case "lap":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(80);
+                    }else{
+                        player2.setScore(80);
+                    }
+                    break;
+                case "shrink":
+                    if(player1.getName().equals(player)){
                         player1.setScore(10);
                     }else{
                         player2.setScore(10);
                     }
                     break;
-                case "lap":
-                    if(player1.getName().equals(player)){
-                        player1.setScore(40);
-                    }else{
-                        player2.setScore(40);
-                    }
-                    break;
-                case "shrink":
-                    if(player1.getName().equals(player)){
-                        player1.setScore(-5);
-                    }else{
-                        player2.setScore(-5);
-                    }
-                    break;
                 case "grow":
-                    if(player1.getName().equals(player)){
-                        player1.setScore(5);
-                    }else{
-                        player2.setScore(5);
-                    }
-                    break;
-                case "stop":
                     if(player1.getName().equals(player)){
                         player1.setScore(-10);
                     }else{
                         player2.setScore(-10);
                     }
                     break;
+                case "stop":
+                    if(player1.getName().equals(player)){
+                        player1.setScore(-20);
+                    }else{
+                        player2.setScore(-20);
+                    }
+                    break;
                 case "coin":
                     if(player1.getName().equals(player)){
-                        player1.setScore(+500);
+                        player1.setScore(65);
                     }else{
-                        player2.setScore(+500);
+                        player2.setScore(65);
                     }
                     break;
                 case "win":
                     if(player1.getName().equals(player)){
-                        player1.setScore(150);
+                        player1.setScore(220);
                     }else{
-                        player2.setScore(150);
+                        player2.setScore(220);
                     }
                     break;
         }
@@ -326,18 +326,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     
     paint.repaint();
 }
-    public void keyReleased(KeyEvent e) throws InterruptedException {
-    if (player1 != null) {
-        player1.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
-        
-        
-    }
-    if (player2 != null) {
-        player2.keyReleased(e);//if evt vk_up---->else el otro carro con sus teclas
-        
-    }
     
-}
     
     
     
@@ -527,7 +516,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         winner = "none";
         if (getCurrentRunway() != null) {
             
-            int carCoorX = currentRunway.getCheckPoints().get(0).getX()+36;
+            int carCoorX = currentRunway.getCheckPoints().get(0).getX();
             int carCoorY = currentRunway.getCheckPoints().get(0).getY()+36;
             
             //Player1
@@ -625,7 +614,13 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
         return currentRunway.getHeight();
     }
 
-    
+    public String getWinner() {
+        return winner;
+    }
+
+    public int getScoreWinner(){
+        return scoreManager.getScorePlayer(winner);
+    }
     
     
 }

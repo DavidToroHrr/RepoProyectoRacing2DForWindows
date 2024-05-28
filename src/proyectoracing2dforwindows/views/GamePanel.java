@@ -64,9 +64,6 @@ public class GamePanel extends javax.swing.JPanel implements Paintable{
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 GamePanel.this.keyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                formKeyReleased(evt);
-            }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -85,11 +82,6 @@ public class GamePanel extends javax.swing.JPanel implements Paintable{
         // TODO add your handling code here:
         keylistener.formKeyPressed(evt);
     }//GEN-LAST:event_keyPressed
-
-    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        // TODO add your handling code here:
-        keylistener.formKeyReleased(evt);
-    }//GEN-LAST:event_formKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

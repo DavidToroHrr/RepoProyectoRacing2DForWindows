@@ -134,26 +134,7 @@ public class Car extends Object implements CarCustomable {
         }
     }
 
-    public void keyReleased(char key){
-        paint.repaint(x, y, width, height);
-
-        //System.out.println("entro a keyrealeased");
-        // Frenar solo si no se está acelerando en esa dirección
-        if (key == 'L' || key == 'R') {
-            if (getVelocityX() > 0) {
-                setVelocityX(getVelocityX() - BRAKE);
-            } else if (getVelocityX() < 0) {
-                setVelocityX(getVelocityX() + BRAKE);
-            }
-        } else if (key == 'U' || key == 'D') {
-            if (getVelocityY() > 0) {
-                setVelocityY(getVelocityY() - BRAKE);
-            } else if (getVelocityY() < 0) {
-                setVelocityY(getVelocityY() + BRAKE);
-            }
-        }
-        paint.repaint(x, y, width, height);
-    }
+    
     
     public boolean receiveEffect(Applicable ap,ArrayList <Sound>sound){
         if (ce==null || ce.isControl() ) {

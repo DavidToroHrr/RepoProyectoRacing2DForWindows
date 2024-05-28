@@ -44,6 +44,7 @@ public class AboutUsPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(102, 102, 102));
         setMinimumSize(new java.awt.Dimension(900, 900));
         setPreferredSize(new java.awt.Dimension(900, 900));
 
@@ -57,24 +58,31 @@ public class AboutUsPanel extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("third semester students of systems engineering");
 
         jLabel2.setFont(jLabel1.getFont());
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Universidad Autónoma de Manizales");
 
         jLabel4.setFont(jLabel1.getFont());
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Santiago Castaño Arcila");
 
         jLabel5.setFont(jLabel1.getFont());
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Thomas Alejandro Toro Herrera");
 
         jLabel6.setFont(jLabel1.getFont());
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("David Esteban Toro Herrera");
 
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 50)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("This project was developed by");
 
         jLabel7.setFont(jLabel1.getFont());
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("of de");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -82,27 +90,30 @@ public class AboutUsPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel3))
-            .addComponent(jLabel1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(364, 364, 364)
-                .addComponent(jLabel7))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel2))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jLabel5))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(jLabel4))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(jLabel6))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(405, 405, 405)
-                .addComponent(bReturn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(364, 364, 364)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(405, 405, 405)
+                        .addComponent(bReturn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
