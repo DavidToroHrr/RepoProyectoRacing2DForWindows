@@ -40,7 +40,7 @@ public abstract class Player {
         this.brake = false;
         
         car = new Car(x, y, 34, 60, name, carImages, null, paintable, movable,sounds,st);
-        timerCar = new Timer(10, e -> getCar().actualizar());
+        timerCar = new Timer(10, e -> getCar().update());
         timerCar.start();
     }
     
@@ -56,8 +56,8 @@ public abstract class Player {
 
     }
     
-    public void actualizar(){
-        getCar().actualizar();
+    public void update(){
+        getCar().update();
     }
 
     public int getCpCurrent() {

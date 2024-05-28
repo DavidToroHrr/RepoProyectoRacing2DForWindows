@@ -117,7 +117,14 @@ public class Runway extends Sprite{
             
         }
     }
-    
+/**
+* .Runway#verifyPoint(int x,int y)
+* Este método se encarga de verificar si unas coordenadas generadas aleatoreamente chochan la pista 
+* o no la chocan, esto con el fin de solo generar allí objetos especiales.
+* @param x:Indica la posición en X posible del objeto especial
+* @param y:Indica la posición en Y posible del objeto especial
+* @return: retorna un booleano que indica si chocó pista o celltrail
+*/
     public boolean verifyPoint(int x,int y){//aqui vamos a recorrer la pista
         for (ArrayList<Cell> arrayList : circuit) {
             for (Cell cell : arrayList) {

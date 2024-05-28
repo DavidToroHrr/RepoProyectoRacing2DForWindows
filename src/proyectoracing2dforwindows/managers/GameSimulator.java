@@ -31,8 +31,7 @@ import proyectoracing2dforwindows.threads.SoundThread;
  */
 public class GameSimulator implements Movable, Drawable, Configurable, SpecialMovable{
     Paintable paint;
-    //private boolean colision=false;
-    
+   
     private MapManager mapManager;
     private ScoreManager scoreManager;
     private Runway currentRunway;
@@ -51,20 +50,6 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     private Player2 player2;
   
     private ArrayList <SpecialObject> specialsObjects;//Objetos especiales que tiene game simulator
-
-    private BufferedImage imageShrink;//declaración de la imagen del poder de encoger
-    URL shrinkUrl1 = getClass().getResource("/data/powers/reducesize.png");
-
-    private BufferedImage imageIncrease;//declaración de la imagen del poder de crecer
-    URL increaseUrl = getClass().getResource("/data/powers/hongo.png");
-
-    private BufferedImage imageStop;//declaración de la imagen del poder de detener movimiento
-    URL stopUrl = getClass().getResource("/data/powers/stop.png");
-    
-    private BufferedImage imageCoin;//declaración de la imagen del poder de ganar puntos
-    URL coinUrl = getClass().getResource("/data/powers/coin.png");
-    
-    
     
     private int numPowers; //Define el numero de poderes que apareceran en el juego
     
@@ -106,10 +91,7 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
             Logger.getLogger(GameSimulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        imageIncrease = javax.imageio.ImageIO.read(increaseUrl);
-        imageShrink = javax.imageio.ImageIO.read(shrinkUrl1);
-        imageStop = javax.imageio.ImageIO.read(stopUrl);
-        imageCoin=javax.imageio.ImageIO.read(coinUrl);
+        
     }
     
     @Override
@@ -216,27 +198,42 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
                     break;
         }
     }
-    
+/**
+* models.GameSimulator#verifyObjectCollision(Car car)
+* Este metodo se encarga de mover el vehículo dependiendo de la dirección determinada por las teclas
+* @param car:es el carro al que se le extraen todas sus medidas y coordenadas para verificar si hay o no 
+* colisión
+* 
+*/
     @Override
-    // aqui se esta verificando la colision con los objetos especiales
-    public void verifyObjectCollision(Car car){
-        Iterator<SpecialObject> iterator = specialsObjects.iterator();
-        while (iterator.hasNext()) {
-            SpecialObject specialObject = iterator.next();
-            if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
-                if(car.receiveEffect(specialObject,soundManager.getSounds())){
-                    iterator.remove(); // Elimina el objeto actual de la lista de manera segura
-                    
-                    applyScore(car.getId(), specialObject.getId());
-                    
-                    createSpecialObject();
-                    
-                }
-                break;
+    //aqui se esta verificando la colision con los objetos especiales
+    public void verifyObjectCollision(Car car) {
+    //Crea un iterador para recorrer la lista de objetos especiales
+    Iterator<SpecialObject> iterator = specialsObjects.iterator();
+    
+    //Mientras haya más objetos en la lista para verificar
+    while (iterator.hasNext()) {
+        //Obtiene el siguiente objeto especial de la lista
+        SpecialObject specialObject = iterator.next();
+
+        //Verifica si hay una colisión entre el carro y el objeto especial actual
+        if (specialObject.verifyCollision(car.getX(), car.getY(), car.getWidth(), car.getHeight())) {
+            // Si hay una colisión, el carro recibe el efecto del objeto especial
+            if (car.receiveEffect(specialObject, soundManager.getSounds())) {
+                //Si el carro efectivamente recibe el efecto, se elimina el objeto especial de la lista
+                iterator.remove(); // Elimina el objeto actual de la lista de manera segura
+
+                //Aplica la puntuación correspondiente según el ID del carro y el ID del objeto especial
+                applyScore(car.getId(), specialObject.getId());
+
+                //Crea un nuevo objeto especial
+                createSpecialObject();
             }
+            //Rompe el ciclo después de encontrar la primera colisión y manejarla
+            break;
         }
-        
     }
+}
     
     @Override
     public void verifySpecialObjectCollision(SpecialObject specialObject, int newY) {
@@ -437,46 +434,48 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     
    
     
-    
+/**
+* models.GameSimulator#createSpecialObject()
+* Este metodo se encarga de crear objetos especiales siempre y cuando estos se eliminen, es decir,
+* mantiene un número constante de poderes en la pista
+* @david
+* 
+*/
     public void createSpecialObject(){
-        
-        
-        int contObj=specialsObjects.size();
-        while (contObj<getNumPowers()) {                    
-            int px=(int)(Math.random()*1800);
-            int py=(int)(Math.random() * 1800) + 30;
-            if (currentRunway.verifyPoint(px, py)) {
-                int decision=(int)(Math.random()*4);
+
+        int contObj=specialsObjects.size();//número de poderes actualmente
+        while (contObj<getNumPowers()) {
+            
+            int px=(int)(Math.random()*1800);//se generan valores aleatorios en X en un rango 
+            int py=(int)(Math.random() * 1800) + 30;//se generan valores aleatorios en Y en un rango 
+            
+            if (currentRunway.verifyPoint(px, py)) {//método que me verifica si la coordenada está sobre
+                                                    //celltrail
+                                                    
+                int decision=(int)(Math.random()*4);//me permite crear objetos especiales de manera aleatoria
+                
                 SpecialObject e=null;
+                
                 if (decision==0) {
-                    e=new ReducedSize(px, py, 30, 30, "shrink", imageShrink, shrinkUrl1,paint,this);
+                    e=new ReducedSize(px, py, 30, 30, "shrink", imageManager.getImagesSpecialObjects().get(0), null,paint,this);
 
                 }else if(decision==1){
-                    e=new IncreasedSize(px, py, 30, 30, "grow", imageIncrease, increaseUrl,paint,this);
+                    e=new IncreasedSize(px, py, 30, 30, "grow", imageManager.getImagesSpecialObjects().get(1), null,paint,this);
                 
                 }else if(decision==2){
-                    e=new StoppedMovement(px, py, 30, 30, "stop", imageStop, stopUrl, paint,this) ;               
+                    e=new StoppedMovement(px, py, 30, 30, "stop", imageManager.getImagesSpecialObjects().get(2), null, paint,this) ;               
                 }else if(decision==3){
-                    e=new AddedPoints(px, py, 30, 30, "coin", imageCoin, coinUrl, paint,this) ;         
+                    e=new AddedPoints(px, py, 30, 30, "coin", imageManager.getImagesSpecialObjects().get(3), null, paint,this) ;         
                     
                 }
-                
                 specialsObjects.add(e);
                 contObj+=1;
                 }
 
             }
-    
     }
     
-    public ArrayList<String> getScoreNames(){
-        
-        return scoreManager.getNames();
-    }
     
-    public ArrayList<Integer> getScorePoints(){
-        return scoreManager.getScores();
-    }
 
     private void initializePlayers(){
 
@@ -609,6 +608,14 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
     public void setPaint(Paintable paint) {
         this.paint = paint;
         initializePlayers();
+    }
+    public ArrayList<String> getScoreNames(){
+        
+        return scoreManager.getNames();
+    }
+    
+    public ArrayList<Integer> getScorePoints(){
+        return scoreManager.getScores();
     }
     
 }
