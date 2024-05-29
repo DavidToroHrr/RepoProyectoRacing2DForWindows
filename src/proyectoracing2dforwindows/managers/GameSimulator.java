@@ -291,6 +291,54 @@ public class GameSimulator implements Movable, Drawable, Configurable, SpecialMo
      // aqui se esta verificando la colision con el borde de la pista
     @Override
     public void verifyRunwayCollision(int newX, int newY, Car car) {
+        Car car1 = player1.getCar();
+        Car car2 = player2.getCar();
+
+        int x1=car1.getX();
+        int y1=car1.getY();
+        int width1=car1.getWidth();
+        int height1=car1.getHeight();
+
+        int x2=car2.getX();
+        int y2=car2.getY();
+        int width2= car2.getWidth();
+        int height2=car2.getHeight();
+
+        if (car1.verifyCollision(x2, y2, width2, height2)) {
+            // Detener ambos coches
+            car1.setVelocityX(0);
+            car1.setVelocityY(0);
+            car2.setVelocityX(0);
+            car2.setVelocityY(0);
+
+            // Ajustar las posiciones para evitar superposición
+            // Calcular las diferencias en ambas direcciones
+            int dx=(x1+width1/2)-(x2+width2/2);
+            int dy=(y1+height1/2)-(y2+height2/2);
+
+            // Determinar el eje de mayor penetración
+            if (Math.abs(dx)>Math.abs(dy)) {
+                // Colisión horizontal
+                if (dx>0) {
+                    // Car1 está a la derecha de Car2
+                    car1.setX(x2+width2);
+                } else {
+                    // Car1 está a la izquierda de Car2
+                    car1.setX(x2-width1);
+                }
+            } else {
+                // Colisión vertical
+                if (dy>0) {
+                    // Car1 está debajo de Car2
+                    car1.setY(y2+height2);
+                } else {
+                    // Car1 está encima de Car2
+                    car1.setY(y2-height1);
+                }
+            }
+        }
+        
+        
         Cell cell = currentRunway.verifyCellCollision(newX, newY, car.getWidth(), car.getHeight());
         if(cell != null){
             if(cell.getId().equals(CellTrail.CELL_ID)){

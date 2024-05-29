@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import proyectoracing2dforwindows.exceptions.CheckpointException;
+import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
 import proyectoracing2dforwindows.exceptions.MapFileNotFoundException;
@@ -119,7 +120,7 @@ public class InitialMenu extends javax.swing.JPanel {
         
         try {
             clickListener.showMapSelector();
-        } catch (FileManagerException | MapFileNotFoundException | InvalidMapFormatException | CheckpointException ex) {
+        } catch (FileManagerException | MapFileNotFoundException | InvalidMapFormatException | CheckpointException  ex) {
             JOptionPane.showMessageDialog(this,
             "An error occurred while initializing the game: " + ex.getMessage(),
             "Initialization Error",

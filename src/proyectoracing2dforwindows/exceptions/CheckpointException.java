@@ -6,7 +6,10 @@ package proyectoracing2dforwindows.exceptions;
 
 /**
  *
- * @author david
+ * @author thomas
+ * Exception.CheckpointExcepcion
+ * se encarga de lanzar la excepcion de mala inicializacion de checkpoints o 
+ * insificiencia en la creacion de los mismos
  */
 public class CheckpointException extends Exception{
     public CheckpointException (String message){

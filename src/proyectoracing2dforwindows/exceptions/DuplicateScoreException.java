@@ -7,6 +7,7 @@ package proyectoracing2dforwindows.exceptions;
 /**
  *
  * @author thomas
+ * esta excepcion se lanza cuando el puntaje se encuentra duplicado 
  */
 public class DuplicateScoreException extends Exception{
     //creada pero aun no está implementada//

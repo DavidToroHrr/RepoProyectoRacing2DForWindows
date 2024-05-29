@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import proyectoracing2dforwindows.exceptions.DuplicateScoreException;
 import proyectoracing2dforwindows.exceptions.FileManagerException;
 import proyectoracing2dforwindows.exceptions.InvalidMapFormatException;
@@ -149,8 +150,12 @@ public class PlayersAndScoresPanel extends javax.swing.JPanel {
             configurable.addScorePlayer(player, name);
             configurable.selectScorePlayerName(player, name);
         } catch (DuplicateScoreException ex) {
-            Logger.getLogger(PlayersAndScoresPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            JOptionPane.showMessageDialog(this,
+            "An error occurred while initializing the game: " + ex.getMessage(),
+            "Initialization Error",
+            JOptionPane.ERROR_MESSAGE);
+          }
+        
         
         
     }//GEN-LAST:event_bCreateActionPerformed

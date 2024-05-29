@@ -7,6 +7,9 @@ package proyectoracing2dforwindows.exceptions;
 /**
  *
  * @author thomas
+ * Exception.InvalidMapFormatException
+ * esta excepcion se da cuando el mapa esta mal inicializado , ya sea por sus dimensiones o por 
+ * filas incompletas
  */
 public class InvalidMapFormatException extends Exception{
     public InvalidMapFormatException (String message){
